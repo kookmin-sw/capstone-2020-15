@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재화면에서만 측정이 가능합니다."/>
+    <!--
+    <Button
+        android:id="@+id/countBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="총 움직임 횟수"
+        />
+    <TextView
+        android:id="@+id/motionCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="총 움직임 횟수"
+        />
+    -->
+    <LinearLayout
+        android:id="@+id/onoff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/startBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="측정시작"
+            />
+        <Button
+            android:id="@+id/stopBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="측정중지"
+            />
+
+</LinearLayout>
+
+    <Button
+        android:id="@+id/endBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="통계화면"
+        />
+
+</LinearLayout>
