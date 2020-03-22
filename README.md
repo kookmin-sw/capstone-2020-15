@@ -1,5 +1,6 @@
 
-# 세상에서 가장 편한 잠 스윗립
+# 세상에서 가장 편한 잠 스윗립(Sweetleep)
+
 팀페이지 주소 : https://kookmin-sw.github.io/cpastone-2020-15/
 
 ## 1. 프로젝트 소개
