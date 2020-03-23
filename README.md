@@ -90,7 +90,7 @@ For modern people, alarm has become an essential function. This provides a smart
 
 - Providing information
 Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
-## 4. 소개영상
+## 4. 사용법
 ## 5. 결과영상
 
 
