@@ -1,4 +1,4 @@
-
+﻿
 # 세상에서 가장 편한 잠 스윗립(Sweetleep)
 
 팀페이지 주소 : https://kookmin-sw.github.io/cpastone-2020-15/
@@ -48,8 +48,10 @@ role:
 ~~~
 #### - 박대영 
 
+![KakaoTalk_20200324_010005114](https://user-images.githubusercontent.com/42888593/77336520-f99d0680-6d6a-11ea-8409-42e3e97685ba.jpg)
+
 ~~~
-Email: 
+Email: dmdkr37@gmail.com
 role: 
 ~~~
 
