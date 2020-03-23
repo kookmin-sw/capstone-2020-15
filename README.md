@@ -22,7 +22,7 @@
 
 ## 2. 팀원소개
 
-#### 김상철 교수님
+#### - 김상철 교수님
 
 ![111111](https://user-images.githubusercontent.com/44603374/77318456-71116c80-6d50-11ea-934a-56eadc3f8e00.PNG)
 
@@ -31,7 +31,7 @@ Email: sckim7@kookmin.ac.kr
 ~~~
 
 
-#### 홍성표 
+#### - 홍성표 
 
 ![KakaoTalk_20200323_214313418](https://user-images.githubusercontent.com/44603374/77317920-75895580-6d4f-11ea-9fa5-61f07f07a340.jpg)
 
@@ -40,20 +40,20 @@ Email: sungpyo9053@kookmin.ac.kr
 role: 데이터베이스, 인공지능, 어플리케이션 API
 ~~~
 
-#### 고민욱 
+#### - 고민욱 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
 role: 
 ~~~
-#### 박대영 
+#### - 박대영 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
 role: 
 ~~~
 
-#### 박영민 
+#### - 박영민 
 
 ![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77317191-1414b700-6d4e-11ea-8993-390e198d46bb.jpg)
 
@@ -62,14 +62,14 @@ Email: kiberd22@gmail.com
 role: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
 ~~~
 
-#### 서민주 
+#### - 서민주 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
 role: 
 ~~~
 
-#### 양경식 
+#### - 양경식 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
