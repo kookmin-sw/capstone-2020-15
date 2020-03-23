@@ -50,21 +50,21 @@ Email: choirak0805@kookmin.ac.kr
 
 ~~~
 Email: kiberd22@gmail.com 
-역할: 
+역할: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
 ~~~
 
 ##### 서민주 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
-역할: 팀장
+역할: 
 ~~~
 
 ##### 양경식 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
-역할: 팀장
+역할: 
 ~~~
 
 
