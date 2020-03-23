@@ -78,6 +78,18 @@ role:
 
 
 ## 3. Abstract
+According to the National Health Insurance Corporation's five-year survey of the state of using nursing institutions for sleep disorders in 2019, the number of patients who have been treated for sleep disorders is increasing at an annual rate of 8 percent, with about 570,000 patients being treated for sleep disorders in 2018. The number is expected to continue to rise, and thus we are working on a project to help people sleep less. Basically, we're going to use sensors on our phones to understand and improve the quality of our sleep, and we have a goal.
+
+"Sweetleep" is made by adding "Sweet" and "Sleep" and means that people in the world want a sweet sleep. The Sweet Application has the following features:
+
+- sleep pattern analysis
+The user enters his or her status into the application before falling asleep For example, I get input on things that affect sleep such as coffee, exercise, and late night snack, and I leave my cell phone at my bedside before I go to sleep. Then, using the gyro and sound sensors on the cell phone, analyze the user's sleep pattern in four stages and graph it. This will allow you to calculate the quality of your sleep and give you the best time to wake up.
+
+- Recommend an alarm
+For modern people, alarm has become an essential function. This provides a smart alarm function, not a basic alarm. The user receives detailed information such as the time, preparation time, and distance that the user should wake up, and recommends the best time to wake up through the sleep pattern analysis function to notify the user. These features allow users to improve sleep satisfaction.
+
+- Providing information
+Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
 ## 4. 소개영상
 ## 5. 결과영상
 
