@@ -28,7 +28,6 @@
 
 ~~~
 Email: sckim7@kookmin.ac.kr
-
 ~~~
 
 
@@ -38,20 +37,20 @@ Email: sckim7@kookmin.ac.kr
 
 ~~~
 Email: sungpyo9053@kookmin.ac.kr
-역할: 데이터베이스, 인공지능, 어플리케이션 API
+role: 데이터베이스, 인공지능, 어플리케이션 API
 ~~~
 
 #### 고민욱 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
-역할: 
+role: 
 ~~~
 #### 박대영 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
-역할: 
+role: 
 ~~~
 
 #### 박영민 
@@ -60,21 +59,21 @@ Email: choirak0805@kookmin.ac.kr
 
 ~~~
 Email: kiberd22@gmail.com 
-역할: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
+role: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
 ~~~
 
 #### 서민주 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
-역할: 
+role: 
 ~~~
 
 #### 양경식 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
-역할: 
+role: 
 ~~~
 
 
