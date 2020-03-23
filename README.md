@@ -22,6 +22,11 @@
 
 ## 2. 팀원소개
 
+#### 김상철 교수님
+
+![111111](https://user-images.githubusercontent.com/44603374/77318456-71116c80-6d50-11ea-934a-56eadc3f8e00.PNG)
+
+
 #### 홍성표 
 
 ![KakaoTalk_20200323_214313418](https://user-images.githubusercontent.com/44603374/77317920-75895580-6d4f-11ea-9fa5-61f07f07a340.jpg)
