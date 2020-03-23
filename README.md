@@ -48,7 +48,7 @@ role:
 ~~~
 #### - 박대영 
 
-![KakaoTalk_20200324_010005114](https://user-images.githubusercontent.com/42888593/77336520-f99d0680-6d6a-11ea-8409-42e3e97685ba.jpg)
+![KakaoTalk_20200324_010005114](https://user-images.githubusercontent.com/42888593/77337175-e179b700-6d6b-11ea-8e5b-eed68097af07.jpg)
 
 ~~~
 Email: dmdkr37@gmail.com
