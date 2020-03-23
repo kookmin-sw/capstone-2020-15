@@ -1,5 +1,6 @@
+﻿
+# 세상에서 가장 편한 잠 스윗립(Sweetleep)
 
-# 세상에서 가장 편한 잠 스윗립
 팀페이지 주소 : https://kookmin-sw.github.io/cpastone-2020-15/
 
 ## 1. 프로젝트 소개
@@ -21,22 +22,80 @@
 
 ## 2. 팀원소개
 
-**팀장 홍성표**
+#### - 김상철 교수님
 
-**팀원 고민욱**
+![111111](https://user-images.githubusercontent.com/44603374/77318456-71116c80-6d50-11ea-934a-56eadc3f8e00.PNG)
 
-**팀원 박대영**
+~~~
+Email: sckim7@kookmin.ac.kr
+~~~
 
-**팀원 박영민**
 
-**팀원 서민주**
+#### - 홍성표 
 
-**팀원 양경식**
+![KakaoTalk_20200323_214313418](https://user-images.githubusercontent.com/44603374/77317920-75895580-6d4f-11ea-9fa5-61f07f07a340.jpg)
 
-**담당교수님: 김상철 교수님
+~~~
+Email: sungpyo9053@kookmin.ac.kr
+role: 데이터베이스, 인공지능, 어플리케이션 API
+~~~
+
+#### - 고민욱 
+
+~~~
+Email: 
+role: 
+~~~
+#### - 박대영 
+
+![KakaoTalk_20200324_010005114](https://user-images.githubusercontent.com/42888593/77337175-e179b700-6d6b-11ea-8e5b-eed68097af07.jpg)
+
+~~~
+Email: dmdkr37@gmail.com
+role: 
+~~~
+
+#### - 박영민 
+
+![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77317191-1414b700-6d4e-11ea-8993-390e198d46bb.jpg)
+
+~~~
+Email: kiberd22@gmail.com 
+role: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
+~~~
+
+#### - 서민주 
+
+~~~
+Email: 
+role: 
+~~~
+
+#### - 양경식 
+
+~~~
+Email: 
+role: 
+~~~
+
 
 ## 3. Abstract
-## 4. 소개영상
+According to the National Health Insurance Corporation's five-year survey of the state of using nursing institutions for sleep disorders in 2019, the number of patients who have been treated for sleep disorders is increasing at an annual rate of 8 percent, with about 570,000 patients being treated for sleep disorders in 2018. The number is expected to continue to rise, and thus we are working on a project to help people sleep less. Basically, we're going to use sensors on our phones to understand and improve the quality of our sleep, and we have a goal.
+
+"Sweetleep" is made by adding "Sweet" and "Sleep" and means that people in the world want a sweet sleep. The Sweet Application has the following features:
+
+- sleep pattern analysis
+
+The user enters his or her status into the application before falling asleep For example, I get input on things that affect sleep such as coffee, exercise, and late night snack, and I leave my cell phone at my bedside before I go to sleep. Then, using the gyro and sound sensors on the cell phone, analyze the user's sleep pattern in four stages and graph it. This will allow you to calculate the quality of your sleep and give you the best time to wake up.
+
+- Recommend an alarm
+
+For modern people, alarm has become an essential function. This provides a smart alarm function, not a basic alarm. The user receives detailed information such as the time, preparation time, and distance that the user should wake up, and recommends the best time to wake up through the sleep pattern analysis function to notify the user. These features allow users to improve sleep satisfaction.
+
+- Providing information
+
+Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
+## 4. 사용법
 ## 5. 결과영상
 
 
