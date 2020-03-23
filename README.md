@@ -24,21 +24,47 @@
 
 **팀장 홍성표**
 
+~~~
+Email: sungpyo9053@kookmin.ac.kr
+역할: 
+~~~
+
 **팀원 고민욱**
 
+~~~
+ Email: choirak0805@kookmin.ac.kr
+ 역할: 팀장
+~~~
 **팀원 박대영**
 
+~~~
+Email: choirak0805@kookmin.ac.kr
+역할: 팀장
+~~~
 
 **팀원 박영민**
 
 ![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77317191-1414b700-6d4e-11ea-8993-390e198d46bb.jpg)
 
+~~~
+Email: kiberd22@gmail.com 
+역할: 팀장
+~~~
 
 **팀원 서민주**
 
+~~~
+Email: choirak0805@kookmin.ac.kr
+역할: 팀장
+~~~
+
 **팀원 양경식**
 
-**담당교수님: 김상철 교수님
+~~~
+Email: choirak0805@kookmin.ac.kr
+역할: 팀장
+~~~
+
 
 ## 3. Abstract
 ## 4. 소개영상
