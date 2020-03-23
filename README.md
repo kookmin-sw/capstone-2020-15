@@ -22,7 +22,7 @@
 
 ## 2. 팀원소개
 
-##### 홍성표 
+#### 홍성표 
 
 ![KakaoTalk_20200323_214313418](https://user-images.githubusercontent.com/44603374/77317920-75895580-6d4f-11ea-9fa5-61f07f07a340.jpg)
 
@@ -31,20 +31,20 @@ Email: sungpyo9053@kookmin.ac.kr
 역할: 데이터베이스, 인공지능, 어플리케이션 API
 ~~~
 
-##### 고민욱 
+#### 고민욱 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
 역할: 
 ~~~
-##### 박대영 
+#### 박대영 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
 역할: 
 ~~~
 
-##### 박영민 
+#### 박영민 
 
 ![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77317191-1414b700-6d4e-11ea-8993-390e198d46bb.jpg)
 
@@ -53,14 +53,14 @@ Email: kiberd22@gmail.com
 역할: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
 ~~~
 
-##### 서민주 
+#### 서민주 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
 역할: 
 ~~~
 
-##### 양경식 
+#### 양경식 
 
 ~~~
 Email: choirak0805@kookmin.ac.kr
