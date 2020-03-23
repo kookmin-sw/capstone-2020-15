@@ -26,6 +26,11 @@
 
 ![111111](https://user-images.githubusercontent.com/44603374/77318456-71116c80-6d50-11ea-934a-56eadc3f8e00.PNG)
 
+~~~
+Email: sckim7@kookmin.ac.kr
+
+~~~
+
 
 #### 홍성표 
 
