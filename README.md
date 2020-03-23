@@ -31,7 +31,7 @@
 
 **팀원 박영민**
 
-![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77316664-2c380680-6d4d-11ea-8154-9aa380ac3d16.jpg)
+![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77317191-1414b700-6d4e-11ea-8993-390e198d46bb.jpg)
 
 
 **팀원 서민주**
