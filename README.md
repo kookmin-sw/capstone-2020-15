@@ -24,16 +24,18 @@
 
 ##### 홍성표 
 
+![KakaoTalk_20200323_214313418](https://user-images.githubusercontent.com/44603374/77317920-75895580-6d4f-11ea-9fa5-61f07f07a340.jpg)
+
 ~~~
 Email: sungpyo9053@kookmin.ac.kr
-역할: 
+역할: 데이터베이스, 인공지능, 어플리케이션 API
 ~~~
 
 ##### 고민욱 
 
 ~~~
- Email: choirak0805@kookmin.ac.kr
- 역할: 
+Email: choirak0805@kookmin.ac.kr
+역할: 
 ~~~
 ##### 박대영 
 
