@@ -28,7 +28,11 @@
 
 **팀원 박대영**
 
+
 **팀원 박영민**
+
+![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77316664-2c380680-6d4d-11ea-8154-9aa380ac3d16.jpg)
+
 
 **팀원 서민주**
 
