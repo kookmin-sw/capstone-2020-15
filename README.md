@@ -1,5 +1,5 @@
 ﻿
-# 세상에서 가장 편한 잠 스윗립(Sweetleep)
+# 세상 모든 사람이 편안한 잠을 자는 날까지(Sweetleep)
 
 <p align="center">
   <img width="625" height="550" src="https://user-images.githubusercontent.com/44603374/77374079-2d991b80-6dad-11ea-8bbf-f27d72ad8862.png">
