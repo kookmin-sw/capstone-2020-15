@@ -77,8 +77,7 @@ role:
 ~~~
 
 #### - 양경식
-
-![KakaoTalk_Image_2020-03-24-09-37-44](https://user-images.githubusercontent.com/62004580/77376257-499fbb80-6db3-11ea-9300-13f8b303d294.jpeg){: width="100" height="100"}
+![KakaoTalk_Image_2020-03-24-09-37-44](https://user-images.githubusercontent.com/62004580/77377043-5c1af480-6db5-11ea-948b-4cf3ba64fba9.jpeg)
 ~~~
 Email: sik6791@naver.com
 role: 
