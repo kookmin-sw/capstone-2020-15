@@ -44,7 +44,7 @@ Email: sckim7@kookmin.ac.kr
 
 ~~~
 Email: sungpyo9053@kookmin.ac.kr
-role: 데이터베이스, 인공지능, 어플리케이션 API
+role: 데이터베이스, AI
 ~~~
 
 #### - 고민욱 
