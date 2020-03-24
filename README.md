@@ -80,7 +80,7 @@ role:
 ![KakaoTalk_Image_2020-03-24-09-37-44](https://user-images.githubusercontent.com/62004580/77377043-5c1af480-6db5-11ea-948b-4cf3ba64fba9.jpeg)
 ~~~
 Email: sik6791@naver.com
-role: 
+role: 어플리케이션 UI, 로고제작, 
 ~~~
 
 
