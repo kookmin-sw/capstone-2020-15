@@ -1,103 +1,91 @@
-# 세상 모든 사람이 편안한 잠을 자는 날까지(Sweetleep)
-
-<p align="center">
-  <img width="450" height="450" src="https://user-images.githubusercontent.com/44603374/77374079-2d991b80-6dad-11ea-8bbf-f27d72ad8862.png">
-</p>
+# Welcome to YouHi! 
 
 
-팀페이지 주소 : https://kookmin-sw.github.io/capstone-2020-15/
+![KakaoTalk_20200316_012625046](https://user-images.githubusercontent.com/43363576/76705711-435f6e80-6725-11ea-92ca-9860ca88fb0a.png)
+
 
 ## 1. 프로젝트 소개
-2019년 국민건강보험공단의 5년간 수면장애 질환으로 요양기관을 이용한 현황을 조사한 결과에 따르면 연평균 8%씩 증가하고 있으며 2018년에는 수면장애로 진료받은 환자가 약 57만 명에 이른다고 한다. 앞으로도 계속해서 수는 증가할 것으로 예측되며  이에 따라 현대인들의 수면장애를 조금이라도 덜어주고자 프로젝트를 진행하게 되었습니다. 기본적으로 핸드폰에 있는 센서들을 사용하여 사용자의 수면의 질을 파악하고 개선하고자 하는데 목표가 있습니다.
 
-'스윗립(Sweetleep)은 **달콤하다(Sweet)** + **잠(Sleep)** 을 더하여 만들었으며 세상 사람들이 달콤한 꿀잠을 잤으면 하는 의미를 가지고 있다. 스윗립 어플리케이션은 다음과 같은 **기능**을 가지고 있습니다. 
+본 프로젝트는 현 YouTube의 미성년자 시청 불가 영상에 대한 필터링 시스템의 단점을 보완하는 것을 목표로 한다. 현재 YouTube의 영상 검열 시스템은 사용자의 신고 혹은 운영자의 모니터링을 통한 수동 검열로 이루어진다. 이러한 방식은 새로 업로드된 영상을 즉각적으로 필터링 할수 없으며 사용자의 신고를 받거나 운영자의 모니터링에 의해 검열 되기 전까지 청소년들에게 무방비 상태로 노출된다. 이를 방지하기 위하여 영상이 업로드되기 전에 사전 필터링을 하여 가이드라인(YouTube Community GuideLine, 방송통신심의위원회)에 위배되는 내용이 영상에 포함되어 있을 경우, 청소년 시청 불가 컨텐츠로 분류한다. 사전 필터링 과정을 통해 청소년에게 유해한 컨텐츠가 노출되는 것을 예방한다.
+   
+**우리 프로젝트의 최종 목표는 다양한 동영상 플랫폼에서 우리의 시스템을 적극 활용하여, 필터링 작업을 거치치 않는다면 업로드할 수 없도록 하여 미성년자들에게 부적합한 영상을 시청하지 못하게 하는 것이다.**
 
-##### - 수면 패턴 분석
+### 영상 필터링
+* 폭력적인 장면
+  * 영화, 애니메이션 등에서 인간형 피부에 잔인하게 흉기에 공격당하는 장면이 명확하게 드러나는 경우 
+  * 게임에서 총 또는 흉기로 인간형 생명체를 잔인하게 공격하는 장면이 명확하게 드러나는 경우
+* 선정적인 장면
+  * 여성 혹은 남성의 성기가 노출되는 장면이 명확하게 드러나는 경우
+  * 여성의 나체 또는 속옷외에 어떠한 옷을 입지않고 노출되는 장면이 명확하게 드러나는 경우
+* 유해한 장면
+  * 담배를 장시간동안 흡연하거나, 담배를 주제로 한 영상인 경우
+   
+### 음성 필터링
+* 저속한 언어
+   * 비속어가 어떠한 필터링없이 명확하게 발음되는 경우      
 
-사용자가 수면에 들기 전에 자신의 상태를 어플리케이션에 입력을 합니다. 예를 들어 커피,운동, 야식 등과 같은 수면에 있어서 영향을 미치는 것들을 입력받고 잠들기 전에 핸드폰을 머리맡에 두고 잠자리에 듭니다. 그 후 핸드폰에 있는 자이로센서와 소리센서를 이용하여 사용자의 수면 패턴을 4단계로 분석하여 그래프로 나타냅니다. 그렇게 되면 사용자의 수면의 질을 계산할 수 있게 되고 가장 일어나기 좋은 시간을 알 수 있게 됩니다. 
+   
+_필터링 기준은 다음과 같이 [YouTube 이용정책 - 연령별 제한 등급](https://support.google.com/youtube/answer/2802167?hl=ko)을 참고하였다._   
 
-##### - 알람 추천 
-
-현대인에게 알람은 필수적인 기능이 되었습니다. 이에 따라 기본적인 알람이 아닌 스마트 알람기능을 제공합니다. 사용자가 일어나야 하는 시간, 준비 시간, 거리 등 세부적인 것을 사용자에게 입력받고 수면 패턴 분석기능을 통해 가장 일어나기 좋은 시간을 추천하여 사용자에게 알려줍니다. 이러한 기능을 통해 사용자는 수면의 만족도를 높일 수 있습니다.
-
-##### - 정보제공
-
-정보제공은 한 달 혹은 일주일 단위로 자신이 과거의 수면 패턴 그래프를 모아서 한 번에 보여주는 기능입니다. 이런 기능을 통하여 자신이 어떤 상황에서 잠을 깊이 자는지를 알 수 있으며 혹은 뒤척임, 소리를 통해 사용자의 건강 상태 또한 체크할 수 있습니다. 더불어 잠을 잘 때 듣기 좋은 노래 혹은 꿀팁 등을 사용자에게 알려주어 깊은 숙면을 할 수 있도록 유도합니다.
-
-## 2. 팀원소개
-
-#### - 김상철 교수님
-
-![111111](https://user-images.githubusercontent.com/44603374/77318456-71116c80-6d50-11ea-934a-56eadc3f8e00.PNG)
-
-~~~
-Email: sckim7@kookmin.ac.kr
-~~~
+![guide_line](https://user-images.githubusercontent.com/43363576/76705513-de574900-6723-11ea-89ee-8fc098de78bb.png)
 
 
-#### - 홍성표 
 
-![KakaoTalk_20200323_214313418](https://user-images.githubusercontent.com/44603374/77317920-75895580-6d4f-11ea-9fa5-61f07f07a340.jpg)
+## 2. 소개 영상
 
-~~~
-Email: sungpyo9053@kookmin.ac.kr
-role: 데이터베이스, AI
-~~~
+프로젝트 소개하는 영상을 추가하세요
 
-#### - 고민욱 
-
-~~~
-Email: 
-role: 
-~~~
-#### - 박대영 
-
-![KakaoTalk_20200324_010005114](https://user-images.githubusercontent.com/42888593/77337175-e179b700-6d6b-11ea-8e5b-eed68097af07.jpg)
-
-~~~
-Email: dmdkr37@gmail.com
-role: 어플리케이션 개발, 데이터베이스, AI
-~~~
-
-#### - 박영민 
-
-![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77317191-1414b700-6d4e-11ea-8993-390e198d46bb.jpg)
-
-~~~
-Email: kiberd22@gmail.com 
-role: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
-~~~
-
-#### - 서민주 
-
-~~~
-Email: 
-role: 
-~~~
-
-#### - 양경식 
-
-~~~
-Email: 
-role: 
-~~~
+## 3. 팀 소개
 
 
-## 3. Abstract
-According to the National Health Insurance Corporation's five-year survey of the state of using nursing institutions for sleep disorders in 2019, the number of patients who have been treated for sleep disorders is increasing at an annual rate of 8 percent, with about 570,000 patients being treated for sleep disorders in 2018. The number is expected to continue to rise, and thus we are working on a project to help people sleep less. Basically, we're going to use sensors on our phones to understand and improve the quality of our sleep, and we have a goal.
+   ### Professor 임은진 교수님
 
-"Sweetleep" is made by adding "Sweet" and "Sleep" and means that people in the world want a sweet sleep. The Sweet Application has the following features:
 
-- sleep pattern analysis
 
-The user enters his or her status into the application before falling asleep For example, I get input on things that affect sleep such as coffee, exercise, and late night snack, and I leave my cell phone at my bedside before I go to sleep. Then, using the gyro and sound sensors on the cell phone, analyze the user's sleep pattern in four stages and graph it. This will allow you to calculate the quality of your sleep and give you the best time to wake up.
+   ### 이태훈 
 
-- Recommend an alarm
+   ![Lee_Tae_Hoon](https://user-images.githubusercontent.com/43363576/76700751-f025f580-66fd-11ea-800f-beb32b98a1d9.jpg)
+  
+<pre>메일: says7869@gmail.com
+역할: Video Classification 모델링과 학습 및 AWS 서버를 이용한 전체적인 소프트웨어 설계
+</pre>
 
-For modern people, alarm has become an essential function. This provides a smart alarm function, not a basic alarm. The user receives detailed information such as the time, preparation time, and distance that the user should wake up, and recommends the best time to wake up through the sleep pattern analysis function to notify the user. These features allow users to improve sleep satisfaction.
+   ### 이인평
 
-- Providing information
+   ![Lee_In_Pyeong](https://user-images.githubusercontent.com/43363576/76700753-f0be8c00-66fd-11ea-8d2c-e914ac913b4f.jpg)
 
-Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
+<pre>메일: jinipyung@gmail.com
+역할: Video Classfication, FastText 학습을 위한 데이터셋 구축 및 FastText 모델링과 학습
+</pre>
+
+   ### 이주형
+
+   ![Lee_Ju_Hyeong](https://user-images.githubusercontent.com/43363576/76700749-eef4c880-66fd-11ea-9b6e-71b7a2d99c96.jpg)
+
+<pre>메일: srlee96@kookmin.ac.kr
+역할: STT(Speech To Text) API 적용 및 Video Classification 데이터셋 구축
+</pre>
+
+   ### 김성수
+   
+   ![Kim_Sung_Soo](https://user-images.githubusercontent.com/43363576/76728656-bb1bb080-679a-11ea-8124-5d4e078fa880.jpg)
+   
+<pre>메일: 
+역할: 웹페이지와 웹서버 구축
+</pre>
+
+   ### 김민재
+
+   ![Kim_Min_Jae](https://user-images.githubusercontent.com/43363576/76700752-f025f580-66fd-11ea-9a67-8fd9e8231f06.jpg)
+
+<pre>메일: minjae103030@naver.com
+역할: Video Classfication, FastText 학습을 위한 데이터셋 구축 및 웹페이지 디자인 UI 제작
+</pre>
+
 ## 4. 사용법
-## 5. 결과영상
+
+소스코드제출시 설치법이나 사용법을 작성하세요.
+
+## 5. Abstract
+
+Our Project's goal is to prevent people who watch youtube or video platform website from watching a nasty videos. So we have to filter about video and voice. Video filter is filtered from CRNN DeepLearning Model. The scene we are trying to filter is either sensational or violent. We also want to include scenes of alchol, arug, and cigarettes. And then voice filter  is filtered through two processes. First we have to convert voice to text by using STT(Speech To text) technology. Second, use fasttext to detect whether the translated text contains swear words. After filtering, If any one is detected, uploading is restricted. Also we tell you
