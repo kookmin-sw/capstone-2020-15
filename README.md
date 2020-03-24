@@ -72,7 +72,7 @@ role: 데이터베이스, 백엔드, 어플리케이션 수면패턴기능 API
 
 #### - 서민주
 
-![IMG_2193](https://user-images.githubusercontent.com/26273678/77433270-88208f00-6e22-11ea-9b12-de379f4399c4.JPG){: width="100" height="100"}
+![IMG_2193](https://user-images.githubusercontent.com/26273678/77433270-88208f00-6e22-11ea-9b12-de379f4399c4.JPG){ width="100" height="100"}
 
 ~~~
 Email: minju1307@gmail.com
