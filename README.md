@@ -6,8 +6,6 @@
 </p>
 
 
-
-
 팀페이지 주소 : https://kookmin-sw.github.io/capstone-2020-15/
 
 ## 1. 프로젝트 소개
