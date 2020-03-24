@@ -59,7 +59,7 @@ role:
 
 ~~~
 Email: dmdkr37@gmail.com
-role: 어플리케이션 개발
+role: 어플리케이션 개발, 데이터베이스, AI
 ~~~
 
 #### - 박영민 
