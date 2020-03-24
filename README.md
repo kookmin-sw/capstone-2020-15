@@ -1,7 +1,12 @@
 ﻿
 # 세상에서 가장 편한 잠 스윗립(Sweetleep)
 
-   ![버전02-로고](https://user-images.githubusercontent.com/44603374/77374079-2d991b80-6dad-11ea-8bbf-f27d72ad8862.png)
+<p align="center">
+  <img width="625" height="500" src="https://user-images.githubusercontent.com/44603374/77374079-2d991b80-6dad-11ea-8bbf-f27d72ad8862.png">
+</p>
+
+
+
 
 팀페이지 주소 : https://kookmin-sw.github.io/cpastone-2020-15/
 
