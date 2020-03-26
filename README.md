@@ -1,34 +1,34 @@
-ï»¿
-# ì„¸ìƒ ëª¨ë“  ì‚¬ëžŒì´ íŽ¸ì•ˆí•œ ìž ì„ ìžëŠ” ë‚ ê¹Œì§€(Sweetleep)
+
+# ¼¼»ó ¸ðµç »ç¶÷ÀÌ Æí¾ÈÇÑ ÀáÀ» ÀÚ´Â ³¯±îÁö(Sweetleep)
 
 <p align="center">
   <img width="450" height="450" src="https://user-images.githubusercontent.com/44603374/77374079-2d991b80-6dad-11ea-8bbf-f27d72ad8862.png">
 </p>
 
 
-íŒ€íŽ˜ì´ì§€ ì£¼ì†Œ : https://kookmin-sw.github.io/capstone-2020-15/
+ÆÀÆäÀÌÁö ÁÖ¼Ò : https://kookmin-sw.github.io/capstone-2020-15/
 
-## 1. í”„ë¡œì íŠ¸ ì†Œê°œ
+## 1. ÇÁ·ÎÁ§Æ® ¼Ò°³
 
- 2019ë…„ êµ­ë¯¼ê±´ê°•ë³´í—˜ê³µë‹¨ì˜ 5ë…„ê°„ ìˆ˜ë©´ìž¥ì•  ì§ˆí™˜ìœ¼ë¡œ ìš”ì–‘ê¸°ê´€ì„ ì´ìš©í•œ í˜„í™©ì„ ì¡°ì‚¬í•œ ê²°ê³¼ì— ë”°ë¥´ë©´ ì—°í‰ê·  8%ì”© ì¦ê°€í•˜ê³  ìžˆìœ¼ë©° 2018ë…„ì—ëŠ” ìˆ˜ë©´ìž¥ì• ë¡œ ì§„ë£Œë°›ì€ í™˜ìžê°€ ì•½ 57ë§Œ ëª…ì— ì´ë¥¸ë‹¤ê³  í•œë‹¤. ì•žìœ¼ë¡œë„ ê³„ì†í•´ì„œ ìˆ˜ëŠ” ì¦ê°€í•  ê²ƒìœ¼ë¡œ ì˜ˆì¸¡ë˜ë©°  ì´ì— ë”°ë¼ í˜„ëŒ€ì¸ë“¤ì˜ ìˆ˜ë©´ìž¥ì• ë¥¼ ì¡°ê¸ˆì´ë¼ë„ ëœì–´ì£¼ê³ ìž í”„ë¡œì íŠ¸ë¥¼ ì§„í–‰í•˜ê²Œ ë˜ì—ˆìŠµë‹ˆë‹¤. ê¸°ë³¸ì ìœ¼ë¡œ í•¸ë“œí°ì— ìžˆëŠ” ì„¼ì„œë“¤ì„ ì‚¬ìš©í•˜ì—¬ ì‚¬ìš©ìžì˜ ìˆ˜ë©´ì˜ ì§ˆì„ íŒŒì•…í•˜ê³  ê°œì„ í•˜ê³ ìž í•˜ëŠ”ë° ëª©í‘œê°€ ìžˆìŠµë‹ˆë‹¤.
+ 2019³â ±¹¹Î°Ç°­º¸Çè°ø´ÜÀÇ 5³â°£ ¼ö¸éÀå¾Ö ÁúÈ¯À¸·Î ¿ä¾ç±â°üÀ» ÀÌ¿ëÇÑ ÇöÈ²À» Á¶»çÇÑ °á°ú¿¡ µû¸£¸é ¿¬Æò±Õ 8%¾¿ Áõ°¡ÇÏ°í ÀÖÀ¸¸ç 2018³â¿¡´Â ¼ö¸éÀå¾Ö·Î Áø·á¹ÞÀº È¯ÀÚ°¡ ¾à 57¸¸ ¸í¿¡ ÀÌ¸¥´Ù°í ÇÑ´Ù. ¾ÕÀ¸·Îµµ °è¼ÓÇØ¼­ ¼ö´Â Áõ°¡ÇÒ °ÍÀ¸·Î ¿¹ÃøµÇ¸ç  ÀÌ¿¡ µû¶ó Çö´ëÀÎµéÀÇ ¼ö¸éÀå¾Ö¸¦ Á¶±ÝÀÌ¶óµµ ´ú¾îÁÖ°íÀÚ ÇÁ·ÎÁ§Æ®¸¦ ÁøÇàÇÏ°Ô µÇ¾ú½À´Ï´Ù. ±âº»ÀûÀ¸·Î ÇÚµåÆù¿¡ ÀÖ´Â ¼¾¼­µéÀ» »ç¿ëÇÏ¿© »ç¿ëÀÚÀÇ ¼ö¸éÀÇ ÁúÀ» ÆÄ¾ÇÇÏ°í °³¼±ÇÏ°íÀÚ ÇÏ´Âµ¥ ¸ñÇ¥°¡ ÀÖ½À´Ï´Ù.
 
-'ìŠ¤ìœ—ë¦½(Sweetleep)ì€ **ë‹¬ì½¤í•˜ë‹¤(Sweet)** + **ìž (Sleep)** ì„ ë”í•˜ì—¬ ë§Œë“¤ì—ˆìœ¼ë©° ì„¸ìƒ ì‚¬ëžŒë“¤ì´ ë‹¬ì½¤í•œ ê¿€ìž ì„ ìž¤ìœ¼ë©´ í•˜ëŠ” ì˜ë¯¸ë¥¼ ê°€ì§€ê³  ìžˆë‹¤. ìŠ¤ìœ—ë¦½ ì–´í”Œë¦¬ì¼€ì´ì…˜ì€ ë‹¤ìŒê³¼ ê°™ì€ **ê¸°ëŠ¥**ì„ ê°€ì§€ê³  ìžˆìŠµë‹ˆë‹¤. 
+'½ºÀ­¸³(Sweetleep)Àº **´ÞÄÞÇÏ´Ù(Sweet)** + **Àá(Sleep)** À» ´õÇÏ¿© ¸¸µé¾úÀ¸¸ç ¼¼»ó »ç¶÷µéÀÌ ´ÞÄÞÇÑ ²ÜÀáÀ» ÀäÀ¸¸é ÇÏ´Â ÀÇ¹Ì¸¦ °¡Áö°í ÀÖ´Ù. ½ºÀ­¸³ ¾îÇÃ¸®ÄÉÀÌ¼ÇÀº ´ÙÀ½°ú °°Àº **±â´É**À» °¡Áö°í ÀÖ½À´Ï´Ù. 
 
-#### - ìˆ˜ë©´ íŒ¨í„´ ë¶„ì„
+#### - ¼ö¸é ÆÐÅÏ ºÐ¼®
 
- ì‚¬ìš©ìžê°€ ìˆ˜ë©´ì— ë“¤ê¸° ì „ì— ìžì‹ ì˜ ìƒíƒœë¥¼ ì–´í”Œë¦¬ì¼€ì´ì…˜ì— ìž…ë ¥ì„ í•©ë‹ˆë‹¤. ì˜ˆë¥¼ ë“¤ì–´ ì»¤í”¼, ìš´ë™, ì•¼ì‹ ë“±ê³¼ ê°™ì€ ìˆ˜ë©´ì— ìžˆì–´ì„œ ì˜í–¥ì„ ë¯¸ì¹˜ëŠ” ê²ƒë“¤ì„ ìž…ë ¥ë°›ê³  ìž ë“¤ê¸° ì „ì— í•¸ë“œí°ì„ ë¨¸ë¦¬ë§¡ì— ë‘ê³  ìž ìžë¦¬ì— ë“­ë‹ˆë‹¤. ê·¸ í›„ í•¸ë“œí°ì— ìžˆëŠ” ìžì´ë¡œì„¼ì„œì™€ ì†Œë¦¬ì„¼ì„œë¥¼ ì´ìš©í•˜ì—¬ ì‚¬ìš©ìžì˜ ìˆ˜ë©´ íŒ¨í„´ì„ 4ë‹¨ê³„ë¡œ ë¶„ì„í•˜ì—¬ ê·¸ëž˜í”„ë¡œ ë‚˜íƒ€ëƒ…ë‹ˆë‹¤. ê·¸ë ‡ê²Œ ë˜ë©´ ì‚¬ìš©ìžì˜ ìˆ˜ë©´ì˜ ì§ˆì„ ê³„ì‚°í•  ìˆ˜ ìžˆê²Œ ë˜ê³  ê°€ìž¥ ì¼ì–´ë‚˜ê¸° ì¢‹ì€ ì‹œê°„ì„ ì•Œ ìˆ˜ ìžˆê²Œ ë©ë‹ˆë‹¤. 
+ »ç¿ëÀÚ°¡ ¼ö¸é¿¡ µé±â Àü¿¡ ÀÚ½ÅÀÇ »óÅÂ¸¦ ¾îÇÃ¸®ÄÉÀÌ¼Ç¿¡ ÀÔ·ÂÀ» ÇÕ´Ï´Ù. ¿¹¸¦ µé¾î Ä¿ÇÇ, ¿îµ¿, ¾ß½Ä µî°ú °°Àº ¼ö¸é¿¡ ÀÖ¾î¼­ ¿µÇâÀ» ¹ÌÄ¡´Â °ÍµéÀ» ÀÔ·Â¹Þ°í Àáµé±â Àü¿¡ ÇÚµåÆùÀ» ¸Ó¸®¸Ã¿¡ µÎ°í ÀáÀÚ¸®¿¡ µì´Ï´Ù. ±× ÈÄ ÇÚµåÆù¿¡ ÀÖ´Â ÀÚÀÌ·Î¼¾¼­¿Í ¼Ò¸®¼¾¼­¸¦ ÀÌ¿ëÇÏ¿© »ç¿ëÀÚÀÇ ¼ö¸é ÆÐÅÏÀ» 4´Ü°è·Î ºÐ¼®ÇÏ¿© ±×·¡ÇÁ·Î ³ªÅ¸³À´Ï´Ù. ±×·¸°Ô µÇ¸é »ç¿ëÀÚÀÇ ¼ö¸éÀÇ ÁúÀ» °è»êÇÒ ¼ö ÀÖ°Ô µÇ°í °¡Àå ÀÏ¾î³ª±â ÁÁÀº ½Ã°£À» ¾Ë ¼ö ÀÖ°Ô µË´Ï´Ù. 
 
-#### - ì•ŒëžŒ ì¶”ì²œ 
+#### - ¾Ë¶÷ ÃßÃµ 
 
- í˜„ëŒ€ì¸ì—ê²Œ ì•ŒëžŒì€ í•„ìˆ˜ì ì¸ ê¸°ëŠ¥ì´ ë˜ì—ˆìŠµë‹ˆë‹¤. ì´ì— ë”°ë¼ ê¸°ë³¸ì ì¸ ì•ŒëžŒì´ ì•„ë‹Œ ìŠ¤ë§ˆíŠ¸ ì•ŒëžŒê¸°ëŠ¥ì„ ì œê³µí•©ë‹ˆë‹¤. ì‚¬ìš©ìžê°€ ì¼ì–´ë‚˜ì•¼ í•˜ëŠ” ì‹œê°„, ì¤€ë¹„ ì‹œê°„, ê±°ë¦¬ ë“± ì„¸ë¶€ì ì¸ ê²ƒì„ ì‚¬ìš©ìžì—ê²Œ ìž…ë ¥ë°›ê³  ìˆ˜ë©´ íŒ¨í„´ ë¶„ì„ê¸°ëŠ¥ì„ í†µí•´ ê°€ìž¥ ì¼ì–´ë‚˜ê¸° ì¢‹ì€ ì‹œê°„ì„ ì¶”ì²œí•˜ì—¬ ì‚¬ìš©ìžì—ê²Œ ì•Œë ¤ì¤ë‹ˆë‹¤. ì´ëŸ¬í•œ ê¸°ëŠ¥ì„ í†µí•´ ì‚¬ìš©ìžëŠ” ìˆ˜ë©´ì˜ ë§Œì¡±ë„ë¥¼ ë†’ì¼ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+ Çö´ëÀÎ¿¡°Ô ¾Ë¶÷Àº ÇÊ¼öÀûÀÎ ±â´ÉÀÌ µÇ¾ú½À´Ï´Ù. ÀÌ¿¡ µû¶ó ±âº»ÀûÀÎ ¾Ë¶÷ÀÌ ¾Æ´Ñ ½º¸¶Æ® ¾Ë¶÷±â´ÉÀ» Á¦°øÇÕ´Ï´Ù. »ç¿ëÀÚ°¡ ÀÏ¾î³ª¾ß ÇÏ´Â ½Ã°£, ÁØºñ ½Ã°£, °Å¸® µî ¼¼ºÎÀûÀÎ °ÍÀ» »ç¿ëÀÚ¿¡°Ô ÀÔ·Â¹Þ°í ¼ö¸é ÆÐÅÏ ºÐ¼®±â´ÉÀ» ÅëÇØ °¡Àå ÀÏ¾î³ª±â ÁÁÀº ½Ã°£À» ÃßÃµÇÏ¿© »ç¿ëÀÚ¿¡°Ô ¾Ë·ÁÁÝ´Ï´Ù. ÀÌ·¯ÇÑ ±â´ÉÀ» ÅëÇØ »ç¿ëÀÚ´Â ¼ö¸éÀÇ ¸¸Á·µµ¸¦ ³ôÀÏ ¼ö ÀÖ½À´Ï´Ù.
 
-#### - ì •ë³´ì œê³µ
+#### - Á¤º¸Á¦°ø
 
- ì •ë³´ì œê³µì€ í•œ ë‹¬ í˜¹ì€ ì¼ì£¼ì¼ ë‹¨ìœ„ë¡œ ìžì‹ ì´ ê³¼ê±°ì˜ ìˆ˜ë©´ íŒ¨í„´ ê·¸ëž˜í”„ë¥¼ ëª¨ì•„ì„œ í•œ ë²ˆì— ë³´ì—¬ì£¼ëŠ” ê¸°ëŠ¥ìž…ë‹ˆë‹¤. ì´ëŸ° ê¸°ëŠ¥ì„ í†µí•˜ì—¬ ìžì‹ ì´ ì–´ë–¤ ìƒí™©ì—ì„œ ìž ì„ ê¹Šì´ ìžëŠ”ì§€ë¥¼ ì•Œ ìˆ˜ ìžˆìœ¼ë©° í˜¹ì€ ë’¤ì²™ìž„, ì†Œë¦¬ë¥¼ í†µí•´ ì‚¬ìš©ìžì˜ ê±´ê°• ìƒíƒœ ë˜í•œ ì²´í¬í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ë”ë¶ˆì–´ ìž ì„ ìž˜ ë•Œ ë“£ê¸° ì¢‹ì€ ë…¸ëž˜ í˜¹ì€ ê¿€íŒ ë“±ì„ ì‚¬ìš©ìžì—ê²Œ ì•Œë ¤ì£¼ì–´ ê¹Šì€ ìˆ™ë©´ì„ í•  ìˆ˜ ìžˆë„ë¡ ìœ ë„í•©ë‹ˆë‹¤.
+ Á¤º¸Á¦°øÀº ÇÑ ´Þ È¤Àº ÀÏÁÖÀÏ ´ÜÀ§·Î ÀÚ½ÅÀÌ °ú°ÅÀÇ ¼ö¸é ÆÐÅÏ ±×·¡ÇÁ¸¦ ¸ð¾Æ¼­ ÇÑ ¹ø¿¡ º¸¿©ÁÖ´Â ±â´ÉÀÔ´Ï´Ù. ÀÌ·± ±â´ÉÀ» ÅëÇÏ¿© ÀÚ½ÅÀÌ ¾î¶² »óÈ²¿¡¼­ ÀáÀ» ±íÀÌ ÀÚ´ÂÁö¸¦ ¾Ë ¼ö ÀÖÀ¸¸ç È¤Àº µÚÃ´ÀÓ, ¼Ò¸®¸¦ ÅëÇØ »ç¿ëÀÚÀÇ °Ç°­ »óÅÂ ¶ÇÇÑ Ã¼Å©ÇÒ ¼ö ÀÖ½À´Ï´Ù. ´õºÒ¾î ÀáÀ» Àß ¶§ µè±â ÁÁÀº ³ë·¡ È¤Àº ²ÜÆÁ µîÀ» »ç¿ëÀÚ¿¡°Ô ¾Ë·ÁÁÖ¾î ±íÀº ¼÷¸éÀ» ÇÒ ¼ö ÀÖµµ·Ï À¯µµÇÕ´Ï´Ù.
 
-## 2. íŒ€ì›ì†Œê°œ
+## 2. ÆÀ¿ø¼Ò°³
 
-#### - ê¹€ìƒì²  êµìˆ˜ë‹˜
+#### - ±è»óÃ¶ ±³¼ö´Ô
 
 ![111111](https://user-images.githubusercontent.com/44603374/77318456-71116c80-6d50-11ea-934a-56eadc3f8e00.PNG)
 
@@ -37,53 +37,53 @@ Email: sckim7@kookmin.ac.kr
 ~~~
 
 
-#### - í™ì„±í‘œ 
+#### - È«¼ºÇ¥ 
 
 ![KakaoTalk_20200323_214313418](https://user-images.githubusercontent.com/44603374/77317920-75895580-6d4f-11ea-9fa5-61f07f07a340.jpg)
 
 ~~~
 Email: sungpyo9053@kookmin.ac.kr
-role: ë°ì´í„°ë² ì´ìŠ¤, AI
+role: µ¥ÀÌÅÍº£ÀÌ½º, AI
 ~~~
 
-#### - ê³ ë¯¼ìš± 
+#### - °í¹Î¿í 
 
 ~~~
 Email: 
 role: 
 ~~~
-#### - ë°•ëŒ€ì˜ 
+#### - ¹Ú´ë¿µ 
 
 ![KakaoTalk_20200324_010005114](https://user-images.githubusercontent.com/42888593/77337175-e179b700-6d6b-11ea-8e5b-eed68097af07.jpg)
 
 ~~~
 Email: dmdkr37@gmail.com
-role: ì–´í”Œë¦¬ì¼€ì´ì…˜ ê°œë°œ, ë°ì´í„°ë² ì´ìŠ¤, AI
+role: ¾îÇÃ¸®ÄÉÀÌ¼Ç °³¹ß, µ¥ÀÌÅÍº£ÀÌ½º, AI
 ~~~
 
-#### - ë°•ì˜ë¯¼ 
+#### - ¹Ú¿µ¹Î 
 
 ![KakaoTalk_20200322_130334284](https://user-images.githubusercontent.com/44603374/77317191-1414b700-6d4e-11ea-8993-390e198d46bb.jpg)
 
 ~~~
 Email: kiberd22@gmail.com 
-role: ë°ì´í„°ë² ì´ìŠ¤, ë°±ì—”ë“œ, ì–´í”Œë¦¬ì¼€ì´ì…˜ ìˆ˜ë©´íŒ¨í„´ê¸°ëŠ¥ API
+role: µ¥ÀÌÅÍº£ÀÌ½º, ¹é¿£µå, ¾îÇÃ¸®ÄÉÀÌ¼Ç ¼ö¸éÆÐÅÏ±â´É API
 ~~~
 
-#### - ì„œë¯¼ì£¼
+#### - ¼­¹ÎÁÖ
 
 ![IMG_2193](https://user-images.githubusercontent.com/26273678/77444149-e2bfe800-6e2e-11ea-8a6b-77b1695e5ca4.JPG)
 
 ~~~
 Email: minju1307@gmail.com
-role: UX/UI ì„¤ê³„, ì•ˆë“œë¡œì´ë“œ í´ë¼ì´ì–¸íŠ¸ êµ¬í˜„
+role: UX/UI ¼³°è, ¾Èµå·ÎÀÌµå Å¬¶óÀÌ¾ðÆ® ±¸Çö
 ~~~
 
-#### - ì–‘ê²½ì‹
+#### - ¾ç°æ½Ä
 ![KakaoTalk_Image_2020-03-24-09-37-44](https://user-images.githubusercontent.com/62004580/77377043-5c1af480-6db5-11ea-948b-4cf3ba64fba9.jpeg)
 ~~~
 Email: sik6791@naver.com
-role: ì–´í”Œë¦¬ì¼€ì´ì…˜ UI, ë¡œê³ ì œìž‘
+role: ¾îÇÃ¸®ÄÉÀÌ¼Ç UI, ·Î°íÁ¦ÀÛ
 ~~~
 
 
@@ -103,7 +103,9 @@ role: ì–´í”Œë¦¬ì¼€ì´ì…˜ UI, ë¡œê³ ì œìž‘
 ### - Providing information
 
  Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
-## 4. ì‚¬ìš©ë²•
-## 5. ê²°ê³¼ì˜ìƒ
+## 4. »ç¿ë¹ý
+## 5. °á°ú¿µ»ó
+
+<iframe width="640" height="360" src="https://www.youtube.com/watch?v=HgQRWYoG3Ck" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 
