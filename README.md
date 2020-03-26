@@ -48,9 +48,11 @@ role: 데이터베이스, AI
 
 #### - 고민욱 
 
+![KakaoTalk_Photo_2020-03-26-15-32-54](https://user-images.githubusercontent.com/48742736/77618460-b19ffe80-6f79-11ea-8014-e0ee369db51e.jpeg)
+
 ~~~
-Email: 
-role: 
+Email: praction0305@gmail.com
+role: 데이터베이스, AI
 ~~~
 #### - 박대영 
 
