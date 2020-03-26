@@ -105,4 +105,4 @@ role: 어플리케이션 UI, 로고제작
  Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
 ## 4. 사용법
 ## 5. 결과영상
-[![Video Label](https://user-images.githubusercontent.com/44603374/77374079-2d991b80-6dad-11ea-8bbf-f27d72ad8862.png)](https://youtu.be/uLR1RNqJ1Mw?t=0s)
+[![Video Label](http://img.youtube.com/vi/HgQRWYoG3Ck/0.jpg)](https://www.youtube.com/watch?v=HgQRWYoG3Ck)
