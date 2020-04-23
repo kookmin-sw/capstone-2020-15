@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+>
+    <!--<TextView-->
+    <!--    android:id="@+id/textview_main_status"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="0dp"-->
+    <!--    android:layout_weight="40"-->
+    <!--    android:layout_centerHorizontal="true"-->
+    <!--    android:layout_marginBottom="10dp"-->
+    <!--    android:layout_marginEnd="10dp"-->
+    <!--    android:layout_marginLeft="10dp"-->
+    <!--    android:layout_marginRight="10dp"-->
+    <!--    android:layout_marginStart="10dp"-->
+    <!--    android:layout_marginTop="10dp"-->
+    <!--    android:text=""/>-->
+
+    <!--<TextView-->
+    <!--    android:id="@+id/textview_main_result"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="0dp"-->
+    <!--    android:layout_weight="80"-->
+    <!--    android:layout_centerHorizontal="true"-->
+    <!--    android:layout_marginBottom="10dp"-->
+    <!--    android:layout_marginEnd="10dp"-->
+    <!--    android:layout_marginLeft="10dp"-->
+    <!--    android:layout_marginRight="10dp"-->
+    <!--    android:layout_marginStart="10dp"-->
+    <!--    android:layout_marginTop="10dp"-->
+    <!--    android:text=""/>-->
+
+    <Button
+        android:id="@+id/button_main_add_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Add Calendar" />
+
+
+    <!--<Button-->
+    <!--    android:id="@+id/button_main_add_event"-->
+    <!--    android:layout_width="wrap_content"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_centerHorizontal="true"-->
+    <!--    android:layout_centerVertical="true"-->
+    <!--    android:text="Add Event" />-->
+
+
+    <!--<Button-->
+    <!--    android:id="@+id/button_main_get_event"-->
+    <!--    android:layout_width="wrap_content"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_centerHorizontal="true"-->
+    <!--    android:layout_centerVertical="true"-->
+    <!--    android:text="Get Event" />-->
+
+</LinearLayout>

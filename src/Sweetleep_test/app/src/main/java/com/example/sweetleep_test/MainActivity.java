@@ -1,7 +1,11 @@
 package com.example.sweetleep_test;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.sweetleep_test.ui.home.AlarmListActivity;
+import com.example.sweetleep_test.ui.home.CalendarActivity;
+import com.example.sweetleep_test.ui.home.CalendarStart;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        Intent intent = new Intent(this, CalendarStart.class);
+        startActivity(intent);
+        finish();
     }
 
 }
