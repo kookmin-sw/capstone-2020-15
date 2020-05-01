@@ -1,4 +1,4 @@
-package com.example.sweetleep_test.ui.home;
+package com.example.sweetleep_test.ui.home.calendar;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -64,11 +64,11 @@ public class CalendarStart extends AppCompatActivity implements EasyPermissions.
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
 
- 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("캘린더 연");
+        setTitle("캘린더 연동");
         setContentView(R.layout.activity_calendar_test);
 
         mAddCalendarButton = (Button) findViewById(R.id.button_main_add_calendar);
