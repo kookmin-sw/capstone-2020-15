@@ -15,11 +15,11 @@
         <activity android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".ui.home.AlarmListActivity" />
+        <activity android:name=".ui.home.alarm.AlarmListActivity" />
 
 <!--        <activity android:name=".ui.home.CalendarTest" />-->
-        <activity android:name=".ui.home.CalendarStart" />
-        <activity android:name=".ui.home.CalendarActivity"
+        <activity android:name=".ui.home.calendar.CalendarStart" />
+        <activity android:name=".ui.home.calendar.CalendarActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".SplashActivity"
@@ -33,7 +33,7 @@
         </activity>
 
 
-        <receiver android:name=".ui.home.AlarmReceiver" />
+        <receiver android:name=".ui.home.alarm.AlarmReceiver" />
         <service
             android:name=".RingtonePlayingService"
             android:enabled="true" />
