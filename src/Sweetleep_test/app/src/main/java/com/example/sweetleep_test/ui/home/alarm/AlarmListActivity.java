@@ -12,11 +12,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sweetleep_test.MainActivity;
 import com.example.sweetleep_test.R;
+import com.example.sweetleep_test.SleepSensingActivity;
+import com.example.sweetleep_test.SleepSensingService;
 import com.example.sweetleep_test.ui.home.calendar.CalendarStart;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -144,9 +147,14 @@ public class AlarmListActivity extends AppCompatActivity implements View.OnClick
             case R.id.fab_sub3:
                 toggleFab();
                 Toast.makeText(this, "Start Sleep", Toast.LENGTH_SHORT).show();
-                intent = new Intent(this, MainActivity.class); // TODO: 수면분석기능 연동
-                startActivity(intent);
-                finish();
+
+                Intent startService = new Intent(this, SleepSensingService.class);
+                startService.putExtra("inputExtra", "수면 중 뒤척임 감지중입니다.");
+                ContextCompat.startForegroundService(this, startService);
+
+                Intent sleepActivity = new Intent(getApplicationContext(), SleepSensingActivity.class);
+                startActivity(sleepActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
                 break;
         }
     }

@@ -17,6 +17,9 @@
 
         <activity android:name=".ui.home.alarm.AlarmListActivity" />
 
+        <activity android:name=".SleepSensingActivity" />
+        <activity android:name=".ui.dashboard.DashboardActivity" />
+
 <!--        <activity android:name=".ui.home.CalendarTest" />-->
         <activity android:name=".ui.home.calendar.CalendarStart" />
         <activity android:name=".ui.home.calendar.CalendarActivity"
@@ -37,6 +40,12 @@
         <service
             android:name=".RingtonePlayingService"
             android:enabled="true" />
+
+        <service
+            android:name=".SleepSensingService"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
