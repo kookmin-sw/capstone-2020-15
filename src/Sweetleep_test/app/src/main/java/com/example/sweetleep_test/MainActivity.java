@@ -3,9 +3,7 @@ package com.example.sweetleep_test;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.sweetleep_test.ui.home.AlarmListActivity;
-import com.example.sweetleep_test.ui.home.CalendarActivity;
-import com.example.sweetleep_test.ui.home.CalendarStart;
+import com.example.sweetleep_test.ui.home.alarm.AlarmListActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        Intent intent = new Intent(this, CalendarStart.class);
+        Intent intent = new Intent(this, AlarmListActivity.class);
         startActivity(intent);
         finish();
     }
