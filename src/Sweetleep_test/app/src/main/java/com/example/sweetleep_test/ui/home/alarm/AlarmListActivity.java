@@ -154,6 +154,7 @@ public class AlarmListActivity extends AppCompatActivity implements View.OnClick
 
                 Intent sleepActivity = new Intent(getApplicationContext(), SleepSensingActivity.class);
                 startActivity(sleepActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                onStop();
 
                 break;
         }
