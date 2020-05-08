@@ -18,7 +18,9 @@
         <activity android:name=".ui.home.alarm.AlarmListActivity" />
 
         <activity android:name=".SleepSensingActivity" />
-        <activity android:name=".ui.dashboard.DashboardActivity" />
+        <activity android:name=".ui.dashboard.DashboardActivity"
+            android:screenOrientation="landscape"
+            />
 
 <!--        <activity android:name=".ui.home.CalendarTest" />-->
         <activity android:name=".ui.home.calendar.CalendarStart" />
@@ -56,5 +58,8 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
 </manifest>
