@@ -51,5 +51,5 @@ def prettifyTime(time, x):
 #           print ("Quitting.")
 #           break #quit
 #        else:
-            print ("Invalid selection. Please select one of the menu items by entering its number.")
-            continue #skip to next iteration
+#            print ("Invalid selection. Please select one of the menu items by entering its number.")
+#            continue #skip to next iteration
