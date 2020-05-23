@@ -151,11 +151,9 @@ public class AlarmListActivity extends AppCompatActivity implements View.OnClick
                 Intent startService = new Intent(this, SleepSensingService.class);
                 startService.putExtra("inputExtra", "수면 중 뒤척임 감지중입니다.");
                 ContextCompat.startForegroundService(this, startService);
-
                 Intent sleepActivity = new Intent(getApplicationContext(), SleepSensingActivity.class);
                 startActivity(sleepActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                onStop();
-
+                finish();
                 break;
         }
     }
