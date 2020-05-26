@@ -10,7 +10,7 @@ def call_req():
     with open("./key.json","r") as clientJson :
         client = json.load(clientJson)
 
-    #출발지
+    #출발지 일단은 고정
     origin          = "37.5728359,126.9746922"
     #도착지
     destination     = "37.5129907,127.1005382"
@@ -40,6 +40,7 @@ def call_req():
 def call_res(json_msg):
     path            = json_msg["routes"][0]["legs"][0]
     duration_sec    = path["duration"]["value"]
+    json_obj = {'duration_sec' : duration_sec}
     # start_geo       = path["start_location"]
     # end_geo         = path["end_location"]
     # stepList = path["steps"]
@@ -48,5 +49,4 @@ def call_res(json_msg):
     # print(start_geo)	# 출발지 위도,경도
     # print(end_geo)	# 도착지 위도,경도
 
-json_tmp = call_req()
-call_res(json_tmp)
+    return json_obj
