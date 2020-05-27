@@ -9,8 +9,8 @@ def req_test():
     tmp = map_api.call_map()
     #json data recive
     # user_json = request.get_json()
-    print(tmp)
-    return json_obj
+    #print(tmp)
+    return jsonify(tmp)
 
 @app.route('/in', methods = ['POST'])
 def in_test():
