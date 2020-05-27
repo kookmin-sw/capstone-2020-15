@@ -5,7 +5,8 @@ import os
 import ssl
 import urllib.request
 
-def call_req():
+#def call_req(string _origin, string _destination):
+def call_map():
     client = None
     with open("./key.json","r") as clientJson :
         client = json.load(clientJson)
@@ -34,19 +35,6 @@ def call_req():
     response        = urllib.request.urlopen(request, context=context)
     responseText    = response.read().decode('utf-8')
     responseJson    = json.loads(responseText)
-
+    
+    #구글맵 api 결과 json return
     return responseJson
-
-def call_res(json_msg):
-    path            = json_msg["routes"][0]["legs"][0]
-    duration_sec    = path["duration"]["value"]
-    json_obj = {'duration_sec' : duration_sec}
-    # start_geo       = path["start_location"]
-    # end_geo         = path["end_location"]
-    # stepList = path["steps"]
-    # print(stepList[0])
-    print(duration_sec) # 전체 걸리는 시간을 초로 나타낸 것
-    # print(start_geo)	# 출발지 위도,경도
-    # print(end_geo)	# 도착지 위도,경도
-
-    return json_obj

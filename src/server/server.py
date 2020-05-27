@@ -1,16 +1,15 @@
 from flask import Flask, render_template, request, jsonify
-import call_moving_sec
+import map_api
 app = Flask(__name__)
 
 arr = []
 
 @app.route('/test', methods = ['GET'])
 def req_test():
-    tmp = call_moving_sec.call_req()
-    json_obj = call_moving_sec.call_res(tmp)
+    tmp = map_api.call_map()
     #json data recive
     # user_json = request.get_json()
-    print(json_obj)
+    print(tmp)
     return json_obj
 
 @app.route('/in', methods = ['POST'])
