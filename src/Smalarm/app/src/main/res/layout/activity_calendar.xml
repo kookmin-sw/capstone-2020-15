@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize" />
+
+    <LinearLayout
+        android:id="@+id/ll_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical"
+        >
+
+        <RadioGroup
+            android:id="@+id/rg_selection_type"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:checkedButton="@+id/rb_single">
+
+            <RadioButton
+                android:id="@+id/rb_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="single" />
+
+            <RadioButton
+                android:id="@+id/rb_multiple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="multiple" />
+
+            <RadioButton
+                android:id="@+id/rb_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="range" />
+
+            <RadioButton
+                android:id="@+id/rb_none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="none" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+<!--    <com.applikeysolutions.cosmocalendar.view.CalendarView-->
+<!--        android:id="@+id/calendar_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/ll_settings"-->
+<!--        app:selectedDayBackgroundColor="@color/colorPrimary"-->
+<!--        app:selectedDayBackgroundEndColor="@color/colorPrimaryDark"-->
+<!--        app:selectedDayBackgroundStartColor="@color/colorPrimaryDark"-->
+<!--        app:weekendDayTextColor="@color/colorAccent"-->
+<!--        />-->
+    <com.kizitonwose.calendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cv_dayViewResource="@layout/calendar_day" />
+
+    <LinearLayout
+        android:id="@+id/ll_events_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendarView"
+        android:orientation="vertical"
+        >
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

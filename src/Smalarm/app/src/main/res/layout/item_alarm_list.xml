@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardChildGroup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@color/colorPrimaryLight"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:id="@+id/timeBellView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="02dp">
+
+            <RelativeLayout
+                android:id="@+id/bellView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="02dp">
+
+                <ImageView
+                    android:id="@+id/alarmBell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_alarm_on" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/timeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/bellView">
+
+                <TextView
+                    android:id="@+id/timeDigit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="05dp"
+                    android:text="08:30"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/timeUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/timeDigit"
+                    android:layout_margin="05dp"
+                    android:layout_toRightOf="@id/timeDigit"
+                    android:text="AM"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/switchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="05dp"
+                android:layout_toRightOf="@id/timeView">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="@+id/alarmPowerSwitch"
+                    android:text="alarm title"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:textSize="25sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/alarmPowerSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end|center_vertical" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/daysView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timeBellView"
+            android:layout_margin="02dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="01dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="Sunday"
+                android:padding="10dp"
+                android:text="SUN"
+                android:textColor="#808080" />
+
+            <TextView
+                android:id="@+id/monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="01dp"
+                android:layout_toRightOf="@id/sunday"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="MON"
+                android:textColor="#808080" />
+
+            <TextView
+                android:id="@+id/tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="01dp"
+                android:layout_toRightOf="@id/monday"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="TUE"
+                android:textColor="#808080" />
+
+            <TextView
+                android:id="@+id/wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="01dp"
+                android:layout_toRightOf="@id/tuesday"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="WED"
+                android:textColor="#808080" />
+
+            <TextView
+                android:id="@+id/thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="01dp"
+                android:layout_toRightOf="@id/wednesday"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="THR"
+                android:textColor="#808080" />
+
+            <TextView
+                android:id="@+id/friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="01dp"
+                android:layout_toRightOf="@id/thursday"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="FRI"
+                android:textColor="#808080" />
+
+            <TextView
+                android:id="@+id/saturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="01dp"
+                android:layout_toRightOf="@id/friday"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="SAT"
+                android:textColor="#808080" />
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

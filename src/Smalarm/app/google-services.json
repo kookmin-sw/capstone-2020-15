@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "444121330998",
+    "firebase_url": "https://smalarm-57c7b.firebaseio.com",
+    "project_id": "smalarm-57c7b",
+    "storage_bucket": "smalarm-57c7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444121330998:android:5350ceb07071c6907faf97",
+        "android_client_info": {
+          "package_name": "com.example.smalarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444121330998-b0t94o9tdcdiik19ds29oo5qnc5h2rdv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smalarm",
+            "certificate_hash": "b03a65da464d29acc19d43e62793733f130f5a4c"
+          }
+        },
+        {
+          "client_id": "444121330998-dd437t0p39jtfhtmsfvcvp6956d6jgvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZcYEKYPdtdctfGKgt91TPSUNThOq6_RQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444121330998-dd437t0p39jtfhtmsfvcvp6956d6jgvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
