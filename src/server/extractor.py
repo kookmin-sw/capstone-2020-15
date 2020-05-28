@@ -4,26 +4,34 @@ import json
 import os
 import ssl
 import urllib.request
-import map_api
 
-#현재시간, 출발시간의 차이가 5분이상이면 무조건 0을 return
-#현재시간, 출발시간의 차이가 5분이하라면
-#이동시간+준비시간 > 현재걸리는시간+준비시간 -> 원래시간으로 일어나도된다
-#이동시간+준비시간 < 현재걸리는시간+준비시간 -> 예정보다 일찍 일어나야한다.
+#case1 : 현재시간, 출발시간의 차이가 5분이상이면 무조건 0을 return
+#case2 : 현재시간, 출발시간의 차이가 5분이하라면
+#case3 : 이동시간+준비시간 > 현재걸리는시간+준비시간 -> 원래시간으로 일어나도된다
+#case4 : 이동시간+준비시간 < 현재걸리는시간+준비시간 -> 예정보다 일찍 일어나야한다.
 
 #입력받아야하는것 : 구글맵api json / 원래잡은이동시간 / 준비시간 / 기상시간
+#준비시간 / 기상시간은 딱히 필요 없을듯?
 #구해야하는것 : 출발시간(UTC 1970 년 1월 1일 0시 0분 0초 부터 경과한 초를 정수로 반환한 값) / 걸리는시간
-def call_res(json_obj):
+def extra_time(json_obj, _move_sec):
+    #경로
     path            = json_obj["routes"][0]["legs"][0]
+    #걸리는 시간
     duration_sec    = path["duration"]["value"]
 
-    start_geo       = path["start_location"]
+    now = time.time()
+    #출발시간
     departure_time = path["departure_time"]["value"]
-    # end_geo         = path["end_location"]
-    # stepList = path["steps"]
-    # print(stepList[0])
-    print(duration_sec) # 전체 걸리는 시간을 초로 나타낸 것
-    # print(start_geo)	# 출발지 위도,경도
-    # print(end_geo)	# 도착지 위도,경도
 
-    return json_obj
+    #case 1
+    if now - departure_time > 300:
+        return 0
+    #case2
+    else:
+        #case3
+        if _move_sec >= duration_sec:
+            return 0
+        else:
+            return 1
+
+    return 2
