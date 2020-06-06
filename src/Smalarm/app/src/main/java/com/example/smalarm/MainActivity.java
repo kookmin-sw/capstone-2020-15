@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.smalarm.ui.alarm.AlarmFragment;
 import com.example.smalarm.ui.alarm.AlarmOffActivity;
+import com.example.smalarm.ui.graph.GraphFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,8 +26,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import static java.sql.Types.NULL;
+
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_TEST = 65537;
     private String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +48,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+
         // 화면 전환 프래그먼트 선언 및 초기 화면 설정
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, AlarmFragment.newInstance());
         transaction.addToBackStack(null);
         transaction.commit();
+
+
 
 //        Intent passedIntent = getIntent();
 //        processIntent(passedIntent);
@@ -79,4 +86,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_TEST) {
+            if (resultCode == RESULT_OK) {
+
+                // 그래프 프레그먼트 띄어줌
+                replaceFragment(GraphFragment.newInstance());
+
+            } else {   // RESULT_CANCEL
+                Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+
+    
+
 }
