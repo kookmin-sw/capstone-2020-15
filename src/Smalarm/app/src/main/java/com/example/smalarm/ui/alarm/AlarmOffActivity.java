@@ -24,9 +24,10 @@ public class AlarmOffActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent alarmService = new Intent(v.getContext(), AlarmService.class);
-                alarmService.putExtra("command","alarm off");
-                alarmService.putExtra("sound","alarm.mp3");
-                startService(alarmService);
+//                alarmService.putExtra("command","alarm off");
+//                alarmService.putExtra("sound","alarm.mp3");
+//                startService(alarmService);
+                stopService(alarmService);
 
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -18,9 +19,6 @@ import com.example.smalarm.ui.alarm.AlarmOffActivity;
 public class AlarmService extends Service {
     private static final String TAG = "AlarmService";
     MediaPlayer mp = new MediaPlayer();
-
-    public AlarmService() {
-    }
 
     @Override
     public void onCreate() {
@@ -136,6 +134,10 @@ public class AlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        mp.stop();
+        mp.release();
+        Toast.makeText(this, "destory service", Toast.LENGTH_SHORT).show();
     }
 
     @Override

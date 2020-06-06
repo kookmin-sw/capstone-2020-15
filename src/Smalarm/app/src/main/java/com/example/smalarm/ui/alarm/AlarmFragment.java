@@ -22,7 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smalarm.MainActivity;
 import com.example.smalarm.R;
-import com.example.smalarm.ui.alarm.calendar.CalendarFragment;
+import com.example.smalarm.ui.alarm.calendar.CalendarActivity;
+//import com.example.smalarm.ui.alarm.calendar.CalendarFragment;
 import com.example.smalarm.ui.alarm.calendar.CalendarStart;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingActivity;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingService;
@@ -133,18 +134,14 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fab_sub1:
                 toggleFab();
-//                Toast.makeText(getActivity(), "Add Alarm", Toast.LENGTH_SHORT).show();
                 intent = new Intent(mContext, AlarmAddActivity.class);
                 startActivity(intent);
-//                ((MainActivity) getActivity()).replaceFragment(AlarmAddFragment.newInstance());
                 break;
             case R.id.fab_sub2:
                 toggleFab();
                 Toast.makeText(mContext, "Open Calendar", Toast.LENGTH_SHORT).show();
-//                intent = new Intent(mContext, CalendarStart.class); // TODO:
-//                startActivity(intent);
-//                ((MainActivity) getActivity()).replaceFragment(CalendarFragment .newInstance());
-
+                intent = new Intent(mContext, CalendarActivity.class); // TODO:
+                startActivity(intent);
                 break;
             case R.id.fab_sub3:
                 toggleFab();
@@ -153,6 +150,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                 Intent startService = new Intent(mContext, SleepSensingService.class);
                 startService.putExtra("inputExtra", "수면 중 뒤척임 감지중입니다.");
                 ContextCompat.startForegroundService(mContext, startService);
+
                 intent = new Intent(mContext.getApplicationContext(), SleepSensingActivity.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;

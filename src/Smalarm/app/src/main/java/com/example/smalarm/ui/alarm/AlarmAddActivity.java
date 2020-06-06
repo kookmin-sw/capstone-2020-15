@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -39,10 +41,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-enum DayOfWeek {
-    일, 월, 화, 수, 목, 금, 토
-}
-
 public class AlarmAddActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SharedPreferences sharedPreferences;
@@ -61,8 +59,11 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.fragment_alarm_add);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         picker = findViewById(R.id.timePicker);
 
         // 앞서 설정한 값으로 보여주기 없으면 디폴트 값은 현재시간
@@ -176,8 +177,8 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
                 int min = 7;
                 for (Integer day : dayOfWeek) {
                     int interval = day - calendar.get(Calendar.DAY_OF_WEEK) + 1; // Calendar.DAY_OF_WEEK: 일=1~토=7
-                    interval += interval < 1? 7: 0;
-                    if (min>interval)
+                    interval += interval < 1 ? 7 : 0;
+                    if (min > interval)
                         min = interval;
 
                     Calendar set = (Calendar) calendar.clone();
@@ -187,7 +188,7 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, set.getTimeInMillis(), pendingIntent);
                 }
                 calendar.add(Calendar.DATE, min);
-            } else{
+            } else {
                 // 이미 지난 시간을 지정했다면 다음날 같은 시간으로 설정
                 if (calendar.before(Calendar.getInstance()))
                     calendar.add(Calendar.DATE, 1);
@@ -208,14 +209,17 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void cancelAlarm() {
+    private void cancelAlarm(int idx) {
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmIdx, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, idx, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (alarmManager != null)
             alarmManager.cancel(pendingIntent);
+
+        if (pendingIntent != null)
+            pendingIntent.cancel();
 
         PackageManager pm = getPackageManager();
         ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
@@ -248,7 +252,7 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.delButton:
-                cancelAlarm();
+                cancelAlarm(alarmIdx);
                 finish();
                 break;
         }
@@ -324,6 +328,17 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
 //        });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: { //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
