@@ -34,9 +34,12 @@ public class SleepSensingActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, SleepSensingService.class);
         stopService(serviceIntent);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        //RequestActivity로 전달할 인텐트 생성
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
         finish();
+
+
     }
 }
 
