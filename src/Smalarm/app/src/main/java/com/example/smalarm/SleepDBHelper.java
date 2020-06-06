@@ -215,6 +215,33 @@ public class SleepDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public String getTime(int date_id) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM MOTION WHERE date_id = "+ date_id +";", null);
+        while (cursor.moveToNext()) {
+            result = cursor.getString(2);
+        }
+        return result;
+    }
+
+    public String getMotion(int date_id) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM MOTION WHERE date_id = "+ date_id +";", null);
+        while (cursor.moveToNext()) {
+            result = cursor.getString(3);
+        }
+        return result;
+    }
+
+
     private String dateToMonth(int date) {
 
         String s;

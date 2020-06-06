@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.applikeysolutions:cosmocalendar:1.0.4@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/abb707c44881ae845f765b27997ac693/jetified-cosmocalendar-1.0.4/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/abb707c44881ae845f765b27997ac693/jetified-cosmocalendar-1.0.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/abb707c44881ae845f765b27997ac693/jetified-cosmocalendar-1.0.4/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.applikeysolutions/cosmocalendar/1.0.4/58a35bd2bcba7c454fd6b97c5cf863e3388a5b75/cosmocalendar-1.0.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.applikeysolutions/cosmocalendar/1.0.4/18e465e7c337b66b8a40aa99679d562df922da4a/cosmocalendar-1.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

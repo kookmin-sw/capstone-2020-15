@@ -1,5 +1,6 @@
 package com.example.smalarm.ui.alarm.sleep;
 
+import android.Manifest;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,31 +9,39 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.os.Environment;
 import android.os.IBinder;
 import android.os.PowerManager;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
+import com.example.smalarm.MainActivity;
 import com.example.smalarm.R;
 import com.example.smalarm.SleepDBHelper;
 import com.google.gson.Gson;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
 
 
-
-
-
-public class SleepSensingService extends Service implements SensorEventListener  {
+public class SleepSensingService extends Service implements SensorEventListener {
 
     public static final String CHANNEL_ID = "ForegroundServiceChannel";
 
@@ -47,9 +56,6 @@ public class SleepSensingService extends Service implements SensorEventListener 
     ArrayList<Integer> time = new ArrayList<>();
     ArrayList<Integer> motionCounter = new ArrayList<>();
     ArrayList<Integer> isOnScreen = new ArrayList<>();
-
-    // 모션카운터가 0인 구간처리를 위한 어레이리스트
-    ArrayList<Integer> preTime = new ArrayList<>();
 
 
     // 움직임 측정시 사용하는 변수들
@@ -67,7 +73,6 @@ public class SleepSensingService extends Service implements SensorEventListener 
     //수면 시작시간 (time(0)), 종료시간 (서비스종료되는 시간)
     private int startTime;
     private int endTime;
-
 
 
     public SleepSensingService() {
@@ -146,27 +151,66 @@ public class SleepSensingService extends Service implements SensorEventListener 
         // 기록 담기 위한 DB
         SleepDBHelper dbHelper = new SleepDBHelper(getApplicationContext(), "SleepTime.db", null, 1);
 
-        // 측정된 분단위 time, motionCounter 설정
-        setValue();
+        try {
+            // 측정된 분단위 time, motionCounter 설정
+            setValue();
+        }
+        catch (Exception e){
+            time.add(0);
+            motionCounter.add(0);
+            e.printStackTrace();
+        }
+
 
         // 시작, 종료시각 설정
         Calendar cal = Calendar.getInstance();
         startTime = time.get(0);
-        endTime = (int) (cal.getTimeInMillis() / (60*1000));
+        endTime = (int) (cal.getTimeInMillis() / (60 * 1000));
 
 
-        int date_id = (int) ( cal.getTimeInMillis() / (24*60*60*1000) ); // 일
+        int date_id = (int) (cal.getTimeInMillis() / (24 * 60 * 60 * 1000)); // 일
         int sleepTime;
 
         String timeJSON = new Gson().toJson(time);
         String motionJSON = new Gson().toJson(motionCounter);
 
-        sleepTime = endTime - startTime;
+        // json 파일 쓰기
+        // 파일 생성
+        File saveFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/sl"); // 저장 경로
+        // 폴더 생성
+        if(!saveFile.exists()){ // 폴더 없을 경우
+            saveFile.mkdir(); // 폴더 생성
+        }
+        try {
+            long now = System.currentTimeMillis(); // 현재시간 받아오기
+            Date date = new Date(now); // Date 객체 생성
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String nowTime = sdf.format(date);
+
+            BufferedWriter buf = new BufferedWriter(new FileWriter(saveFile+"/" + nowTime + "time.txt", true));
+            buf.append(timeJSON); // 파일 쓰기
+            buf.newLine(); // 개행
+            buf.close();
+
+            BufferedWriter buf1 = new BufferedWriter(new FileWriter(saveFile+"/" + nowTime + "motion.txt", true));
+            buf1.append(motionJSON); // 파일 쓰기
+            buf1.newLine(); // 개행
+            buf1.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
 
 
         // 측정된 값이 특정조건에 맞을때 ( 2시간 이상 )
-//        if ( (endTime - startTime) > 120 )
-//        {
+        if ((endTime - startTime) > 120) {
 //            for(int i=0; i<time.size(); i++){
 //
 //                // 해당 인덱스에서 앞으로 15분간의 움직임 평균
@@ -180,13 +224,14 @@ public class SleepSensingService extends Service implements SensorEventListener 
 //                }
 //
 //            }
-//
-//            sleepTime = endTime - startTime;
-//
-//            //insert data ( sleeptime, time, motioncounter )
-//            dbHelper.insert(date_id, sleepTime, timeJSON, motionJSON);
-//
-//        }
+
+            sleepTime = endTime - startTime;
+
+            //insert data ( sleeptime, time, motioncounter )
+            dbHelper.insert(date_id, sleepTime, timeJSON, motionJSON);
+
+        }
+
 
         super.onDestroy();
     }
@@ -212,12 +257,12 @@ public class SleepSensingService extends Service implements SensorEventListener 
                 speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000;
 
                 // 속도가 설정값보다 크면 움직인 걸로 조건에 걸림 ( 너무 큰 움직임은 측정 안함 )
-                if ( (speed > SHAKE_THRESHOLD) ){
+                if ((speed > SHAKE_THRESHOLD)) {
 
                     Calendar cal = Calendar.getInstance();
-                    long t = cal.getTimeInMillis() / (60*1000);
+                    long t = cal.getTimeInMillis() / (60 * 1000);
 
-                    int time =  (int) t; // 현재시각(분)
+                    int time = (int) t; // 현재시각(분)
 
                     // 해쉬맵에 저장
                     this.setMotionCounter(time);
@@ -233,69 +278,63 @@ public class SleepSensingService extends Service implements SensorEventListener 
     }
 
     // 해당 구간별 움직임을 담는 메소드
-    public void setMotionCounter(int time){
+    public void setMotionCounter(int time) {
 
-        if(countHash.get(time) == null){
+        if (countHash.get(time) == null) {
             countHash.put(time, 1);
-        }
-        else {
+        } else {
             int temp = countHash.get(time);
-            if(temp < 40) {
+            if (temp < 40) {
                 countHash.put(time, temp + 1);
             }
         }
     }
 
     // 중간에 비는 값 보정 메소드
-    private void setValue(){
+    private void setValue() {
 
         Calendar cal = Calendar.getInstance();
-        // 측정된 값 없을때
-        if(countHash.size() == 0){
-            time.add((int) (cal.getTimeInMillis() / (60*1000))); // 현재시간
-            motionCounter.add(0);
-            isOnScreen.add(0);
 
+        // 모션카운터가 0인 구간처리를 위한 어레이리스트
+        ArrayList<Integer> preTime = new ArrayList<>();
+
+        // 해쉬맵 키값별 오름차순으로 순회하는 이터레이터 설정
+        TreeMap<Integer, Integer> tm = new TreeMap<Integer, Integer>(countHash);
+        Iterator<Integer> keyiterator = tm.keySet().iterator();
+
+        // 이터레이터로 순회하면서 preTime 어레이리스트에 저장
+        while (keyiterator.hasNext()) {
+            int i = keyiterator.next();
+            preTime.add(i);
         }
-        else {
 
-            // 해쉬맵 키값별 오름차순으로 순회하는 이터레이터 설정
-            TreeMap<Integer, Integer> tm = new TreeMap<Integer, Integer>(countHash);
-            Iterator<Integer> keyiterator = tm.keySet().iterator();
+        // time , motionCounter 값 채워줌 중간공백 없이
+        int start = preTime.get(0);
+        int target = preTime.get(0);
+        int last = preTime.get(preTime.size() - 1);
+        int n = 1;
 
-            // 이터레이터로 순회하면서 preTime 어레이리스트에 저장
-            while (keyiterator.hasNext()) {
-                int i = keyiterator.next();
-                preTime.add(i);
+        // 1분 주기로 더해가면서 빈값 채우는 루프
+        while (target <= last) {
+
+            time.add(target);
+
+            if (countHash.get(target) == null) { // 만약 해당 주기에 count값이 없으면
+                motionCounter.add(0);
+            } else {
+                motionCounter.add(countHash.get(target));
             }
 
-            // time , motionCounter 값 채워줌 중간공백 없이
-            int start = preTime.get(0);
-            int target = preTime.get(0);
-            int last = preTime.get(preTime.size() - 1);
-            int n = 1;
+            target = start + n;
 
-            // 1분 주기로 더해가면서 빈값 채우는 루프
-            while (target <= last) {
-
-                time.add(target);
-
-                if (countHash.get(target) == null) { // 만약 해당 주기에 count값이 없으면
-                    motionCounter.add(0);
-                } else {
-                    motionCounter.add(countHash.get(target));
-                }
-
-                target = start + n;
-
-                n++;
-            }
-
+            n++;
         }
+
+
     }
 
     //스크린이 켜져있는 여부
-    private boolean isScreenOn(){
+    private boolean isScreenOn() {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         return pm.isInteractive();
     }

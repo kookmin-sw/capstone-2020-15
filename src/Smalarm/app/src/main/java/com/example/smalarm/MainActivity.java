@@ -1,12 +1,16 @@
 package com.example.smalarm;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -114,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 // 그래프 프레그먼트 띄어줌
-                replaceFragment(GraphFragment.newInstance());
+                //replaceFragment(GraphFragment.newInstance());
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, graphFragment).commit();
 
             } else {   // RESULT_CANCEL
                 Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
