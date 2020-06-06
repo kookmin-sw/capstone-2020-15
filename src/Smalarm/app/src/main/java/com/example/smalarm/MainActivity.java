@@ -1,35 +1,26 @@
 package com.example.smalarm;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.example.smalarm.ui.alarm.AlarmFragment;
-import com.example.smalarm.ui.alarm.AlarmOffActivity;
-import com.example.smalarm.ui.graph.GraphFragment;
-import com.example.smalarm.ui.settings.SettingsFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+
+import com.example.smalarm.ui.alarm.AlarmFragment;
+import com.example.smalarm.ui.graph.GraphFragment;
+import com.example.smalarm.ui.settings.SettingsFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_TEST = 65537;
     private String TAG = "MainActivity";
 
     Fragment alarmFragment;
@@ -66,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 //        Intent passedIntent = getIntent();
 //        processIntent(passedIntent);
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -73,31 +65,32 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_alarm:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,alarmFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, alarmFragment).commit();
                     return true;
                 case R.id.navigation_graph:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, graphFragment).commit();
                     return true;
                 case R.id.navigation_settings:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,settingsFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, settingsFragment).commit();
                     return true;
             }
             return false;
         }
     };
 
-//                ((MainActivity) getActivity()).replaceFragment(CalendarFragment .newInstance());
-//
-//    public void replaceFragment(Fragment fragment) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        transaction.replace(R.id.fragment_container, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//        // Fragment로 사용할 MainActivity내의 layout공간을 선택
-//    }
 
-//    @Override
+    //                ((MainActivity) getActivity()).replaceFragment(CalendarFragment .newInstance());
+//
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        // Fragment로 사용할 MainActivity내의 layout공간을 선택
+    }
+
+    //    @Override
 //    protected void onNewIntent(Intent intent) {
 //        processIntent(intent);
 //        super.onNewIntent(intent);
@@ -113,4 +106,20 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //
 //    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_TEST) {
+            if (resultCode == RESULT_OK) {
+
+                // 그래프 프레그먼트 띄어줌
+                replaceFragment(GraphFragment.newInstance());
+
+            } else {   // RESULT_CANCEL
+                Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 }

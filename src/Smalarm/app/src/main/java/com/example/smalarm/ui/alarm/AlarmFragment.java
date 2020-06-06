@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,11 +19,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smalarm.MainActivity;
 import com.example.smalarm.R;
 import com.example.smalarm.ui.alarm.calendar.CalendarActivity;
-//import com.example.smalarm.ui.alarm.calendar.CalendarFragment;
-import com.example.smalarm.ui.alarm.calendar.CalendarStart;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingActivity;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingService;
 import com.example.smalarm.ui.alarm.util.AlarmData;
@@ -45,6 +41,8 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
     private FloatingActionButton fab_main, fab_sub1, fab_sub2, fab_sub3;
     private Animation fab_open, fab_close;
     private boolean isFabOpen = false;
+
+    private int REQUEST_TEST = 1;
 
     public static AlarmFragment newInstance() {
         return new AlarmFragment();
@@ -151,8 +149,9 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                 startService.putExtra("inputExtra", "수면 중 뒤척임 감지중입니다.");
                 ContextCompat.startForegroundService(mContext, startService);
 
-                intent = new Intent(mContext.getApplicationContext(), SleepSensingActivity.class);
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent sleepIntent = new Intent(mContext.getApplicationContext(), SleepSensingActivity.class);
+                startActivityForResult(sleepIntent, REQUEST_TEST);
+
                 break;
         }
     }
