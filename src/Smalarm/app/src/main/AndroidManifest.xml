@@ -30,9 +30,7 @@
         <activity android:name=".ui.alarm.AlarmAddActivity" />
         <activity android:name=".ui.alarm.AlarmOffActivity" />
         <activity android:name=".ui.alarm.calendar.CalendarStart" />
-        <activity
-            android:name=".ui.alarm.calendar.CalendarActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.alarm.calendar.CalendarActivity"/>
         <activity android:name=".ui.alarm.sleep.SleepSensingActivity" />
 
         <receiver android:name=".ui.alarm.util.AlarmReceiver" />
