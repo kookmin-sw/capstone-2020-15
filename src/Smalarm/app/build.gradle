@@ -65,15 +65,11 @@ dependencies {
     implementation 'com.github.kizitonwose:CalendarView:0.3.4'
 
 
-//// 알람
-//
+    // 알람
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 //    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc01'
-    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-//
-//
 //    def nav_version = "2.3.0-alpha01"
 //
 //    // Java language implementation
@@ -92,4 +88,7 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Settings
+    implementation 'androidx.preference:preference:1.1.1'
 }

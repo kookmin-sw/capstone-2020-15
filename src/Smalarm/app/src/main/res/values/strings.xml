@@ -4,35 +4,26 @@
     <string name="title_graph">Graph</string>
     <string name="title_settings">Settings</string>
 
+    <string name="previous">Previous</string>
+
+
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
 
     <string name="slide_1_title">Step 1</string>
     <string name="slide_1_desc">일어나고 싶은 시간으로 알람을 설정하세요</string>
-
     <string name="slide_2_title">Step2</string>
     <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
-
     <string name="slide_3_title">Step3</string>
     <string name="slide_3_desc">Best discounts on every single service we offer!</string>
-
     <string name="slide_4_title">Step4</string>
     <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
-
     <!--    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>-->
     <!--    <string name="play_again">Play Again</string>-->
 
     <string name="request_google_play_services">앱을 실행시키려면 구글 플레이 서비스가 필요합니다. 구글 플레이 서비스를 설치 후 다시 실행하세요.</string>
     <string name="calendar_title">Smalarm 캘린더</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="day" msgid="7984755014526510295">"1일"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g>일"</string>
@@ -52,7 +43,7 @@
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="ok">확인</string>
-    <string name="cancel">췻소</string>
+    <string name="cancel">취소</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="SUN"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textSize="14sp" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="SAT"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         android:textSize="14sp" />
 
 </LinearLayout>

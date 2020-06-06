@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,15 +19,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.example.smalarm.MainActivity;
 import com.example.smalarm.R;
-//import com.example.smalarm.ui.alarm.calendar.CalendarFragment;
-//import com.example.smalarm.ui.alarm.calendar.CalendarStart;
+import com.example.smalarm.ui.alarm.calendar.CalendarActivity;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingActivity;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingService;
 import com.example.smalarm.ui.alarm.util.AlarmData;
-import com.example.smalarm.ui.graph.GraphFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -137,18 +132,14 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fab_sub1:
                 toggleFab();
-//                Toast.makeText(getActivity(), "Add Alarm", Toast.LENGTH_SHORT).show();
                 intent = new Intent(mContext, AlarmAddActivity.class);
                 startActivity(intent);
-//                ((MainActivity) getActivity()).replaceFragment(AlarmAddFragment.newInstance());
                 break;
             case R.id.fab_sub2:
                 toggleFab();
                 Toast.makeText(mContext, "Open Calendar", Toast.LENGTH_SHORT).show();
-//                intent = new Intent(mContext, CalendarStart.class); // TODO:
-//                startActivity(intent);
-//                ((MainActivity) getActivity()).replaceFragment(CalendarFragment .newInstance());
-
+                intent = new Intent(mContext, CalendarActivity.class); // TODO:
+                startActivity(intent);
                 break;
             case R.id.fab_sub3:
                 toggleFab();
@@ -164,9 +155,6 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-
-
-
 
     private void toggleFab() {
         if (isFabOpen) {
@@ -207,13 +195,4 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(mAdapter);
 //        mAdapter.notifyDataSetChanged();
     }
-
-
-
-
-
-
-
-
-
 }

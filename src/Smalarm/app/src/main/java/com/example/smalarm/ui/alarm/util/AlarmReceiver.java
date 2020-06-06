@@ -15,6 +15,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         int alarmIdx = intent.getIntExtra("idx", 0);
 
         Intent alarmService = new Intent(context, AlarmService.class);
+        alarmService.putExtra("idx", alarmIdx);
         alarmService.putExtra("command", "alarm on");
         alarmService.putExtra("sound", "alarm.mp3");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

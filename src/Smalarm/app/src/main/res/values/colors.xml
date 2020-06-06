@@ -18,6 +18,8 @@
     <color name="dot_light_screen4">#e4b5fc</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="red">#F44336</color>
+    <color name="blue">#3F51B5</color>
 
     <array name="array_dot_active">
         <item>@color/dot_light_screen1</item>
