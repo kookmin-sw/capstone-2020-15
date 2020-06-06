@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.smalarm.ui.alarm.AlarmFragment;
 import com.example.smalarm.ui.alarm.AlarmOffActivity;
+import com.example.smalarm.ui.graph.GraphFragment;
+import com.example.smalarm.ui.settings.SettingsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +31,11 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = "MainActivity";
+
+    Fragment alarmFragment;
+    Fragment graphFragment;
+    Fragment settingsFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,16 +43,21 @@ public class MainActivity extends AppCompatActivity {
         AndroidThreeTen.init(this);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_alarm, R.id.navigation_graph, R.id.navigation_settings)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
 
-        // 화면 전환 프래그먼트 선언 및 초기 화면 설정
+        alarmFragment = new AlarmFragment();
+        graphFragment = new GraphFragment();
+        settingsFragment = new SettingsFragment();
+
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.container, AlarmFragment.newInstance())
+//                    .addToBackStack(null)
+//                    .commitNow();
+//        }
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, AlarmFragment.newInstance());
         transaction.addToBackStack(null);
@@ -53,30 +66,51 @@ public class MainActivity extends AppCompatActivity {
 //        Intent passedIntent = getIntent();
 //        processIntent(passedIntent);
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-        // Fragment로 사용할 MainActivity내의 layout공간을 선택
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        processIntent(intent);
-        super.onNewIntent(intent);
-    }
-
-    private void processIntent(Intent intent) {
-        if (intent != null) {
-            String command = intent.getStringExtra("command");
-
-            if ("show".equals(command)) {
-                startActivity(new Intent(this, AlarmOffActivity.class));
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_alarm:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,alarmFragment).commit();
+                    return true;
+                case R.id.navigation_graph:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, graphFragment).commit();
+                    return true;
+                case R.id.navigation_settings:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,settingsFragment).commit();
+                    return true;
             }
+            return false;
         }
+    };
 
-    }
+//                ((MainActivity) getActivity()).replaceFragment(CalendarFragment .newInstance());
+//
+//    public void replaceFragment(Fragment fragment) {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.fragment_container, fragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//        // Fragment로 사용할 MainActivity내의 layout공간을 선택
+//    }
+
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        processIntent(intent);
+//        super.onNewIntent(intent);
+//    }
+//
+//    private void processIntent(Intent intent) {
+//        if (intent != null) {
+//            String command = intent.getStringExtra("command");
+//
+//            if ("show".equals(command)) {
+//                startActivity(new Intent(this, AlarmOffActivity.class));
+//            }
+//        }
+//
+//    }
 }
