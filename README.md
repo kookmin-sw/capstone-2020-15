@@ -28,6 +28,12 @@
 ## 최종 발표 영상
 
 
+12일 전까지 업로드 예정
+
+
+
+#### 계발계획서발표 영상 링크 : https://www.youtube.com/watch?v=xg2YDfLsZj4&feature=youtu.be
+#### 중간평가 발표영상 링크 : [박영민] [오후 11:49] https://www.youtube.com/watch?v=41qOViOwz2k
 
 
 
@@ -113,5 +119,4 @@ role: 어플리케이션 UI, 로고제작
 
  Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
 ## 4. 사용법
-## 5. 발표영상
-[![Video Label](http://img.youtube.com/vi/HgQRWYoG3Ck/0.jpg)](https://youtu.be/xg2YDfLsZj4)
+
