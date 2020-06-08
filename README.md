@@ -123,7 +123,8 @@ role: 어플리케이션 UI, 로고제작
 <p align="center">
 <img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046914-ab9cb400-a9e5-11ea-932f-41e8bfe050e8.png">
  <p align="center">
-<img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046914-ab9cb400-a9e5-11ea-932f-41e8bfe050e8.png">
+<img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046922-accde100-a9e5-11ea-9d91-b5fa389e2f1e.png">
  <p align="center">
-<img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046914-ab9cb400-a9e5-11ea-932f-41e8bfe050e8.png">
+<img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046941-b0616800-a9e5-11ea-87cc-0fa1f627381b.png">
  </p>
+
