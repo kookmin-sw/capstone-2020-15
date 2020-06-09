@@ -1,6 +1,8 @@
 
 package com.example.smalarm.ui.alarm.sleep;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +21,8 @@ public class SleepSensingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep_sensing);
 
+
+
         Button endButton = findViewById(R.id.endButton);
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +30,8 @@ public class SleepSensingActivity extends AppCompatActivity {
                 stopService();
             }
         });
+
+
 
     }
 
@@ -41,5 +47,8 @@ public class SleepSensingActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }
 
