@@ -5,7 +5,7 @@ import os
 import ssl
 import urllib.request
 #def call_map():
-def call_map(_origin, _destination, _mode):
+def call_map(_origin, _destination, _ready):
     client = None
     with open("./key.json","r") as clientJson :
         client = json.load(clientJson)

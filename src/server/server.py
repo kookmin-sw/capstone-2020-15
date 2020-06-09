@@ -25,10 +25,9 @@ def in_test():
     print(obj)
     #string _origin, string _destination, string _move_sec, string _preparations, string _wake_up_time
     #출발지
-    #_origin = request.form['_origin']
-    #_destination = request.form['_destination']
-    #_mode = request.form['_mode']
-    #_move_sec = request.form['_move_sec']
+    _origin = obj["origin"]
+    _destination = obj["destination"]
+    _ready = obj["ready"]
 
     # _preparations = request.form['_preparations']
     # _wake_up_time = request.form['_wake_up_time']
