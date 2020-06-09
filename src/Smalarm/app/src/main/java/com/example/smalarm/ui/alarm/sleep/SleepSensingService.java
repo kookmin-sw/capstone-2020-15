@@ -128,9 +128,7 @@ public class SleepSensingService extends Service implements SensorEventListener 
         //do heavy work on a background thread
         processCommand();
 
-        //stopSelf();
-
-        return START_NOT_STICKY;
+        return START_REDELIVER_INTENT;
 
     }
 
@@ -156,7 +154,8 @@ public class SleepSensingService extends Service implements SensorEventListener 
             setValue();
         }
         catch (Exception e){
-            time.add(0);
+            Calendar cal = Calendar.getInstance();
+            time.add((cal.get(Calendar.HOUR_OF_DAY) * 60) + cal.get(Calendar.MINUTE));
             motionCounter.add(0);
             e.printStackTrace();
         }
@@ -165,7 +164,10 @@ public class SleepSensingService extends Service implements SensorEventListener 
         // 시작, 종료시각 설정
         Calendar cal = Calendar.getInstance();
         startTime = time.get(0);
-        endTime = (int) (cal.getTimeInMillis() / (60 * 1000));
+        endTime = (cal.get(Calendar.HOUR_OF_DAY) * 60) + cal.get(Calendar.MINUTE);
+
+        System.out.println(startTime);
+        System.out.println(endTime);
 
 
         int date_id = (int) (cal.getTimeInMillis() / (24 * 60 * 60 * 1000)); // 일
@@ -174,64 +176,52 @@ public class SleepSensingService extends Service implements SensorEventListener 
         String timeJSON = new Gson().toJson(time);
         String motionJSON = new Gson().toJson(motionCounter);
 
-        // json 파일 쓰기
-        // 파일 생성
-        File saveFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/sl"); // 저장 경로
-        // 폴더 생성
-        if(!saveFile.exists()){ // 폴더 없을 경우
-            saveFile.mkdir(); // 폴더 생성
-        }
+        //if ((endTime - startTime) > 120) {
+            // json 파일 쓰기
+            // 파일 생성
+            File saveFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/sl"); // 저장 경로
+            // 폴더 생성
+            if (!saveFile.exists()) { // 폴더 없을 경우
+                saveFile.mkdir(); // 폴더 생성
+            }
+            try {
+                long now = System.currentTimeMillis(); // 현재시간 받아오기
+                Date date = new Date(now); // Date 객체 생성
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String nowTime = sdf.format(date);
+
+                BufferedWriter buf = new BufferedWriter(new FileWriter(saveFile + "/" + nowTime + "time.txt", true));
+                buf.append(timeJSON); // 파일 쓰기
+                buf.newLine(); // 개행
+                buf.close();
+
+                BufferedWriter buf1 = new BufferedWriter(new FileWriter(saveFile + "/" + nowTime + "motion.txt", true));
+                buf1.append(motionJSON); // 파일 쓰기
+                buf1.newLine(); // 개행
+                buf1.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        //}
+
+
+
         try {
-            long now = System.currentTimeMillis(); // 현재시간 받아오기
-            Date date = new Date(now); // Date 객체 생성
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String nowTime = sdf.format(date);
+            // 측정된 값이 특정조건에 맞을때 ( 2시간 이상 )
+            if ((endTime - startTime) > 120) {
 
-            BufferedWriter buf = new BufferedWriter(new FileWriter(saveFile+"/" + nowTime + "time.txt", true));
-            buf.append(timeJSON); // 파일 쓰기
-            buf.newLine(); // 개행
-            buf.close();
+                sleepTime = endTime - startTime;
 
-            BufferedWriter buf1 = new BufferedWriter(new FileWriter(saveFile+"/" + nowTime + "motion.txt", true));
-            buf1.append(motionJSON); // 파일 쓰기
-            buf1.newLine(); // 개행
-            buf1.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+                //insert data ( sleeptime, time, motioncounter )
+                dbHelper.insert(date_id, sleepTime, timeJSON, motionJSON);
+            }
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
-
-
-
-
-
-
-
-        // 측정된 값이 특정조건에 맞을때 ( 2시간 이상 )
-        if ((endTime - startTime) > 120) {
-//            for(int i=0; i<time.size(); i++){
-//
-//                // 해당 인덱스에서 앞으로 15분간의 움직임 평균
-//                int avg = (motionCounter.get(i) + motionCounter.get(i+14)) / 15;
-//
-//                // 만약 (index ~ index + 15) 분 사이에 움직임 평균이 거의 없다면
-//                if(avg < 5){
-//
-//                    // 해당 index를 수면시작시간으로 설정
-//                    startTime = time.get(i);
-//                }
-//
-//            }
-
-            sleepTime = endTime - startTime;
-
-            //insert data ( sleeptime, time, motioncounter )
-            dbHelper.insert(date_id, sleepTime, timeJSON, motionJSON);
-
-        }
-
 
         super.onDestroy();
     }
@@ -260,9 +250,27 @@ public class SleepSensingService extends Service implements SensorEventListener 
                 if ((speed > SHAKE_THRESHOLD)) {
 
                     Calendar cal = Calendar.getInstance();
-                    long t = cal.getTimeInMillis() / (60 * 1000);
+                    int minute = cal.get(Calendar.MINUTE);
+                    int time = 0;
+                    //long t = cal.getTimeInMillis() / (60 * 1000);
+                    // int time = (int) t; // 현재시각(분)
 
-                    int time = (int) t; // 현재시각(분)
+
+                    if(0 <= minute && minute < 15){ // 0 ~ 14 분
+                        time = (cal.get(Calendar.HOUR_OF_DAY) * 60) + 15;
+                    }
+                    else if (15 <= minute && minute < 30){ // 15 ~ 29분
+                        time = (cal.get(Calendar.HOUR_OF_DAY) * 60) + 30;
+                    }
+                    else if (30 <= minute && minute < 45){ // 30분 ~ 44분
+                        time = (cal.get(Calendar.HOUR_OF_DAY) * 60) + 45;
+                    }
+                    else if (45 <= minute && minute < 60){ // 45분 ~ 59분
+                        time = (cal.get(Calendar.HOUR_OF_DAY) * 60) + 60;
+                    }
+
+
+
 
                     // 해쉬맵에 저장
                     this.setMotionCounter(time);
@@ -325,7 +333,7 @@ public class SleepSensingService extends Service implements SensorEventListener 
                 motionCounter.add(countHash.get(target));
             }
 
-            target = start + n;
+            target = start + (15 * n);
 
             n++;
         }
@@ -337,6 +345,14 @@ public class SleepSensingService extends Service implements SensorEventListener 
     private boolean isScreenOn() {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         return pm.isInteractive();
+    }
+
+    private String minToHourMin(int min) {
+        int h = min / 60;
+        int m = min % 60;
+        String s = h + "시간 " + m + "분";
+
+        return s;
     }
 
 }

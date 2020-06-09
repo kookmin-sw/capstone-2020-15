@@ -3,7 +3,7 @@
     package="com.example.smalarm">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +26,8 @@
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.alarm.AlarmAddActivity" />
         <activity android:name=".ui.alarm.AlarmOffActivity" />
         <activity android:name=".ui.alarm.calendar.CalendarStart" />

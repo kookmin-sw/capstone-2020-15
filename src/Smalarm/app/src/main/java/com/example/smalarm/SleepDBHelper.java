@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class SleepDBHelper extends SQLiteOpenHelper {
 
@@ -283,7 +284,7 @@ public class SleepDBHelper extends SQLiteOpenHelper {
         Date hour = new Date (temp);
 
         SimpleDateFormat format1;
-        format1 = new SimpleDateFormat("E");
+        format1 = new SimpleDateFormat("E", new Locale("ko", "KR"));
         s = format1.format(hour);
 
         return s;

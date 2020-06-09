@@ -1,16 +1,24 @@
 package com.example.smalarm.ui.graph;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +30,7 @@ import com.example.smalarm.MainActivity;
 import com.example.smalarm.R;
 import com.example.smalarm.SleepDBHelper;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -31,8 +40,9 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.XAxisValueFormatter;
-import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
@@ -47,23 +57,48 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeMap;
 
 public class GraphFragment extends Fragment {
 
     private GraphViewModel graphViewModel;
 
-    TextView as, bs, cs;
+    // MPAndroid Chart
+    private LineChart lineChart;
+    private BarChart barChart;
+
+    // TextView
+    private TextView total;
+    private TextView week;
+    private TextView month;
+    private TextView totalAVG;
+    private TextView weekAVG;
+    private TextView monthAVG;
+    private TextView todayStat;
+    private TextView barChartDescription;
 
     // 시간별 움직임정보
     private ArrayList<Integer> time = new ArrayList<>();
     private ArrayList<Integer> motionCounter = new ArrayList<>();
 
-    // 평균 수면시간 데이터
+    // 수면시간 데이터
+    private String today_sleeptime;
     private int avg_total;
     private int avg_week;
     private int avg_month;
     private HashMap<String, Integer> avgSleepTimePerDay = new HashMap<>();
+
+    // chart data size
+    private int linchart_data_size;
+
+    // 초기 날짜 세팅(오늘) date_id
+    Calendar cal = Calendar.getInstance();
+    private int date_id = (int) (cal.getTimeInMillis() / (24 * 60 * 60 * 1000));
+
+
+    // 데이트픽커 콜백메소드
+    private DatePickerDialog.OnDateSetListener callbackMethod;
 
 
     public static GraphFragment newInstance() {
@@ -71,44 +106,100 @@ public class GraphFragment extends Fragment {
     }
 
 
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         graphViewModel =
                 new ViewModelProvider(this).get(GraphViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_graph, container, false);
 
-        as = root.findViewById(R.id.a);
-        bs = root.findViewById(R.id.b);
-        cs = root.findViewById(R.id.c);
+        // Values
+        total = root.findViewById(R.id.total);
+        week = root.findViewById(R.id.week);
+        month = root.findViewById(R.id.month);
+        totalAVG = root.findViewById(R.id.totalAVG);
+        weekAVG = root.findViewById(R.id.weekAVG);
+        monthAVG = root.findViewById(R.id.monthAVG);
+        todayStat = root.findViewById(R.id.todayStat);
+        barChartDescription = root.findViewById(R.id.barChartDescription);
 
+        // Chart
+        lineChart = (LineChart) root.findViewById(R.id.lineChart);
+        barChart = (BarChart) root.findViewById(R.id.barChart);
 
+        // Connect DB
+        final SleepDBHelper dbHelper = new SleepDBHelper(getContext(), "SleepTime.db", null, 1);
 
-        // 수면기록 읽어옴
-        SleepDBHelper dbHelper = new SleepDBHelper(getContext(), "SleepTime.db", null, 1);
-
+//
 //        try {
-//            dbHelper.insert(18411, 450, "금", "b");
-//            dbHelper.insert(18412, 450, "토", "b");
+//
+//            // 5월 25일 ~ 6월 9일
+//            dbHelper.insert(18406, 592, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
+//            dbHelper.insert(18407, 450, "토", "b");
+//            dbHelper.insert(18408, 572, "일", "b");
+//            dbHelper.insert(18409, 450, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
+//            dbHelper.insert(18410, 350, "화", "b");
+//            dbHelper.insert(18411, 450, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
+//            dbHelper.insert(18412, 582, "토", "b");
 //            dbHelper.insert(18413, 450, "일", "b");
-//            dbHelper.insert(18414, 450, "월", "b");
+//            dbHelper.insert(18414, 481, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
 //            dbHelper.insert(18415, 350, "화", "b");
 //            dbHelper.insert(18416, 470, "수", "b");
 //            dbHelper.insert(18417, 420, "목", "b");
-//            dbHelper.insert(18418, 410, "금", "b");
-//            dbHelper.insert(18419, 470, "토", "b");
+//            dbHelper.insert(18418, 410, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
+//            dbHelper.insert(18419, 410, "토", "b");
+//            dbHelper.insert(18421, 410, "[450,465,480,495,510,525,540,555,570]",
+//                    "[37,0,3,0,0,0,6,0,40]");
+//
+//
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 
+        // Draw linechart (today)
+        drawLineChart(dbHelper, date_id);
+        // Set AVG values (today)
+        showStatValues(dbHelper, date_id, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        // Draw barchart (all scope)
+        drawBarChart();
 
-        // 오늘 날짜
-        Calendar cal = Calendar.getInstance();
-        int date_id = (int) (cal.getTimeInMillis() / (24 * 60 * 60 * 1000));
 
-//        ////////////////////////////////////// DRAW GRAPH /////////////////////////////////////////////
+        todayStat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                // Date (date_id) picker event
+                callbackMethod = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // 선택한 날짜에 해당하는 기록 보여줌
+                        Calendar date = Calendar.getInstance();
+                        date.set(Calendar.YEAR, year);
+                        date.set(Calendar.MONTH, monthOfYear);
+                        date.set(Calendar.DATE, dayOfMonth);
+
+                        int date_id = (int) (date.getTimeInMillis() / (24 * 60 * 60 * 1000));
+
+                            // Draw Linechart (picked date)
+                            drawLineChart(dbHelper, date_id);
+                            // Show values (선택된 날짜가 속해 있는 주, 월의 통계)
+                            showStatValues(dbHelper, date_id, year, monthOfYear, dayOfMonth);
+                            // Draw Barchart (All scope)
+                            drawBarChart();
+
+                    }
+                };
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), callbackMethod, 2020, 5, 9);
+                dialog.show();
+            }
+        });
+
+        return root;
+    }
+
+
+    // Draw LineChart
+    private void drawLineChart(SleepDBHelper dbHelper, int date_id) {
 
         try {
             // DB에서 오늘 날짜에 해당하는 정보들 읽어옴
@@ -118,229 +209,287 @@ public class GraphFragment extends Fragment {
             // JSON -> ArrayList로
             time = JsonToArrayList(DBtime);
             motionCounter = JsonToArrayList(DBmotion);
-
-            // 값이 있을때만 그래프 그림
-            if (time.size() != 0) {
-
-                // Draw graph
-                LineChart lineChart = (LineChart) root.findViewById(R.id.lineChart);
-
-                ArrayList<Entry> values = new ArrayList<>();
-                String[] xaxes = new String[time.size()];
-
-                // 데이터 추가
-                for (int i = 0; i < motionCounter.size(); i++) {
-                    values.add(new Entry(motionCounter.get(i), i));
-                }
-
-                //x축 값 설정 (modTime)
-                for (int i = 0; i < time.size(); i++) {
-                    xaxes[i] = timeToStringHHmm(time.get(i));
-                }
-
-                LineDataSet lineDataSet = new LineDataSet(values, "sleep data");
-
-                lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-                lineDataSet.setDrawCubic(true);
-                lineDataSet.setDrawHorizontalHighlightIndicator(true);
-                lineDataSet.setColor(Color.BLUE);
-                lineDataSet.setDrawCircles(false);
-                lineDataSet.setDrawFilled(false); // 차트 아래 fill(채우기) 설정
-                lineDataSet.setFillColor(Color.YELLOW); // 차트 아래 채우기 색 설정
-
-                // y축 오른쪽은 표시 안함
-                YAxis rightYAxis = lineChart.getAxisRight();
-                rightYAxis.setEnabled(false);
-
-                // y축 왼쪽
-                YAxis leftYAxis = lineChart.getAxisLeft();
-                leftYAxis.setValueFormatter(new MyYAxisValueFormatter());
-                leftYAxis.setEnabled(true);
-                //leftYAxis.setAxisMaxValue(2f);
-                leftYAxis.setLabelCount(4, true);
-                leftYAxis.setDrawAxisLine(true);
-                leftYAxis.setDrawGridLines(true);
-
-                // x축
-                XAxis xAxis = lineChart.getXAxis();
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // x축 위치 지정
-                xAxis.setValueFormatter(new MyCustomXAxisValueFormatter());
-                xAxis.setDrawAxisLine(true); // x축 라인을 그림 (라벨이 없을때 잘 됨)
-                xAxis.setDrawGridLines(true); // 내부 선 그을지 결정
-                //xAxis.setLabelCount(2); // 라벨의 개수를 결정 => 나누어 떨어지는 개수로 지정
-                //xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-                //xAxis.setValueFormatter(formatter);
-                //xAxis.setTextSize(10f); // 크기 지정
-                //xAxis.setTextColor(Color.RED); // 색 지정
-                //xAxis.setDrawLabels(true); // 라벨(x축 좌표)를 그릴지 결정
-
-                LineData data = new LineData(xaxes, lineDataSet);
-                lineChart.setData(data);
-                //lineChart.setVisibleXRangeMaximum(65f);
-                lineChart.getLegend().setEnabled(false);
-
-                Date today = new Date();
-                SimpleDateFormat format1;
-                format1 = new SimpleDateFormat("MM월 dd일 E요일 수면기록");
-
-                lineChart.setDescription(format1.format(today));
-
-                data.setDrawValues(false);
-            }
-        } catch (Exception e) {
+            linchart_data_size = time.size();
+        } catch (Exception e) { // 만약에 data가 없으면
+            linchart_data_size = 0;
             e.printStackTrace();
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // 값이 있을때만 그래프 그림
+        if (linchart_data_size != 0) {
+
+            ArrayList<Entry> values = new ArrayList<>();
+
+            // 데이터 추가 (X축 : time, Y축 : modCounter)
+            for (int i = 0; i < motionCounter.size(); i++) {
+                values.add(new Entry(time.get(i), motionCounter.get(i)));
+            }
+
+            // Set dataset
+            LineDataSet lineDataSet = new LineDataSet(values, "sleep data");
+            lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            lineDataSet.setDrawCircles(false);
+            lineDataSet.setDrawHorizontalHighlightIndicator(true);
+            lineDataSet.setColor(Color.parseColor("#B45F04"));
+            lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            lineDataSet.setDrawValues(false);
+
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(lineDataSet);
+
+            LineData data = new LineData(dataSets);
+            lineChart.setData(data);
+            lineChart.invalidate();
+            lineChart.getLegend().setEnabled(false);
+            lineChart.setTouchEnabled(false);
+            lineChart.setDragEnabled(false);
+            lineChart.getDescription().setText("수면중 뒤척임 정보");
+            lineChart.getDescription().setTextSize(10);
+            data.setDrawValues(false);
+
+            ValueFormatter yAxisformatter = new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    return "";
+                }
+            };
+
+            ValueFormatter xAxisformatter = new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    int i = (int) value;
+                    if (i % 60 == 0) {
+                        return String.valueOf(i / 60) + "시";
+                    }
+                    return "";
+                }
+            };
+
+            // x축 설정
+            XAxis xAxis = lineChart.getXAxis();
+            xAxis.setValueFormatter(xAxisformatter);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // x축 위치 지정
+            xAxis.setDrawAxisLine(true); // x축 라인을 그림 (라벨이 없을때 잘 됨)
+            xAxis.setDrawGridLines(false); // 내부 선 그을지 결정
+            //xAxis.setLabelCount(0); // 라벨의 개수를 결정 => 나누어 떨어지는 개수로 지정
+            //xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+            //xAxis.setTextSize(10f); // 크기 지정
+            //xAxis.setTextColor(Color.RED); // 색 지정
+            //xAxis.setDrawLabels(true); // 라벨(x축 좌표)를 그릴지 결정
+            xAxis.setLabelCount(linchart_data_size);
+
+            // y축 설정 (left)
+            YAxis rightYAxis = lineChart.getAxisRight();
+            rightYAxis.setEnabled(true);
+            rightYAxis.setValueFormatter(yAxisformatter);
+            rightYAxis.setDrawGridLines(false);
+
+            // y축 설정 (right)
+            YAxis leftYAxis = lineChart.getAxisLeft();
+            leftYAxis.setEnabled(true);
+            //leftYAxis.setDrawAxisLine(true);
+            //leftYAxis.setLabelCount(4, true);
+            leftYAxis.setValueFormatter(yAxisformatter);
+            leftYAxis.setDrawGridLines(false);
+
+        } else {
+            lineChart.clear();
+            lineChart.setNoDataText("수면 기록이 없습니다.");
+            Paint p = lineChart.getPaint(Chart.PAINT_INFO);
+            p.setColor(Color.parseColor("#190707"));
+        }
+
+    }
+
+    // Draw BarChart
+    private void drawBarChart() {
+
+        ArrayList<Integer> valList = new ArrayList<>();
+
+        // 초기값 세팅 value는 0으로
+        for (int i = 0; i < 7; i++) {
+            valList.add(0);
+        }
+
+        for (String s : avgSleepTimePerDay.keySet()) {
+
+            if (s.equals("월")) {
+                valList.set(0, avgSleepTimePerDay.get(s));
+            }
+            if (s.equals("화")) {
+                valList.set(1, avgSleepTimePerDay.get(s));
+            }
+            if (s.equals("수")) {
+                valList.set(2, avgSleepTimePerDay.get(s));
+            }
+            if (s.equals("목")) {
+                valList.set(3, avgSleepTimePerDay.get(s));
+            }
+            if (s.equals("금")) {
+                valList.set(4, avgSleepTimePerDay.get(s));
+            }
+            if (s.equals("토")) {
+                valList.set(5, avgSleepTimePerDay.get(s));
+            }
+            if (s.equals("일")) {
+                valList.set(6, avgSleepTimePerDay.get(s));
+            }
+
+            // 값이 있을때만 차트 그림
+            if (valList.size() != 0) {
+
+                ArrayList<BarEntry> entries = new ArrayList<>();
+                for (int i = 0; i < valList.size(); i++) {
+                    entries.add(new BarEntry(i, valList.get(i)));
+                }
+
+                BarDataSet sleepAVGdata = new BarDataSet(entries, "요일별 평균수면시간 (분)"); // 변수로 받아서 넣어줘도 됨
+                BarData barData = new BarData();
+                barData.addDataSet(sleepAVGdata);
+                sleepAVGdata.setColors(Collections.singletonList(Color.parseColor("#B45F04"))); //
+
+                barChart.setData(barData);
+                barChart.animateXY(1000, 1000);
+                barChart.invalidate();
+                barData.setValueTextSize(11);
+                barChart.getDescription().setEnabled(false);
+                barChart.setTouchEnabled(false);
+                barChart.setDragEnabled(false);
+                barChart.getLegend().setEnabled(false);
+
+                // y축 은 표시 안함
+                YAxis rightYAxis = barChart.getAxisRight();
+                rightYAxis.setEnabled(false);
+                YAxis leftYAxis = barChart.getAxisLeft();
+                leftYAxis.setEnabled(false);
+
+                // x축 value formatter
+                final ArrayList<String> xAxisLabel = new ArrayList<>();
+                xAxisLabel.add("월");
+                xAxisLabel.add("화");
+                xAxisLabel.add("수");
+                xAxisLabel.add("목");
+                xAxisLabel.add("금");
+                xAxisLabel.add("토");
+                xAxisLabel.add("일");
+
+                XAxis xAxis = barChart.getXAxis();
+                xAxis.setTextSize(10);
+
+                ValueFormatter barChartformatter = new ValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value) {
+                        return xAxisLabel.get((int) value);
+                    }
+                };
+                xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+                xAxis.setValueFormatter(barChartformatter);
+                xAxis.setDrawGridLines(false);
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // x축 위치 지정
+            }
+        }
+
+    }
 
 
-        // Set AVG values
+    // Show Stat values
+    private void showStatValues(SleepDBHelper dbHelper, int date_id, int year, int monthOfYear, int dayOfMonth) {
+
+
+        // Set stat values
+        setSleepTimeStat(dbHelper, date_id);
+
+        // Show stat values
+        total.setText("총");
+        week.setText(dateToMonth(date_id) + "월 " + dateToWeekMonth(date_id) + "주차");
+        month.setText(dateToMonth(date_id) + "월");
+
+        totalAVG.setText(minToHourMin(avg_total));
+        weekAVG.setText(minToHourMin(avg_week));
+        monthAVG.setText(minToHourMin(avg_month));
+        todayStat.setText(today_sleeptime);
+
+        String h = String.valueOf(dbHelper.getSleepTime(date_id) / 60);
+        String m = String.valueOf(dbHelper.getSleepTime(date_id) % 60);
+        todayStat.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일 수면시간 : " + h + "시간 " + m + "분");
+
+        barChartDescription.setText("요일별 (분)");
+    }
+
+
+    // Set avg values (day, week, month, dayofweek)
+    private void setSleepTimeStat(SleepDBHelper dbHelper, int date_id) {
+
+        // 오늘 수면시간
         try {
-            setSleepTimeStat(dbHelper, date_id);
-        } catch (Exception e) {
+            today_sleeptime = String.valueOf(dbHelper.getSleepTime(date_id) / 60) + "시간 "
+                    + String.valueOf(dbHelper.getSleepTime(date_id) % 60) + "분";
+        }
+        catch (Exception e){ // DB에서 읽어온 오늘 수면시간이 없을 때
+            today_sleeptime = "0분";
+            e.printStackTrace();
+        }
+
+        // 총 수면시간들의 평균
+        try {
+            int sleep_total = 0;
+            int sleep[] = dbHelper.getAllSleepTime();
+            for (int i : sleep) {
+                sleep_total += i;
+            }
+            avg_total = sleep_total / sleep.length;
+        } catch (Exception e) { // DB에서 읽어온 총 수면시간(sleep[])이 없을 때
             avg_total = 0;
-            avg_month = 0;
+            e.printStackTrace();
+        }
+
+        // 이번주 수면시간 평균
+        try {
+            String week = dateToWeek(date_id);
+            int sleep_total_week = 0;
+            int[] sleep_week = dbHelper.getWeekSleepTime(week);
+            for (int i : sleep_week) {
+                sleep_total_week += i;
+            }
+            avg_week = sleep_total_week / sleep_week.length;
+        } catch (Exception e) { // DB에서 읽어온 주별수면시간(sleep_week[])이 없을 때
             avg_week = 0;
             e.printStackTrace();
         }
 
-
-        //////////////////////////////////////// DRAW BARCHART ////////////////////////////////////////////////////////////
-
-        BarChart barChart = (BarChart) root.findViewById(R.id.barChart);
-
-        ArrayList<Integer> valList = new ArrayList<>();
-        ArrayList<String> labelList = new ArrayList<>();
-
+        // 이번달 수면시간 평균
         try {
-
-            for (int i = 0; i < avgSleepTimePerDay.size(); i++) {
-                valList.add(i);
-                labelList.add(String.valueOf(i));
+            String month = dateToMonth(date_id);
+            int sleep_total_month = 0;
+            int[] sleep_month = dbHelper.getMonthSleepTime(month);
+            for (int i : sleep_month) {
+                sleep_total_month += i;
             }
-
-            for (String s : avgSleepTimePerDay.keySet()) {
-                int index = 0;
-
-                if (s.equals("월")) {
-                    index = 0;
-                }
-                if (s.equals("화")) {
-                    index = 1;
-                }
-                if (s.equals("수")) {
-                    index = 2;
-                }
-                if (s.equals("목")) {
-                    index = 3;
-                }
-                if (s.equals("금")) {
-                    index = 4;
-                }
-                if (s.equals("토")) {
-                    index = 5;
-                }
-                if (s.equals("일")) {
-                    index = 6;
-                }
-
-                labelList.set(index, s);
-                valList.set(index, avgSleepTimePerDay.get(s));
-
-            }
-        } catch (Exception e) {
+            avg_month = sleep_total_month / sleep_month.length;
+        } catch (Exception e) { // DB에서 읽어온 월별수면시간(sleep_total[])이 없을 때
+            avg_month = 0;
             e.printStackTrace();
         }
 
-        // 값이 있을때만 차트 그림
-        if (valList.size() != 0) {
-
-            ArrayList<BarEntry> entries = new ArrayList<>();
-            for (int i = 0; i < valList.size(); i++) {
-                entries.add(new BarEntry((Integer) valList.get(i), i));
-            }
-
-            BarDataSet depenses = new BarDataSet(entries, "요일별 평균수면시간 (분)"); // 변수로 받아서 넣어줘도 됨
-            //depenses.setAxisDependency(YAxis.AxisDependency.RIGHT);
-            barChart.setDescription(" ");
-
-            ArrayList<String> labels = new ArrayList<String>();
-            for (int i = 0; i < labelList.size(); i++) {
-                labels.add((String) labelList.get(i));
-            }
-
-            BarData barData = new BarData(labels, depenses); // 라이브러리 v3.x 사용하면 에러 발생함
-            depenses.setColors(Collections.singletonList(Color.LTGRAY)); //
-
-            barChart.setData(barData);
-            barChart.animateXY(1000, 1000);
-            barChart.invalidate();
-
-            barData.setValueTextSize(11);
-
-            // y축 은 표시 안함
-            YAxis rightYAxis = barChart.getAxisRight();
-            rightYAxis.setEnabled(false);
-            YAxis leftYAxis = barChart.getAxisLeft();
-            leftYAxis.setEnabled(false);
-            XAxis xAxis = barChart.getXAxis();
-            xAxis.setTextSize(14);
-        }
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-        as.setText("AVG (total) : " + avg_total);
-        bs.setText("AVG (this week): " + avg_week);
-        cs.setText("AVG (this month): " + avg_month);
-
-        return root;
-    }
-
-    private void setSleepTimeStat(SleepDBHelper dbHelper, int date_id) {
-
-        // 총 수면시간들의 평균
-        int sleep_total = 0;
-        int sleep[] = dbHelper.getAllSleepTime();
-        for (int i : sleep) {
-            sleep_total += i;
-        }
-        avg_total = sleep_total / sleep.length;
-
-        // 이번주 수면시간 평균
-        String week = dateToWeek(date_id);
-        int sleep_total_week = 0;
-        int[] sleep_week = dbHelper.getWeekSleepTime(week);
-        for (int i : sleep_week) {
-            sleep_total_week += i;
-        }
-        avg_week = sleep_total_week / sleep_week.length;
-
-        // 이번달 수면시간 평균
-        String month = dateToMonth(date_id);
-        int sleep_total_month = 0;
-        int[] sleep_month = dbHelper.getMonthSleepTime(month);
-        for (int i : sleep_month) {
-            sleep_total_month += i;
-        }
-        avg_month = sleep_total_month / sleep_month.length;
-
-
         // 요일별 수면시간 평균
-        HashMap<String, Integer> totalSleepTimePerDay = dbHelper.getDayofWeekSleepTime();// 요일별 총 수면시간정보
-        HashMap<String, Integer> getDayofWeekCount = dbHelper.getDayofWeekCount();// 요일별 count 정보
+        try {
+            HashMap<String, Integer> totalSleepTimePerDay = dbHelper.getDayofWeekSleepTime();// 요일별 총 수면시간정보
+            HashMap<String, Integer> getDayofWeekCount = dbHelper.getDayofWeekCount();// 요일별 count 정보
 
-        for (String s : totalSleepTimePerDay.keySet()) {
-            int temp;
-            temp = totalSleepTimePerDay.get(s) / getDayofWeekCount.get(s);
-            avgSleepTimePerDay.put(s, temp);
+            for (String s : totalSleepTimePerDay.keySet()) {
+                int temp;
+                temp = totalSleepTimePerDay.get(s) / getDayofWeekCount.get(s);
+                avgSleepTimePerDay.put(s, temp);
+            }
+        } catch (Exception e) { // DB에서 읽어온 요일별 평균수면시간이 없을 때 0으로 세팅
+            String[] days = {"월", "화", "수", "목", "금", "토", "일"};
+            for (String s : days) {
+                avgSleepTimePerDay.put(s, 0);
+            }
         }
-
-
     }
 
+    // Convert Json to ArrayList
     private ArrayList<Integer> JsonToArrayList(String jsonString) {
 
         ArrayList<Integer> list = new ArrayList<Integer>();
@@ -365,21 +514,34 @@ public class GraphFragment extends Fragment {
         return list;
     }
 
-    // 몇시 몇분 변환
-    private String timeToStringHHmm(int time) {
+    // Convert m to h:m
+    private String minToHourMin(int min) {
+        if(min == 0){
+            return 0 +"분";
+        }
+        else {
+            int h = min / 60;
+            int m = min % 60;
+            String s = h + "시간 " + m + "분";
+            return s;
+        }
+    }
 
+    // 현재 날짜의 년도
+    private String dateToYear(int date) {
 
         String s;
-        long temp = (long) time;
-        temp *= (60 * 1000);
+        long temp = (long) date;
+        temp *= (24 * 60 * 60 * 1000);
 
         Date hour = new Date(temp);
 
         SimpleDateFormat format1;
-        format1 = new SimpleDateFormat("HH:mm");
+        format1 = new SimpleDateFormat("Y");
         s = format1.format(hour);
 
         return s;
+
     }
 
     // 현재 날짜의 월
@@ -416,8 +578,8 @@ public class GraphFragment extends Fragment {
 
     }
 
-    // 현재 날짜의 요일
-    private String dateToDay(int date) {
+    // 현재 날짜의 주차(월)
+    private String dateToWeekMonth(int date) {
 
         String s;
         long temp = (long) date;
@@ -426,65 +588,12 @@ public class GraphFragment extends Fragment {
         Date hour = new Date(temp);
 
         SimpleDateFormat format1;
-        format1 = new SimpleDateFormat("E");
+        format1 = new SimpleDateFormat("W");
         s = format1.format(hour);
 
         return s;
 
     }
 
-
-    public class MyYAxisValueFormatter implements YAxisValueFormatter {
-
-        @Override
-        public String getFormattedValue(float value, YAxis yAxis) {
-            // write your logic here
-            // access the YAxis object to get more information
-
-            if (value > 30f && value <= 45f) {
-                return "기상";
-            }
-            if (value > 15f && value <= 30f) {
-                return "얕은잠";
-            }
-            if (value > 0f && value <= 15f) {
-                return "깊은잠";
-            }
-            if (value == 0f) {
-                return "0";
-            }
-            return "";
-        }
-
-    }
-
-
-    public class MyCustomXAxisValueFormatter implements XAxisValueFormatter {
-
-        @Override
-        public String getXValue(String original, int index, ViewPortHandler viewPortHandler) {
-
-            String s = original;
-
-            String[] split = s.split(":");
-            String h = split[0];
-            String m = split[1];
-
-            // 정각일떄
-            if (m.equals("00")) {
-                return h;
-            }
-            // 맨 끝값일때
-            if (index == time.size() - 1) {
-                return s;
-            }
-            // 처음 값일때
-            if (index == 0) {
-                return s;
-            }
-
-            return "";
-        }
-    }
 
 }

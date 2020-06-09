@@ -9,11 +9,16 @@
 
 
 
+
     <Button
         android:id="@+id/endButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="수면종료"
+        android:gravity="center_horizontal"
+        android:text="측정종료"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:background="@drawable/border"
         />
 
 

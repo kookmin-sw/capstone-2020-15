@@ -20,34 +20,166 @@
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="6"
+            android:layout_marginBottom="5dp"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:background="@drawable/border">
+
+            <Button
+                android:id="@+id/todayStat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:background="@drawable/border"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:background="#190707" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.9"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/miniinfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:background="@drawable/border"
+                android:text="평균수면시간"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/a"
+                android:id="@+id/total"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:background="@drawable/border"
+                android:text="전체"
+                />
+
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:background="@drawable/border"
+                android:text="월"/>
+
+            <TextView
+                android:id="@+id/week"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:background="@drawable/border"
+                android:text="주"
+                />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/totalAVG"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                />
+
+
+            <TextView
+                android:id="@+id/monthAVG"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:textSize="17dp"
+                android:textStyle="bold"
                 />
 
             <TextView
-                android:id="@+id/b"
+                android:id="@+id/weekAVG"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                />
-            <TextView
-                android:id="@+id/c"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:textSize="17dp"
+                android:textStyle="bold"
                 />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:background="@drawable/border">
+
+            <TextView
+                android:id="@+id/barChartDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="13dp"
+
+                />
 
         </LinearLayout>
 
@@ -55,11 +187,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/barChart"
-            android:layout_weight="3"/>
+            android:layout_weight="5"
+            />
 
 
     </LinearLayout>
-
-
-
 </LinearLayout>
