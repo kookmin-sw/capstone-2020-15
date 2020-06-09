@@ -56,7 +56,7 @@ Email: sckim7@kookmin.ac.kr
 
 ~~~
 Email: sungpyo9053@kookmin.ac.kr
-role: 스마트알람기능
+role: 스마트알람 기능 구현
 ~~~
 
 #### - 고민욱 
