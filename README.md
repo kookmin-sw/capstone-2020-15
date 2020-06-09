@@ -56,7 +56,7 @@ Email: sckim7@kookmin.ac.kr
 
 ~~~
 Email: sungpyo9053@kookmin.ac.kr
-role: AI
+role: 스마트알람기능
 ~~~
 
 #### - 고민욱 
@@ -65,7 +65,7 @@ role: AI
 
 ~~~
 Email: praction0305@gmail.com
-role: 데이터베이스, AI
+role: 데이터베이스 
 ~~~
 #### - 박대영 
 
