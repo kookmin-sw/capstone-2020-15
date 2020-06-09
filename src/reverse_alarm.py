@@ -9,15 +9,6 @@ MAX_CYCLES = 8 # maximum number of sleep cycles
 TIME_TO_BED = 15 # hours between bedtime and asleep, minute
 
 
-
-def calculateBedtimes(hour, min):
-    waketime = hour * 60 + min
-    times = list()
-    for sleep_cycle_num in range(MIN_CYCLES, MAX_CYCLES):
-        sleeptime = CYCLE_DURATION * sleep_cycle_num * 60
-        times.append(prettifyTime(waketime - sleeptime ,1 if (waketime - sleeptime) >= 0 else 2))
-    return times
-
 def calculateWaketimes(hour, min):
     times = list()
     waketime = hour * 60 + min
