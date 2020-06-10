@@ -2,12 +2,8 @@ from flask import Flask, render_template, request, jsonify
 import map_api, extractor, reverse_alarm
 app = Flask(__name__)
 
-@app.route('/in', methods=['POST'])
-def test():
-    return jsonify({'msg' : '0'})
-
-@app.route('/test', methods=['POST', 'GET'])
-def reverse_alarm():
+@app.route('/reverse', methods=['POST'])
+def reverse():
     #str = request.form['id']
     obj = request.get_json()
     print(obj)
@@ -16,31 +12,34 @@ def reverse_alarm():
     #_min = arr[1]
     #print(_h)
     #print(_min)
+    #ex) pm 9:30 -> string으로 넘겨주자
     #tmp_json = reverse_alarm.calculateWaketimes(_h, _min)
     return jsonify({'msg' : '0'})
 
-@app.route('/req', methods = ['POST'])
+@app.route('/', methods = ['POST'])
 def in_test():
     obj = request.get_json()
     print(obj)
-    #string _origin, string _destination, string _move_sec, string _preparations, string _wake_up_time
     #출발지
-    _origin = obj["origin"]
-    _destination = obj["destination"]
-    _ready = obj["ready"]
+    #_origin = request.form["origin"]
+    _lat = request.form["lat"]
+    _lng = request.form["lng"]
+    _destination = request.form["destination"]
+    #_start = request.form["strat"]
+    #_ready = request.form["ready"]
+    print("위도 : ", _lat)
+    print("경도 : ", _lng)
+    print("도착지 : ", _destination)
 
-    # _preparations = request.form['_preparations']
-    # _wake_up_time = request.form['_wake_up_time']
-
-    #tmp_json = map_api.call_map(_origin, _destination, _mode)
-    #extra = extractor.extra_time(tmp_json, _move_sec, _preparations, _wake_up_time)
+    #tmp_json = map_api.call_map(_origin, _destination)
+    #extra = extractor.extra_time(tmp_json, _start, _ready)
     extra = 0
     if extra == 0:
         return jsonify({'msg' : '0'})
     else:
         return jsonify({'msg' : '1'})
 
-    return jsonify({'msg' : '2'}) 
+    return jsonify({'msg' : '2'})
 
 
 if __name__ == '__main__':

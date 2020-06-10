@@ -11,7 +11,7 @@ def call_map(_origin, _destination, _ready):
         client = json.load(clientJson)
 
     #출발지 일단은 고정
-    origin          = "37.5728359,126.9746922"
+    origin          = "37.611965,126.997702"
     #도착지
     destination     = "37.5129907,127.1005382"
     #모드 => driving, walking, bicycling, transit
@@ -34,6 +34,6 @@ def call_map(_origin, _destination, _ready):
     response        = urllib.request.urlopen(request, context=context)
     responseText    = response.read().decode('utf-8')
     responseJson    = json.loads(responseText)
-    
+
     #구글맵 api 결과 json return
     return responseJson
