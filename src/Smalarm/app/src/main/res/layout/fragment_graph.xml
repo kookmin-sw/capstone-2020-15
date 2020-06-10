@@ -15,6 +15,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+        <Button
+            android:id="@+id/todayStat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/font"
+            android:background="@drawable/sleepbutton"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,36 +66,39 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_margin="3dp"
                     android:gravity="center"
                     android:fontFamily="@font/font"
                     android:textStyle="bold"
                     android:textSize="13dp"
-
-                    android:text="수면시작"
-                    />
-
-                <Button
-                    android:id="@+id/todayStat"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="15dp"
-                    android:fontFamily="@font/font"
                     android:background="@drawable/border"
+                    android:text="시작"
                     />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_margin="3dp"
                     android:gravity="center"
                     android:fontFamily="@font/font"
                     android:textStyle="bold"
                     android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:text="수면시간"
+                    />
 
-                    android:text="수면종료"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/font"
+                    android:textStyle="bold"
+                    android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:text="종료"
                     />
 
             </LinearLayout>
@@ -159,7 +174,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.9"
-            android:layout_margin="5dp"
             android:orientation="horizontal"
             >
 
@@ -167,7 +181,6 @@
                 android:id="@+id/miniinfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="3dp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="15dp"
@@ -191,7 +204,7 @@
                 android:layout_weight="1"
                 android:layout_margin="3dp"
                 android:gravity="center"
-                android:textSize="14dp"
+                android:textSize="13dp"
                 android:textStyle="bold"
                 android:background="@drawable/border"
                 android:fontFamily="@font/font"
@@ -206,7 +219,7 @@
                 android:layout_weight="1"
                 android:layout_margin="3dp"
                 android:gravity="center"
-                android:textSize="14dp"
+                android:textSize="13dp"
                 android:textStyle="bold"
                 android:background="@drawable/border"
                 android:fontFamily="@font/font"
@@ -219,7 +232,7 @@
                 android:layout_weight="1"
                 android:layout_margin="3dp"
                 android:gravity="center"
-                android:textSize="14dp"
+                android:textSize="13dp"
                 android:textStyle="bold"
                 android:background="@drawable/border"
                 android:fontFamily="@font/font"
@@ -301,7 +314,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/barChart"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:fontFamily="@font/font"
             />
 
