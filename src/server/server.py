@@ -16,21 +16,22 @@ def reverse():
     #tmp_json = reverse_alarm.calculateWaketimes(_h, _min)
     return jsonify({'msg' : '0'})
 
-@app.route('/', methods = ['POST'])
+@app.route('/req', methods = ['POST'])
 def in_test():
     obj = request.get_json()
     print(obj)
     #출발지
-    _clat = string(request.form["clat"])
-    _clng = string(request.form["clng"])
+    _clat = request.form["clat"]
+    _clng = request.form["clng"]
     _origin = _clat + ',' + _clng
 
     #도착지
-    _dlat = string(request.form["dlat"])
-    _dlng = string(request.form["dlng"])
+    _dlat = request.form["dlat"]
+    _dlng = request.form["dlng"]
     _destination = _dlat + ',' + _dlng
 
-    #_start = request.form["strat"]
+    #일정 시작 시간
+    _start = request.form["start"]
     print("clat : ", _clat)
     print("clng : ", _clng)
     print("출발지 : ", _origin)
@@ -41,17 +42,17 @@ def in_test():
     print("도착지 : ", _destination)
     print()
 
-    #print("일정 시작시간 : ", _start)
+    print("일정 시작시간 : ", _start)
 
-    #tmp_json = map_api.call_map(_origin, _destination)
-    #extra = extractor.extra_time(tmp_json, _start, _ready)
+    tmp_json = map_api.call_map(_origin, _destination)
+    extra = extractor.extra_time(tmp_json, _start)
     extra = 0
     if extra == 0:
         return jsonify({'msg' : '0'})
     else:
         return jsonify({'msg' : '1'})
 
-    return jsonify({'msg' : '2'})
+    return jsonify({'msg' : '0'})
 
 
 if __name__ == '__main__':
