@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,34 +14,139 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/info">
-
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="6"
-            android:layout_marginBottom="5dp"
-            />
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:background="@drawable/border">
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:id="@+id/graph">
 
-            <Button
-                android:id="@+id/todayStat"
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/font"
+
+            />
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+
+            >
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:background="@drawable/border"
-                />
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/font"
+                    android:textStyle="bold"
+                    android:textSize="13dp"
+
+                    android:text="수면시작"
+                    />
+
+                <Button
+                    android:id="@+id/todayStat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/font"
+                    android:background="@drawable/border"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/font"
+                    android:textStyle="bold"
+                    android:textSize="13dp"
+
+                    android:text="수면종료"
+                    />
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/starttime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/font"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    />
+                <TextView
+                    android:id="@+id/sleeptime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/font"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    />
+                <TextView
+                    android:id="@+id/endtime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/font"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    />
+
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -62,10 +168,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:background="@drawable/border"
+                android:fontFamily="@font/font"
                 android:text="평균수면시간"
                 />
 
@@ -87,6 +194,7 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:background="@drawable/border"
+                android:fontFamily="@font/font"
                 android:text="전체"
                 />
 
@@ -101,6 +209,7 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:background="@drawable/border"
+                android:fontFamily="@font/font"
                 android:text="월"/>
 
             <TextView
@@ -113,6 +222,7 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:background="@drawable/border"
+                android:fontFamily="@font/font"
                 android:text="주"
                 />
 
@@ -135,6 +245,7 @@
                 android:gravity="center"
                 android:textSize="17dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/font"
                 />
 
 
@@ -147,6 +258,7 @@
                 android:gravity="center"
                 android:textSize="17dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/font"
                 />
 
             <TextView
@@ -158,6 +270,7 @@
                 android:gravity="center"
                 android:textSize="17dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/font"
                 />
 
         </LinearLayout>
@@ -178,6 +291,7 @@
                 android:gravity="center_horizontal"
                 android:textStyle="bold"
                 android:textSize="13dp"
+                android:fontFamily="@font/font"
 
                 />
 
@@ -188,6 +302,7 @@
             android:layout_height="0dp"
             android:id="@+id/barChart"
             android:layout_weight="5"
+            android:fontFamily="@font/font"
             />
 
 

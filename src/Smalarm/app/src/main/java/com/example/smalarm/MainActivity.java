@@ -37,12 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AndroidThreeTen.init(this);
 
-        // 권한요청
-        if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         alarmFragment = new AlarmFragment();

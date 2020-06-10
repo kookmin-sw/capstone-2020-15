@@ -138,6 +138,10 @@ public class SleepSensingService extends Service implements SensorEventListener 
         sensorManager.registerListener(SleepSensingService.this, accelerormeterSensor,
                 SensorManager.SENSOR_DELAY_GAME);
 
+        // 시작시간 설정
+        Calendar cal = Calendar.getInstance();
+        startTime = (cal.get(Calendar.HOUR_OF_DAY) * 60) + cal.get(Calendar.MINUTE);
+
     }
 
     @Override
@@ -161,14 +165,9 @@ public class SleepSensingService extends Service implements SensorEventListener 
         }
 
 
-        // 시작, 종료시각 설정
+        // 종료시각 설정
         Calendar cal = Calendar.getInstance();
-        startTime = time.get(0);
         endTime = (cal.get(Calendar.HOUR_OF_DAY) * 60) + cal.get(Calendar.MINUTE);
-
-        System.out.println(startTime);
-        System.out.println(endTime);
-
 
         int date_id = (int) (cal.getTimeInMillis() / (24 * 60 * 60 * 1000)); // 일
         int sleepTime;
@@ -176,52 +175,50 @@ public class SleepSensingService extends Service implements SensorEventListener 
         String timeJSON = new Gson().toJson(time);
         String motionJSON = new Gson().toJson(motionCounter);
 
-        //if ((endTime - startTime) > 120) {
-            // json 파일 쓰기
-            // 파일 생성
-            File saveFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/sl"); // 저장 경로
-            // 폴더 생성
-            if (!saveFile.exists()) { // 폴더 없을 경우
-                saveFile.mkdir(); // 폴더 생성
-            }
-            try {
-                long now = System.currentTimeMillis(); // 현재시간 받아오기
-                Date date = new Date(now); // Date 객체 생성
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowTime = sdf.format(date);
+        sleepTime = endTime - startTime;
 
-                BufferedWriter buf = new BufferedWriter(new FileWriter(saveFile + "/" + nowTime + "time.txt", true));
-                buf.append(timeJSON); // 파일 쓰기
-                buf.newLine(); // 개행
-                buf.close();
-
-                BufferedWriter buf1 = new BufferedWriter(new FileWriter(saveFile + "/" + nowTime + "motion.txt", true));
-                buf1.append(motionJSON); // 파일 쓰기
-                buf1.newLine(); // 개행
-                buf1.close();
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        //}
-
-
+        System.out.println(startTime);
+        System.out.println(endTime);
 
         try {
             // 측정된 값이 특정조건에 맞을때 ( 2시간 이상 )
-            if ((endTime - startTime) > 120) {
-
-                sleepTime = endTime - startTime;
-
-                //insert data ( sleeptime, time, motioncounter )
-                dbHelper.insert(date_id, sleepTime, timeJSON, motionJSON);
+            if(sleepTime > 120) {
+                dbHelper.insert(date_id, sleepTime, startTime, endTime, timeJSON, motionJSON);
             }
         }
         catch (Exception e){
             e.printStackTrace();
         }
+
+
+//            // json 파일 쓰기
+//            // 파일 생성
+//            File saveFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/sl"); // 저장 경로
+//            // 폴더 생성
+//            if (!saveFile.exists()) { // 폴더 없을 경우
+//                saveFile.mkdir(); // 폴더 생성
+//            }
+//            try {
+//                long now = System.currentTimeMillis(); // 현재시간 받아오기
+//                Date date = new Date(now); // Date 객체 생성
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                String nowTime = sdf.format(date);
+//
+//                BufferedWriter buf = new BufferedWriter(new FileWriter(saveFile + "/" + nowTime + "time.txt", true));
+//                buf.append(timeJSON); // 파일 쓰기
+//                buf.newLine(); // 개행
+//                buf.close();
+//
+//                BufferedWriter buf1 = new BufferedWriter(new FileWriter(saveFile + "/" + nowTime + "motion.txt", true));
+//                buf1.append(motionJSON); // 파일 쓰기
+//                buf1.newLine(); // 개행
+//                buf1.close();
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
         super.onDestroy();
     }

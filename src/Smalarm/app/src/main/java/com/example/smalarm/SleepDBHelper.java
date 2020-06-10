@@ -21,10 +21,10 @@ public class SleepDBHelper extends SQLiteOpenHelper {
     // DB를 새로 생성할 때 호출되는 함수
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // 새로운 테이블 생성
-        /* 이름은 MOTION이고, _id(날짜) 정수형 기본키 컬럼과
-        sleeptime(int), time(string(JSON)) , motioncounter(string(JSON)) 구성된 테이블을 생성. */
-        db.execSQL("CREATE TABLE MOTION (date_id INTEGER PRIMARY KEY, sleeptime INT, time TEXT , motioncounter TEXT);");
+
+        // sleeptime(int), starttime(int), endtime(int) ,time(string(JSON)) , motioncounter(string(JSON))
+
+        db.execSQL("CREATE TABLE MOTION (date_id INTEGER PRIMARY KEY, sleeptime INT, startTime INT, endTime INT, time TEXT , motioncounter TEXT);");
     }
 
     // DB 업그레이드를 위해 버전이 변경될 때 호출되는 함수
@@ -33,15 +33,27 @@ public class SleepDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insert(int date_id, int sleeptime, String time, String motioncounter ) {
+    public void insert(int date_id, int sleeptime, int starttime, int endtime, String time, String motioncounter ) {
 
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
 
 
         // DB에 입력한 값으로 행 추가
-        db.execSQL("INSERT INTO MOTION VALUES(" + date_id + "," + sleeptime + ", '" + time + "', '" + motioncounter + "');");
+        db.execSQL("INSERT INTO MOTION VALUES(" + date_id + "," + sleeptime + "," + starttime + " ," + endtime + ", '" + time + "', '" + motioncounter + "');");
         db.close();
+    }
+
+    public int[] getStartEndTime(int date_id){
+        SQLiteDatabase db = getReadableDatabase();
+        int result[] = new int[2];
+        Cursor cursor = db.rawQuery("SELECT * FROM MOTION WHERE date_id = " +date_id+ "; ", null);
+
+        while (cursor.moveToNext()) {
+            result[0] = cursor.getInt(2);
+            result[1] = cursor.getInt(3);
+        }
+        return result;
     }
 
     public int[] getAllSleepTime() {
@@ -224,7 +236,7 @@ public class SleepDBHelper extends SQLiteOpenHelper {
         // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
         Cursor cursor = db.rawQuery("SELECT * FROM MOTION WHERE date_id = "+ date_id +";", null);
         while (cursor.moveToNext()) {
-            result = cursor.getString(2);
+            result = cursor.getString(4);
         }
         return result;
     }
@@ -237,7 +249,7 @@ public class SleepDBHelper extends SQLiteOpenHelper {
         // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
         Cursor cursor = db.rawQuery("SELECT * FROM MOTION WHERE date_id = "+ date_id +";", null);
         while (cursor.moveToNext()) {
-            result = cursor.getString(3);
+            result = cursor.getString(5);
         }
         return result;
     }

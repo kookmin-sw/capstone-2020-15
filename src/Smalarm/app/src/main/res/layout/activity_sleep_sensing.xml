@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-
+    android:background="@drawable/bg_sensing"
+    tools:context=".ui.alarm.sleep.SleepSensingActivity">
 
 
     <Button
         android:id="@+id/endButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="측정종료"
         android:textStyle="bold"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:background="@drawable/border"
+        android:fontFamily="@font/font"
         />
 
 

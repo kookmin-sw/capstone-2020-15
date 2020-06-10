@@ -13,10 +13,12 @@ import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +71,10 @@ public class GraphFragment extends Fragment {
     private BarChart barChart;
 
     // TextView
+    private TextView starttime;
+    private TextView sleeptime;
+    private TextView endtime;
+
     private TextView total;
     private TextView week;
     private TextView month;
@@ -83,6 +89,8 @@ public class GraphFragment extends Fragment {
     private ArrayList<Integer> motionCounter = new ArrayList<>();
 
     // 수면시간 데이터
+    private String start_time;
+    private String end_time;
     private String today_sleeptime;
     private int avg_total;
     private int avg_week;
@@ -96,10 +104,8 @@ public class GraphFragment extends Fragment {
     Calendar cal = Calendar.getInstance();
     private int date_id = (int) (cal.getTimeInMillis() / (24 * 60 * 60 * 1000));
 
-
     // 데이트픽커 콜백메소드
     private DatePickerDialog.OnDateSetListener callbackMethod;
-
 
     public static GraphFragment newInstance() {
         return new GraphFragment();
@@ -114,9 +120,14 @@ public class GraphFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_graph, container, false);
 
         // Values
+        starttime = root.findViewById(R.id.starttime);
+        sleeptime = root.findViewById(R.id.sleeptime);
+        endtime = root.findViewById(R.id.endtime);
+
         total = root.findViewById(R.id.total);
         week = root.findViewById(R.id.week);
         month = root.findViewById(R.id.month);
+
         totalAVG = root.findViewById(R.id.totalAVG);
         weekAVG = root.findViewById(R.id.weekAVG);
         monthAVG = root.findViewById(R.id.monthAVG);
@@ -130,31 +141,15 @@ public class GraphFragment extends Fragment {
         // Connect DB
         final SleepDBHelper dbHelper = new SleepDBHelper(getContext(), "SleepTime.db", null, 1);
 
-//
-//        try {
-//
-//            // 5월 25일 ~ 6월 9일
-//            dbHelper.insert(18406, 592, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
-//            dbHelper.insert(18407, 450, "토", "b");
-//            dbHelper.insert(18408, 572, "일", "b");
-//            dbHelper.insert(18409, 450, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
-//            dbHelper.insert(18410, 350, "화", "b");
-//            dbHelper.insert(18411, 450, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
-//            dbHelper.insert(18412, 582, "토", "b");
-//            dbHelper.insert(18413, 450, "일", "b");
-//            dbHelper.insert(18414, 481, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
-//            dbHelper.insert(18415, 350, "화", "b");
-//            dbHelper.insert(18416, 470, "수", "b");
-//            dbHelper.insert(18417, 420, "목", "b");
-//            dbHelper.insert(18418, 410, "[1005, 1020, 1035, 1050, 1065, 1080]", "[20, 24, 1, 15, 2, 7]");
-//            dbHelper.insert(18419, 410, "토", "b");
-//            dbHelper.insert(18421, 410, "[450,465,480,495,510,525,540,555,570]",
-//                    "[37,0,3,0,0,0,6,0,40]");
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        // 6월 10일 기록 insert
+        try {
+            dbHelper.insert(18423,435-165, 165, 435,
+                    "[165,180,195,210,225,240,255,270,285,300,315,330,345,360,375,390,405,420,435]",
+             "[40,0,22,38,9,0,0,0,5,0,2,31,4,0,10,0,12,7,22]");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         // Draw linechart (today)
         drawLineChart(dbHelper, date_id);
@@ -164,11 +159,11 @@ public class GraphFragment extends Fragment {
         drawBarChart();
 
 
+        // Date (date_id) picker event
         todayStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // Date (date_id) picker event
                 callbackMethod = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -189,7 +184,14 @@ public class GraphFragment extends Fragment {
 
                     }
                 };
-                DatePickerDialog dialog = new DatePickerDialog(getContext(), callbackMethod, 2020, 5, 9);
+
+                Calendar cal = Calendar.getInstance();
+
+                int year = cal.get ( cal.YEAR );
+                int month = cal.get ( cal.MONTH );
+                int date = cal.get ( cal.DATE ) ;
+
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), callbackMethod, year, month, date);
                 dialog.show();
             }
         });
@@ -395,24 +397,20 @@ public class GraphFragment extends Fragment {
     // Show Stat values
     private void showStatValues(SleepDBHelper dbHelper, int date_id, int year, int monthOfYear, int dayOfMonth) {
 
-
         // Set stat values
         setSleepTimeStat(dbHelper, date_id);
 
         // Show stat values
+        starttime.setText(start_time);
+        sleeptime.setText(today_sleeptime);
+        endtime.setText(end_time);
         total.setText("총");
         week.setText(dateToMonth(date_id) + "월 " + dateToWeekMonth(date_id) + "주차");
         month.setText(dateToMonth(date_id) + "월");
-
         totalAVG.setText(minToHourMin(avg_total));
         weekAVG.setText(minToHourMin(avg_week));
         monthAVG.setText(minToHourMin(avg_month));
-        todayStat.setText(today_sleeptime);
-
-        String h = String.valueOf(dbHelper.getSleepTime(date_id) / 60);
-        String m = String.valueOf(dbHelper.getSleepTime(date_id) % 60);
-        todayStat.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일 수면시간 : " + h + "시간 " + m + "분");
-
+        todayStat.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
         barChartDescription.setText("요일별 (분)");
     }
 
@@ -420,12 +418,16 @@ public class GraphFragment extends Fragment {
     // Set avg values (day, week, month, dayofweek)
     private void setSleepTimeStat(SleepDBHelper dbHelper, int date_id) {
 
-        // 오늘 수면시간
+        // 오늘 수면시간, 시작시간, 종료시간
         try {
+            start_time = (dbHelper.getStartEndTime(date_id)[0] / 60) + "시 " + (dbHelper.getStartEndTime(date_id)[0] % 60) + "분";
+            end_time = (dbHelper.getStartEndTime(date_id)[1] / 60) + "시 " + (dbHelper.getStartEndTime(date_id)[1] % 60) + "분";
             today_sleeptime = String.valueOf(dbHelper.getSleepTime(date_id) / 60) + "시간 "
                     + String.valueOf(dbHelper.getSleepTime(date_id) % 60) + "분";
         }
         catch (Exception e){ // DB에서 읽어온 오늘 수면시간이 없을 때
+            start_time = "0분";
+            end_time = "0분";
             today_sleeptime = "0분";
             e.printStackTrace();
         }
