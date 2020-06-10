@@ -21,15 +21,27 @@ def in_test():
     obj = request.get_json()
     print(obj)
     #출발지
-    #_origin = request.form["origin"]
-    _lat = request.form["lat"]
-    _lng = request.form["lng"]
-    _destination = request.form["destination"]
+    _clat = string(request.form["clat"])
+    _clng = string(request.form["clng"])
+    _origin = _clat + ',' + _clng
+
+    #도착지
+    _dlat = string(request.form["dlat"])
+    _dlng = string(request.form["dlng"])
+    _destination = _dlat + ',' + _dlng
+
     #_start = request.form["strat"]
-    #_ready = request.form["ready"]
-    print("위도 : ", _lat)
-    print("경도 : ", _lng)
+    print("clat : ", _clat)
+    print("clng : ", _clng)
+    print("출발지 : ", _origin)
+    print()
+
+    print("dlat : ", _dlat)
+    print("dlng : ", _dlng)
     print("도착지 : ", _destination)
+    print()
+
+    #print("일정 시작시간 : ", _start)
 
     #tmp_json = map_api.call_map(_origin, _destination)
     #extra = extractor.extra_time(tmp_json, _start, _ready)
