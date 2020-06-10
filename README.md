@@ -120,11 +120,16 @@ role: 어플리케이션 UI, 로고제작
  Information is a function that collects and displays past sleep pattern graphs on a monthly or weekly basis. These features allow you to know what situations you sleep deeply in, or you can also check your health condition through tossing and sound. In addition, it also informs users of good songs or tips to listen to when they sleep to help them sleep soundly.
 ## 4. 사용법
 
-<p align="center">
-<img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046914-ab9cb400-a9e5-11ea-932f-41e8bfe050e8.png">
- <p align="center">
-<img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046922-accde100-a9e5-11ea-9d91-b5fa389e2f1e.png">
- <p align="center">
-<img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046941-b0616800-a9e5-11ea-87cc-0fa1f627381b.png">
- </p>
-
+<table>
+  <tr>
+    <td>
+      <img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046914-ab9cb400-a9e5-11ea-932f-41e8bfe050e8.png">
+    </td>
+    <td>
+      <img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046922-accde100-a9e5-11ea-9d91-b5fa389e2f1e.png">
+    </td>
+    <td>
+      <img width= "400" height="700" src="https://user-images.githubusercontent.com/44603374/84046941-b0616800-a9e5-11ea-87cc-0fa1f627381b.png">
+    </td> 
+   </tr>
+  </table>
