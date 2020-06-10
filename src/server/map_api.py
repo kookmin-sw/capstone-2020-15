@@ -5,15 +5,15 @@ import os
 import ssl
 import urllib.request
 #def call_map():
-def call_map(_origin, _destination, _ready):
+def call_map(_origin, _destination):
     client = None
     with open("./key.json","r") as clientJson :
         client = json.load(clientJson)
 
     #출발지 일단은 고정
-    origin          = "37.611965,126.997702"
+    origin          = _origin
     #도착지
-    destination     = "37.5129907,127.1005382"
+    destination     = _destination
     #모드 => driving, walking, bicycling, transit
     #모드 => 드라이빙, 도보, 자전거, 대중교통
     mode            = "transit"
@@ -34,6 +34,10 @@ def call_map(_origin, _destination, _ready):
     response        = urllib.request.urlopen(request, context=context)
     responseText    = response.read().decode('utf-8')
     responseJson    = json.loads(responseText)
+
+    print("JSON객체")
+    print(responseJson)
+    print("============")
 
     #구글맵 api 결과 json return
     return responseJson

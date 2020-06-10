@@ -21,6 +21,11 @@ def extra_time(json_obj, _start):
     #걸리는 시간
     duration_sec    = path["duration"]["value"]
 
+    time_format = '%Y-%m-%dT%H:%M'
+    now = datetime.strptime(_start, time_format)
+    time_tuple = now.timetuple()
+    utc_now = time.mktime(time_tuple)
+    print(utc_now)
 
     now = time.time()
     #출발시간
@@ -42,13 +47,3 @@ def extra_time(json_obj, _start):
             return 0
 
     return 0
-
-
-
-time_format = '%Y-%m-%dT%H:%M'
-time_str = '2020-06-11T22:00'
-now = datetime.strptime(time_str, time_format)
-time_tuple = now.timetuple()
-utc_now = time.mktime(time_tuple)
-print(utc_now)
-
