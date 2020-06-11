@@ -30,14 +30,20 @@ def extra_time(json_obj, _start):
 
     now = time.time()
     print(utc_now-now-3600*9)
+    print(type(now))
+    print(type(duration_sec))
 
     #출발시간
     departure_time = path["departure_time"]["value"]
+    print(type(departure_time))
     print("현재시간(UTC) : ", now)
     print("출발시간(UTC) : ", departure_time)
     print("이동하는데 걸리는 시간 : ", duration_sec)
     print("준비시간 : ", _ready)
     print("일정 시작 시간 : ", _start)
+    print(now-departure_time)
+    print(now + _ready + duration_sec)
+    print(utc_now)
     #case 1
     #if now - departure_time > 600:
     #    return 0
