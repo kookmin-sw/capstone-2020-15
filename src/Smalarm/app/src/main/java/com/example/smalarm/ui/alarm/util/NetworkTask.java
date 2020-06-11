@@ -59,8 +59,8 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
                 System.out.println(result);
                 JsonObject jsonObjectAlt = JsonParser.parseString(result).getAsJsonObject();
                 int msg = jsonObjectAlt.get("msg").getAsInt();
-                System.out.println(msg);
-//                if(result == 1) {
+
+                if(msg == 1) {
                     Intent alarmService = new Intent(context, AlarmService.class);
                     alarmService.putExtra("command", "alarm on");
                     alarmService.putExtra("sound", "alarm.mp3");
@@ -71,9 +71,12 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
                     } else {
                         context.startService(alarmService);
                     }
-//                }
+                } else if (msg == 0) {
+
+                }
                 break;
             case 2:
+                Toast.makeText(context.getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
                 break;
         }
