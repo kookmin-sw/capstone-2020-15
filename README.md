@@ -136,4 +136,5 @@ role: 어플리케이션 UI, 로고제작
   </table>
   
   ## 5. 결과영상
-[![Video Label](http://img.youtube.com/vi/uLR1RNqJ1Mw/0.jpg)](https://www.youtube.com/watch?v=J61xnR4vN64)
+
+https://www.youtube.com/watch?v=J61xnR4vN64
