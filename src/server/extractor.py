@@ -24,10 +24,13 @@ def extra_time(json_obj, _start):
     time_format = '%Y-%m-%dT%H:%M'
     now = datetime.strptime(_start, time_format)
     time_tuple = now.timetuple()
+    print(time_tuple)
     utc_now = time.mktime(time_tuple)
     print(utc_now)
 
     now = time.time()
+    print(utc_now-now-3600*9)
+
     #출발시간
     departure_time = path["departure_time"]["value"]
     print("현재시간(UTC) : ", now)
@@ -36,14 +39,14 @@ def extra_time(json_obj, _start):
     print("준비시간 : ", _ready)
     print("일정 시작 시간 : ", _start)
     #case 1
-    if now - departure_time > 600:
-        return 0
+    #if now - departure_time > 600:
+    #    return 0
     #case2
-    else:
+    #else:
         #case3
-        if now + _ready + duration_sec >= _start:
-            return 1
-        else:
-            return 0
+    #    if now + _ready + duration_sec >= _start:
+    #        return 1
+    #    else:
+    #        return 0
 
     return 0
