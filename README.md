@@ -136,4 +136,6 @@ role: 어플리케이션 UI, 로고제작
   </table>
   
   ## 5. 결과영상
+  ...
   <iframe width="560" height="315" src="https://www.youtube.com/embed/J61xnR4vN64" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  ...
