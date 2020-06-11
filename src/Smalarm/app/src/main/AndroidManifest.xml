@@ -26,13 +26,13 @@
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.alarm.AlarmAddActivity" />
         <activity
             android:name=".ui.alarm.AlarmOffActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.alarm.calendar.CalendarStart" />
         <activity android:name=".ui.alarm.calendar.CalendarActivity" />
         <activity
             android:name=".ui.alarm.sleep.SleepSensingActivity"
@@ -51,13 +51,13 @@
             android:name=".ui.alarm.util.AlarmService"
             android:enabled="true"
             android:exported="true" />
-        <!-- <service -->
-        <!-- android:name=".ui.alarm.util.FirebaseAlarmService" -->
-        <!-- android:exported="false"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </service> -->
+        <service
+            android:name=".ui.alarm.util.FirebaseAlarmService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <service
             android:name=".ui.alarm.sleep.SleepSensingService"
             android:enabled="true"
@@ -76,6 +76,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>

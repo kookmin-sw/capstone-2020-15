@@ -99,27 +99,6 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         // attaching the touch helper to recycler view
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
-        // TODO: DB에서 데이터 가져오도록
-
-
-//        AlarmData item1 = new AlarmData("기상", "8:30", "AM",new int[]{1, 2, 3, 4, 5});
-//        items.add(item1);
-
-//        Intent intent = new Intent(this, AlarmReceiver.class);
-//        PendingIntent sender = PendingIntent.getBroadcast(this, alarm.id, intent, PendingIntent.FLAG_NO_CREATE);
-//        if (sender == null) {
-//            // TODO: 이미 설정된 알람이 없는 경우
-//        } else {
-//            // TODO: 이미 설정된 알람이 있는 경우
-//        }
-
-//          final TextView textView = root.findViewById(R.id.text_alarm);
-//        alarmViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         return root;
     }
@@ -195,5 +174,6 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         mAdapter = new AlarmItemAdapter(getActivity(), items);
         recyclerView.setAdapter(mAdapter);
 //        mAdapter.notifyDataSetChanged();
+
     }
 }

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +42,7 @@ import com.example.smalarm.ui.alarm.calendar.GpsTracker;
 import com.example.smalarm.ui.alarm.util.AlarmData;
 import com.example.smalarm.ui.alarm.util.AlarmReceiver;
 import com.example.smalarm.ui.alarm.util.DeviceBootReceiver;
+import com.example.smalarm.ui.alarm.util.NetworkTask;
 import com.google.api.client.util.DateTime;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -210,32 +212,31 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
 
         String location = getIntent().getStringExtra("location");
 
-        if (smart && location != null) {
-            alarmIntent.putExtra("smart", smart);
-            alarmIntent.putExtra("location", location);
+        if (smart) {
+            if (location != null) {
+                alarmIntent.putExtra("smart", smart);
+                alarmIntent.putExtra("location", location);
 
-            GpsTracker gpsTracker = new GpsTracker(this);
-            double latitude = gpsTracker.getLatitude();
-            double longitude = gpsTracker.getLongitude();
+                GpsTracker gpsTracker = new GpsTracker(this);
+                double latitude = gpsTracker.getLatitude();
+                double longitude = gpsTracker.getLongitude();
 
-            alarmIntent.putExtra("clat", latitude);
-            alarmIntent.putExtra("clng", longitude);
+                alarmIntent.putExtra("clat", latitude);
+                alarmIntent.putExtra("clng", longitude);
 
-        } else {
-            Toast.makeText(getApplicationContext(), "위치정보가 없어 스마트 알람을 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
-            smart = false;
+            } else {
+                Toast.makeText(getApplicationContext(), "위치정보가 없어 스마트 알람을 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                smart = false;
+            }
         }
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        String startTime = getIntent().getStringExtra("startTime");
         DateTime now = new DateTime(calendar.getTimeInMillis());
 //        String setTime = LocalDateTime.parse(calendar.toString(), format).toString();
         String setTime = now.toString();
+        sendRequest(setTime);
 
-        if (startTime != null && startTime == setTime)
-            alarmIntent.putExtra("startTime", startTime);
-        else
-            alarmIntent.putExtra("startTime", setTime);
+        alarmIntent.putExtra("startTime", setTime);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmIdx, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
@@ -277,8 +278,21 @@ public class AlarmAddActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public void sendRequest(String time) {
+        ContentValues values = new ContentValues();
+        String url = "http://13.125.23.94:5000/reverse";
+        values.put("time", time);
+
+        Log.i("values", String.valueOf(values));
+        Log.i("url : ", url);
+        NetworkTask networkTask = new NetworkTask(url, values, this, 2);
+        networkTask.execute();
+    }
+
     private void cancelAlarm(int idx) {
 
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(String.valueOf(idx));
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, idx, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
