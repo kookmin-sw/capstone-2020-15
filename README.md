@@ -34,6 +34,7 @@
 
 #### 계발계획서발표 영상 링크 : https://www.youtube.com/watch?v=xg2YDfLsZj4&feature=youtu.be
 #### 중간평가 발표영상 링크 :  https://www.youtube.com/watch?v=41qOViOwz2k
+#### 최종평가 발표영상 링크 :  https://www.youtube.com/watch?v=OZCKQDJSKso
 
 
 
