@@ -7,8 +7,8 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
@@ -29,13 +29,14 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.alarm.AlarmAddActivity" />
-        <activity android:name=".ui.alarm.AlarmOffActivity" />
-        <activity android:name=".ui.alarm.calendar.CalendarStart" />
         <activity
-            android:name=".ui.alarm.calendar.CalendarActivity"
+            android:name=".ui.alarm.AlarmOffActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.alarm.sleep.SleepSensingActivity"
-            android:launchMode="singleTask"/>
+        <activity android:name=".ui.alarm.calendar.CalendarStart" />
+        <activity android:name=".ui.alarm.calendar.CalendarActivity" />
+        <activity
+            android:name=".ui.alarm.sleep.SleepSensingActivity"
+            android:launchMode="singleTask" />
 
         <receiver android:name=".ui.alarm.util.AlarmReceiver" />
         <receiver
@@ -62,6 +63,7 @@
             android:enabled="true"
             android:exported="true" />
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -73,5 +75,7 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
 </manifest>

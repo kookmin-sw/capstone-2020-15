@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.alarm.AlarmAddFragment">
+    tools:context=".ui.alarm.AlarmAddActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -170,7 +170,7 @@
                     android:id="@+id/soundContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="무음"
+                    android:text="alarm"
                     android:textColor="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/soundArrow"
@@ -180,13 +180,13 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_snooze"
+                android:id="@+id/cl_smart"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:paddingVertical="5dp">
 
                 <ImageView
-                    android:id="@+id/snoozeArrow"
+                    android:id="@+id/smartArrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right_black"
@@ -195,10 +195,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/snoozeTitle"
+                    android:id="@+id/smartTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="다시 알림"
+                    android:text="스마트알람"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -206,13 +206,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/snoozeContent"
+                    android:id="@+id/smartContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="켜기"
+                    android:text="끄기"
                     android:textColor="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/snoozeArrow"
+                    app:layout_constraintRight_toLeftOf="@id/smartArrow"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

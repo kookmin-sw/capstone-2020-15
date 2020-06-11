@@ -108,8 +108,8 @@ public class AlarmService extends Service {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setTicker("{Time to watch some cool stuff!}")
-                .setContentTitle("상태바 드래그시 보이는 타이틀")
-                .setContentText("상태바 드래그시 보이는 서브타이틀")
+                .setContentTitle("알람 시작")
+                .setContentText("알람음 재생중...")
                 .setContentInfo("INFO")
                 .setContentIntent(pendingIntent);
 

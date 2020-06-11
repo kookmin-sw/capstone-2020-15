@@ -15,8 +15,8 @@ public class AlarmData implements Serializable {
     public List<Integer> repeat; // {0:일, 1:월, 2:화, 3:수, 4:목, 5:금, 6:토}
     public boolean state = true; // true:on, false:off
 
-    public AlarmData(String title, String timeDigit, String timeUnit, List<Integer> repeat) {
-        ID = count.incrementAndGet();
+    public AlarmData(int id, String title, String timeDigit, String timeUnit, List<Integer> repeat) {
+        this.ID =  id; // count.incrementAndGet();
         this.title = title;
         this.timeDigit = timeDigit;
         this.timeUnit = timeUnit;
