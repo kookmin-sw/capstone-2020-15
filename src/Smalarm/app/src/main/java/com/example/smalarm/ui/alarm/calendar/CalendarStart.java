@@ -85,7 +85,7 @@ public class CalendarStart {
         if (!isGooglePlayServicesAvailable()) { // Google Play Services를 사용할 수 없는 경우
 
             acquireGooglePlayServices();
-        }else if (mCredential.getSelectedAccountName() == null) { // 유효한 Google 계정이 선택되어 있지 않은 경우
+        } else if (mCredential.getSelectedAccountName() == null) { // 유효한 Google 계정이 선택되어 있지 않은 경우
 
             chooseAccount();
         } else if (!isDeviceOnline()) {    // 인터넷을 사용할 수 없는 경우
@@ -227,8 +227,6 @@ public class CalendarStart {
     }
 
 
-
-
     /*
      * 비동기적으로 Google Calendar API 호출
      */
@@ -257,9 +255,12 @@ public class CalendarStart {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                if (mID == 0) {
-                    return createCalendar();
-                } else if (mID == 1) {
+//                if (mID == 0) {
+//                    return createCalendar();
+//                } else
+                if (mID == 1) {
+                    String calendarID = getCalendarID(mContext.getString(R.string.calendar_title));
+                    if (calendarID == null) createCalendar();
                     return getEvents();
                 } else if (mID == 2) {
                     return getEvent(eventId);
@@ -282,7 +283,7 @@ public class CalendarStart {
             String calendarID = getCalendarID(mContext.getString(R.string.calendar_title));
 
             e = mService.events().get(calendarID, eventId).execute();
-            return e.getSummary() +" 데이터를 가져왔습니다.";
+            return e.getSummary() + " 데이터를 가져왔습니다.";
         }
 
         public String getEvents() throws IOException {
@@ -314,7 +315,7 @@ public class CalendarStart {
                     // 모든 이벤트가 시작 시간을 갖고 있지는 않다. 그런 경우 시작 날짜만 사용
                     start = event.getStart().getDate();
                     map.put(LocalDate.parse(start.toString()), Arrays.asList(event));
-                }else{
+                } else {
                     map.put(LocalDate.parse(start.toString(), format), Arrays.asList(event));
                 }
             }
@@ -371,9 +372,9 @@ public class CalendarStart {
         @Override
         protected void onPostExecute(String output) {
             mActivity.mProgress.hide();
-            if(mID == 1)
+            if (mID == 1)
                 mActivity.saveEvent();
-            else if(mID == 2)
+            else if (mID == 2)
                 mActivity.getEvent(e);
         }
 
