@@ -77,7 +77,14 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
                 break;
             case 2:
                 Toast.makeText(context.getApplicationContext(), result, Toast.LENGTH_LONG).show();
-
+                Intent alarmService = new Intent(context, AlarmService.class);
+                alarmService.putExtra("command", "reverse alarm");
+                alarmService.putExtra("time", result);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(alarmService);
+                } else {
+                    context.startService(alarmService);
+                }
                 break;
         }
 

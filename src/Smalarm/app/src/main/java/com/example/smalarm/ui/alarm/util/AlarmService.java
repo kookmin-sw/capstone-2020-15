@@ -45,7 +45,7 @@ public class AlarmService extends Service {
 
         if(command != null) {
             if (command.equals("alarm on")) {
-                createNotificationMessage();
+                createNotificationMessage("알람 시작", "알람음 재생중...");
                 showIntent.putExtra("command", "show");
 
                 switch (sound) {
@@ -65,6 +65,9 @@ public class AlarmService extends Service {
                 mp.stop();
                 mp.release();
                 stopSelf();
+            } else if (command.equals("reverse alarm")) {
+                String time = intent.getStringExtra("time");
+                createNotificationMessage("Smalarm", "오늘은 일찍 "+time+" 쯤 자는게 어때요? ");
             }
         }
 
@@ -74,7 +77,7 @@ public class AlarmService extends Service {
         startActivity(showIntent);
     }
 
-    private void createNotificationMessage() {
+    private void createNotificationMessage(String channelName,String description) {
         Intent notificationIntent = new Intent(this, AlarmOffActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -84,14 +87,14 @@ public class AlarmService extends Service {
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "alarm");
 
+        String chanelId = "alarm";
+
         //OREO API 26 이상에서는 채널 필요
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
             builder.setSmallIcon(R.drawable.ic_launcher_foreground); //mipmap 사용시 Oreo 이상에서 시스템 UI 에러남
 
-            String chanelId = "alarm";
-            String channelName = "알람 시작";
-            String description = "알람음 재생중";
+
             int importance = NotificationManager.IMPORTANCE_HIGH; // 소리와 알림메시지를 같이 보여줌
 
             NotificationChannel channel = new NotificationChannel(chanelId, channelName, importance);
@@ -108,8 +111,8 @@ public class AlarmService extends Service {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setTicker("{Time to watch some cool stuff!}")
-                .setContentTitle("알람 시작")
-                .setContentText("알람음 재생중...")
+                .setContentTitle(channelName)
+                .setContentText(description)
                 .setContentInfo("INFO")
                 .setContentIntent(pendingIntent);
 
