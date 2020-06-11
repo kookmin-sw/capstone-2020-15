@@ -4,13 +4,19 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smalarm.MainActivity;
 import com.example.smalarm.R;
+import com.example.smalarm.ui.alarm.sleep.SleepSensingService;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingActivity;
 import com.example.smalarm.ui.alarm.sleep.SleepSensingService;
 import com.example.smalarm.ui.alarm.util.AlarmService;
@@ -22,7 +28,9 @@ public class AlarmOffActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_off);
 
-//        TextClock tClock = findViewById(R.id.textClock);
+//        tv = findViewById(R.id.am_pm);
+        CustomDigitalClock dc = findViewById(R.id.digitalClock);
+
         Button btn = findViewById(R.id.offButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
