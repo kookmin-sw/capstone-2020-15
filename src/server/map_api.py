@@ -10,8 +10,9 @@ def call_map(_origin, _destination):
     with open("./key.json","r") as clientJson :
         client = json.load(clientJson)
 
-    #출발지 일단은 고정
-    origin          = _origin
+    #출발지 일단은 고정(도농역)
+    origin          = 37.608797, 127.161123
+    
     #도착지
     destination     = _destination
     #모드 => driving, walking, bicycling, transit
