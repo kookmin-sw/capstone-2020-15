@@ -1,12 +1,20 @@
 package com.example.smalarm.ui.alarm.calendar;
 
+import android.Manifest;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,17 +28,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smalarm.R;
+import com.example.smalarm.ui.alarm.AlarmAddActivity;
+import com.example.smalarm.ui.alarm.util.NetworkTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.ExponentialBackOff;
-import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+
 import com.kizitonwose.calendarview.CalendarView;
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.CalendarMonth;
@@ -42,17 +54,18 @@ import com.kizitonwose.calendarview.ui.ViewContainer;
 import org.jetbrains.annotations.NotNull;
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.YearMonth;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.WeekFields;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -79,8 +92,13 @@ class CalendarEventsAdapter extends RecyclerView.Adapter<CalendarEventsAdapter.C
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CalendarEventsViewHolder holder, int position) {
-        holder.bind(view, events.get(position));
+    public void onBindViewHolder(@NonNull CalendarEventsViewHolder holder, final int position) {
+        holder.bind(view, events);
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
     }
 
     @Override
@@ -90,19 +108,41 @@ class CalendarEventsAdapter extends RecyclerView.Adapter<CalendarEventsAdapter.C
 
     static class CalendarEventsViewHolder extends RecyclerView.ViewHolder {
 
+
         public CalendarEventsViewHolder(@NonNull View containerView) {
             super(containerView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                        events[adapterPosition]   // TODO
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+////                        events[adapterPosition]   // TODO
+//                }
+//            });
         }
 
-        void bind(View view, Event event) {
-            TextView eventItem = view.findViewById(R.id.itemEventText);
-            eventItem.setText(event.text);
+        void bind(final View view, final List<Event> events) {
+            for(final Event event:events) {
+                TextView eventItem = view.findViewById(R.id.itemEventText);
+                eventItem.setText(event.getSummary());
+                eventItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        new AlertDialog.Builder(v.getContext())
+                                .setMessage("이 일정으로 알람을 정하시겠습니까?")
+                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        CalendarStart cs = ((CalendarActivity) v.getContext()).permission;
+                                        cs.eventId = event.getId();
+                                        cs.mID = 2;
+                                        cs.getResultsFromApi();
+                                    }
+                                })
+                                .setNegativeButton(R.string.cancel, null)
+                                .show();
+                    }
+                });
+            }
         }
     }
 }
@@ -110,18 +150,7 @@ class CalendarEventsAdapter extends RecyclerView.Adapter<CalendarEventsAdapter.C
 public class CalendarActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     CalendarEventsAdapter eventsAdapter;
-//    {
-//        new AlertDialog.Builder(requireContext())
-//                .setMessage("삭제하시겠습니까?")
-//                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-////                        deleteEvent(it);  // it == Event
-//                    }
-//                })
-//                .setNegativeButton(R.string.close, null)
-//                .show();
-//    }
+//
 
     private LocalDate selectedDate;
     private LocalDate today = LocalDate.now();
@@ -136,73 +165,23 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
     CalendarView calendar;
     TextView selectedDateText;
     RecyclerView rv_calendar;
+    ProgressDialog mProgress;
     FloatingActionButton addBtn;
 
     GoogleAccountCredential mCredential;
     CalendarStart permission;
 
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setTitle("일정 선택");
-        setContentView(R.layout.activity_calendar); // TODO
+    protected void onResume() {
+        super.onResume();
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        mCredential = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(),
-                Arrays.asList(CalendarStart.SCOPES)
-        ).setBackOff(new ExponentialBackOff()); // I/O 예외 상황을 대비해서 백오프 정책 사용
-        permission =new CalendarStart(this, mCredential);
-
-        new AlertDialog.Builder(this)
-                .setMessage("캘린더 사용을 위해 구글 계정 인증이 필요합니다.") // TODO: 캘린더 생성이 필요합니다.
-                .setPositiveButton("인증", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        permission.mID = today.getMonth().getValue();
-                        permission.getResultsFromApi();
-                        saveEvent();
-                    }
-                })
-                .setNegativeButton(R.string.close, null)
-                .show();
-
-        selectedDateText = findViewById(R.id.selectedDateText);
-        currentMonth = YearMonth.now();
-
-        calendar = findViewById(R.id.calendar);
-        calendar.setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), DayOfWeek.SUNDAY);
-        calendar.scrollToMonth(currentMonth);
-        daysOfWeek = daysOfWeekFromLocale();
-
-        if (savedInstanceState == null) {
-            calendar.post(new Runnable() {
-                @Override
-                public void run() {
-                    selectDate(today);
-                }
-            });
-        }
-
-        eventsAdapter = new CalendarEventsAdapter(this);
-        rv_calendar = findViewById(R.id.rv_calendar);
-        rv_calendar.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
-        rv_calendar.setAdapter(eventsAdapter);
-        rv_calendar.addItemDecoration(new DividerItemDecoration(getApplicationContext(), RecyclerView.VERTICAL));
-
-        addBtn = findViewById(R.id.addButton);
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        calendar.post(new Runnable() {
             @Override
-            public void onClick(View v) {
-//                inputDialog.show();
-                permission.mID = 5;        // 이벤트 가져오기
-                permission.getResultsFromApi();
-
+            public void run() {
+                selectDate(today);
+//                    permission.mID = 1;
+//                    permission.getResultsFromApi();
+//                    saveEvent();
             }
         });
 
@@ -278,18 +257,73 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                 v.setVisibility(View.INVISIBLE);
             }
         });
+    }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle("일정 선택");
+        setContentView(R.layout.activity_calendar); // TODO
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        mCredential = GoogleAccountCredential.usingOAuth2(
+                getApplicationContext(),
+                Arrays.asList(CalendarStart.SCOPES)
+        ).setBackOff(new ExponentialBackOff()); // I/O 예외 상황을 대비해서 백오프 정책 사용
+        permission = new CalendarStart(this, mCredential);
+
+        mProgress = new ProgressDialog(this);
+        mProgress.setMessage("Google Calendar API 호출 중입니다.");
+
+        new AlertDialog.Builder(this)
+                .setMessage("캘린더 사용을 위해 구글 계정 인증이 필요합니다.") // TODO: 캘린더 생성이 필요합니다.
+                .setPositiveButton("인증", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        permission.mID = 1;
+                        permission.getResultsFromApi();
+//                        saveEvent();
+                    }
+                })
+                .setNegativeButton(R.string.close, null)
+                .show();
+
+        selectedDateText = findViewById(R.id.selectedDateText);
+        calendar = findViewById(R.id.calendar);
+
+        currentMonth = YearMonth.now();
+        daysOfWeek = daysOfWeekFromLocale();
+
+        calendar.setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), DayOfWeek.SUNDAY);
+        calendar.scrollToMonth(currentMonth);
+
+        eventsAdapter = new CalendarEventsAdapter(this);
+
+        rv_calendar = findViewById(R.id.rv_calendar);
+        rv_calendar.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
+        rv_calendar.setAdapter(eventsAdapter);
+        rv_calendar.addItemDecoration(new DividerItemDecoration(getApplicationContext(), RecyclerView.VERTICAL));
+
+//        addBtn = findViewById(R.id.addButton);
+//        addBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                inputDialog.show();
+//                permission.mID = 1;        // 이벤트 가져오기
+//                permission.getResultsFromApi();
+//                saveEvent();
+//            }
+//        });
 
         calendar.setMonthScrollListener(new Function1<CalendarMonth, Unit>() {
             @Override
             public Unit invoke(CalendarMonth month) {
                 setTitle(titleFormatter.format(month.getYearMonth()));
                 selectDate(month.getYearMonth().atDay(1));
-
-                permission.mID = month.getMonth()-1;
-                permission.getResultsFromApi();
-                saveEvent();
-
                 return Unit.INSTANCE;
             }
         });
@@ -319,12 +353,24 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                     TextView tv;
                     for (int i = 0; i < count; i++) {
                         tv = (TextView) container.legendLayout.getChildAt(i);
-                        tv.setText(daysOfWeek.get(i).toString().substring(0,3));
+                        tv.setText(daysOfWeek.get(i).toString().substring(0, 3));
 //                        tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
                     }
                 }
             }
         });
+
+//        if (savedInstanceState == null) {
+//            calendar.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    selectDate(today);
+////                    permission.mID = 1;
+////                    permission.getResultsFromApi();
+////                    saveEvent();
+//                }
+//            });
+//        }
     }
 
     private ArrayList<DayOfWeek> daysOfWeekFromLocale() {
@@ -336,7 +382,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             List<DayOfWeek> rhs = daysOfWeek.subList(firstDayOfWeek.ordinal(), daysOfWeek.size());
             List<DayOfWeek> lhs = daysOfWeek.subList(0, firstDayOfWeek.ordinal());
             rhs.addAll(lhs);
-            daysOfWeek= new ArrayList<>(rhs);
+            daysOfWeek = new ArrayList<>(rhs);
         }
         return daysOfWeek;
     }
@@ -347,68 +393,113 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             selectedDate = date;
             if (oldDate != null)
                 calendar.notifyDateChanged(oldDate);
-            calendar.notifyDateChanged(date);
-            updateAdapterForDate(date);
         }
+        calendar.notifyDateChanged(date);
+        updateAdapterForDate(date);
+        selectedDateText.setText(selectionFormatter.format(date));
     }
 
     void saveEvent() {
-//        if (text.isEmpty()) {
-//            Toast.makeText(requireContext(), R.string.example_3_empty_input_text, Toast.LENGTH_LONG).show()
-//        } else {
-//            selectedDate. ?.let {
-//                events[it] = events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it))
-//                updateAdapterForDate(it)
-//            }
-//        }
-        for( LocalDate date : permission.string.keySet() ){
-            Event event = new Event(UUID.randomUUID().toString(), permission.string.get(date), date);
-            if(events.get(date) == null) {
-                ArrayList<Event> list = new ArrayList<>();
-                events.put(date, list);
+        for (LocalDate date : permission.eventMap.keySet()) {
+            for (Event event : permission.eventMap.get(date)) {
+//                String id = event.getId();
+//                String summary = event.getSummary();
+//                Event event = new Event(id, summary, date);
+
+                if (events.get(date) == null) {
+                    ArrayList<Event> list = new ArrayList<>();
+                    events.put(date, list);
+                }
+                events.get(date).add(event);
+                updateAdapterForDate(date);
             }
-            events.get(date).add(event);
         }
-
-
-//        for (String text : permission.strings) {
-//            Event event = new Event(UUID.randomUUID().toString(), text, selectedDate);
-//            if(events.get(selectedDate) == null) {
-//                ArrayList<Event> list = new ArrayList<>();
-//                events.put(selectedDate, list);
-//            }
-//            events.get(selectedDate).add(event);
-//        }
-//        updateAdapterForDate(selectedDate);
-
-//        permission.eventStrings
+        calendar.notifyCalendarChanged();
+        selectDate(today);
     }
 
-    private void deleteEvent(Event event) {
-        LocalDate date = event.date;
-        if (events.get(date) != null)
-            events.get(date).remove(event);
-        updateAdapterForDate(date);
+    void getEvent(Event event) {
+
+        Intent intent = new Intent(this, AlarmAddActivity.class);
+
+        String location = event.getLocation();
+        if (location != null)
+            intent.putExtra("location", event.getLocation());
+
+        DateTime start = event.getStart().getDateTime();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
+        if (start == null) {
+            // 이벤트가 시작 시간을 갖고 있지 않으면 시작 날짜만 사용
+            start = event.getStart().getDate();
+            LocalDate date = LocalDate.parse(start.toString());
+        } else {
+            LocalDateTime date = LocalDateTime.parse(start.toString(), format);
+            intent.putExtra("startTime", start.toString());
+        }
+        startActivity(intent);
+
+//        String.valueOf(LocalDateTime.parse(start.toString(), format))
+
+//        LocalDate date = event.date;
+//        if (events.get(date) != null)
+//            events.get(date).remove(event);
+//        updateAdapterForDate(date);
     }
 
     private void updateAdapterForDate(LocalDate date) {
         eventsAdapter.events.clear();
         eventsAdapter.events.addAll(events.get(date) == null ? new ArrayList<Event>() : events.get(date));
         eventsAdapter.notifyDataSetChanged();
-        selectedDateText.setText(selectionFormatter.format(date));
+//        selectedDateText.setText(selectionFormatter.format(date));
+    }
+
+    public String getCurrentAddress(double latitude, double longitude) {
+
+        //지오코더... GPS를 주소로 변환
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+        List<Address> addresses;
+
+        try {
+
+            addresses = geocoder.getFromLocation(
+                    latitude,
+                    longitude,
+                    7);
+        } catch (IOException ioException) {
+            //네트워크 문제
+            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
+            return "지오코더 서비스 사용불가";
+        } catch (IllegalArgumentException illegalArgumentException) {
+            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
+            return "잘못된 GPS 좌표";
+
+        }
+
+
+        if (addresses == null || addresses.size() == 0) {
+            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
+            return "주소 미발견";
+
+        }
+
+        Address address = addresses.get(0);
+        return address.getAddressLine(0).toString() + "\n";
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: { // toolbar의 back키 눌렀을 때 동작
+                mProgress.dismiss();
                 finish();
                 return true;
             }
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     /*
      * 구글 플레이 서비스 업데이트 다이얼로그, 구글 계정 선택 다이얼로그, 인증 다이얼로그에서 되돌아올때 호출된다.
@@ -455,7 +546,6 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         }
     }
 
-
     /*
      * Android 6.0 (API 23) 이상에서 런타임 권한 요청시 결과를 리턴받음
      */
@@ -471,11 +561,9 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-
     }
 }

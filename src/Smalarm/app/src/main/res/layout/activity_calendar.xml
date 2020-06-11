@@ -53,14 +53,14 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="20dp"
-        app:tint="@color/white"
-        app:backgroundTint="@color/colorAccent"
-        app:srcCompat="@drawable/ic_add" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/addButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="end|bottom"-->
+<!--        android:layout_margin="20dp"-->
+<!--        app:tint="@color/white"-->
+<!--        app:backgroundTint="@color/colorAccent"-->
+<!--        app:srcCompat="@drawable/ic_add" />-->
 
 </FrameLayout>

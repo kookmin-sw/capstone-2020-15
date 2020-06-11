@@ -34,6 +34,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,18 +45,21 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class CalendarStart {
 
     static String TAG = "CalendarStart";
+
     CalendarActivity mContext;
     private com.google.api.services.calendar.Calendar mService = null;
     int mID = 0;
+    String eventId;
+    Event e;
 
     GoogleAccountCredential mCredential;
-    List<String> strings = new ArrayList<>();
-    Map<LocalDate, String> string = new HashMap<>();
+    Map<LocalDate, List<Event>> eventMap = new HashMap<>();
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
+
 
     String calendar_title = null;
     static final String PREF_ACCOUNT_NAME = "accountName";
@@ -81,13 +85,13 @@ public class CalendarStart {
         if (!isGooglePlayServicesAvailable()) { // Google Play Services를 사용할 수 없는 경우
 
             acquireGooglePlayServices();
-        } else if (mCredential.getSelectedAccountName() == null) { // 유효한 Google 계정이 선택되어 있지 않은 경우
+        }else if (mCredential.getSelectedAccountName() == null) { // 유효한 Google 계정이 선택되어 있지 않은 경우
 
             chooseAccount();
         } else if (!isDeviceOnline()) {    // 인터넷을 사용할 수 없는 경우
             Toast.makeText(mContext, "No network connection available.", Toast.LENGTH_SHORT).show();
         } else {
-
+//        }
             // Google Calendar API 호출
             new MakeRequestTask(mContext, mCredential).execute();
         }
@@ -150,6 +154,7 @@ public class CalendarStart {
 
         // GET_ACCOUNTS 권한을 가지고 있다면
         if (EasyPermissions.hasPermissions(mContext, Manifest.permission.GET_ACCOUNTS)) {
+
             // SharedPreferences에서 저장된 Google 계정 이름을 가져온다.
             String accountName = mContext.getPreferences(Context.MODE_PRIVATE)
                     .getString(PREF_ACCOUNT_NAME, null);
@@ -171,6 +176,7 @@ public class CalendarStart {
                     "This app needs to access your Google account (via Contacts).",
                     REQUEST_PERMISSION_GET_ACCOUNTS,
                     Manifest.permission.GET_ACCOUNTS);
+            getResultsFromApi();
         }
     }
 
@@ -209,9 +215,9 @@ public class CalendarStart {
 
             for (CalendarListEntry calendarListEntry : items) {
 
-                if (calendarListEntry.getSummary().toString().equals(calendarTitle)) {
+                if (calendarListEntry.getSummary().equals(calendarTitle)) {
 
-                    id = calendarListEntry.getId().toString();
+                    id = calendarListEntry.getId();
                 }
             }
             pageToken = calendarList.getNextPageToken();
@@ -221,6 +227,8 @@ public class CalendarStart {
     }
 
 
+
+
     /*
      * 비동기적으로 Google Calendar API 호출
      */
@@ -228,8 +236,7 @@ public class CalendarStart {
 
         private Exception mLastError = null;
         private CalendarActivity mActivity;
-        List<String> eventStrings = new ArrayList<String>();
-        Map<LocalDate, String> eventString = new HashMap<>();
+        Map<LocalDate, List<Event>> map = new HashMap<>();
 
         public MakeRequestTask(CalendarActivity activity, GoogleAccountCredential credential) {
 
@@ -244,26 +251,18 @@ public class CalendarStart {
                     .build();
         }
 
-        @Override
-        protected void onPreExecute() {
-            if (calendar_title != null) {
-//                showCalendar();
-            }
-        }
-
         /*
          * 백그라운드에서 Google Calendar API 호출 처리
          */
         @Override
         protected String doInBackground(Void... params) {
             try {
-
-                if (mID == 0) { // TODO : 1~12 제외 다른걸로
-
+                if (mID == 0) {
                     return createCalendar();
-                } else if (1 <= mID && mID <= 12) {
-
-                    return getEvent(mID);
+                } else if (mID == 1) {
+                    return getEvents();
+                } else if (mID == 2) {
+                    return getEvent(eventId);
                 }
 
             } catch (Exception e) {
@@ -272,90 +271,58 @@ public class CalendarStart {
                 cancel(true);
                 return null;
             }
-
             return null;
-        }
-
-        public String getEvent(int month) throws IOException {
-            DateTime now = new DateTime(System.currentTimeMillis());
-
-            java.util.Calendar calendar = java.util.Calendar.getInstance();
-
-            calendar.set(java.util.Calendar.MONTH, month);
-            calendar.set(java.util.Calendar.DATE, 1);
-            DateTime first = new DateTime(calendar.getTime());
-
-            int lastDate = calendar.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-            calendar.set(java.util.Calendar.DATE, lastDate);
-            DateTime last = new DateTime(calendar.getTime());
-//            DateTime max = new DateTime(month);
-
-            return getEvent(first, last);
         }
 
         /*
          * CalendarTitle 이름의 캘린더에서 이벤트를 가져와 리턴
          */
-        public String getEvent(DateTime min, DateTime max) throws IOException {
 
+        public String getEvent(String eventId) throws IOException {
+            String calendarID = getCalendarID(mContext.getString(R.string.calendar_title));
+
+            e = mService.events().get(calendarID, eventId).execute();
+            return e.getSummary() +" 데이터를 가져왔습니다.";
+        }
+
+        public String getEvents() throws IOException {
+
+            DateTime now = new DateTime(System.currentTimeMillis());
             String calendarID = getCalendarID(mContext.getString(R.string.calendar_title));
             if (calendarID == null) {
+                createCalendar();
                 return "캘린더를 먼저 생성하세요.";
             }
 
-            Events events = mService.events().list(calendarID)//"primary")
-//                    .setMaxResults(100)
-                    .setTimeMin(min)
-                    .setTimeMax(max)
+            Events events = mService.events().list(calendarID)
+                    .setMaxResults(50)
+                    .setTimeMin(now)
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
                     .execute();
-//            Events events = mService.events()
-//                    .list(calendarID)
-//                    .setTimeMin(min)
-//                    .setTimeMax(max)
-//                    .execute();
+
             List<Event> items = events.getItems();
 
             for (Event event : items) {
 
                 DateTime start = event.getStart().getDateTime();
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+                LocalDate date;
 
                 if (start == null) {
 
                     // 모든 이벤트가 시작 시간을 갖고 있지는 않다. 그런 경우 시작 날짜만 사용
                     start = event.getStart().getDate();
-                    System.out.println(LocalDate.parse(start.toString()));
-                    eventString.put(LocalDate.parse(start.toString()), event.getSummary());
-
+                    map.put(LocalDate.parse(start.toString()), Arrays.asList(event));
                 }else{
-                    System.out.println(LocalDateTime.parse(start.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")));
-                    eventString.put(LocalDate.parse(start.toString(), format), event.getSummary());
-
+                    map.put(LocalDate.parse(start.toString(), format), Arrays.asList(event));
                 }
-
-                String location = event.getLocation();
-                if (location != null) {
-
-                }
-
-//                List<String> recurrence = event.getRecurrence();
-//                if(recurrence!=null){
-//                    System.out.println(recurrence);
-//                    String[] split = recurrence.get(0).toString().split(";");
-//                    System.out.println(split[0].split("=")[1]);
-//                    System.out.println(split[1].split("=")[1]);
-//                }
-//                eventString.put(LocalDate.parse(start.toString()), event.getSummary());
-                eventStrings.add(String.format("%s \n (%s)", event.getSummary(), start));
             }
-            System.out.println(eventStrings);
 
-            string = eventString;
-            strings = eventStrings;
+            eventMap = map;
 //            mContext.saveEvent();
-            return eventStrings.size() + "개의 데이터를 가져왔습니다.";
+//            Toast.makeText(mContext, "Calendar Event Loaded.", Toast.LENGTH_SHORT).show();
+            return eventMap.size() + "개의 데이터를 가져왔습니다.";
         }
 
         /*
@@ -366,19 +333,13 @@ public class CalendarStart {
             calendar_title = getCalendarID(mContext.getString(R.string.calendar_title));
 
             if (calendar_title != null) {
-
                 return "이미 캘린더가 생성되어 있습니다. ";
             }
 
             // 새로운 캘린더 생성
             com.google.api.services.calendar.model.Calendar calendar = new Calendar();
-
-            // TODO: 캘린더의 제목 설정
-            calendar.setSummary("Smalarm 캘린더");
-
-
-            // 캘린더의 시간대 설정
-            calendar.setTimeZone("Asia/Seoul");
+            calendar.setSummary("Smalarm 캘린더")
+                    .setTimeZone("Asia/Seoul");
 
             // 구글 캘린더에 새로 만든 캘린더를 추가
             Calendar createdCalendar = mService.calendars().insert(calendar).execute();
@@ -386,13 +347,10 @@ public class CalendarStart {
             // 추가한 캘린더의 ID를 가져옴.
             String calendarId = createdCalendar.getId();
 
-
             // 구글 캘린더의 캘린더 목록에서 새로 만든 캘린더를 검색
             CalendarListEntry calendarListEntry = mService.calendarList().get(calendarId).execute();
 
-            // TODO: 캘린더의 배경색을 primary color로 표시  RGB
             calendarListEntry.setBackgroundColor("#FEBC5C");
-//            calendarListEntry.setBackgroundColor(String.valueOf(R.color.colorPrimary));
 
             // 변경한 내용을 구글 캘린더에 반영
             CalendarListEntry updatedCalendarListEntry =
@@ -405,17 +363,19 @@ public class CalendarStart {
             return "캘린더가 생성되었습니다.";
         }
 
+        @Override
+        protected void onPreExecute() {
+            mActivity.mProgress.show();
+        }
 
         @Override
         protected void onPostExecute(String output) {
-//            if (calendar_title != null) {
-//                showCalendar();
-//            }
-//            mStatusText.setText(output);
-//
-//            if (mID == 3) mResultText.setText(TextUtils.join("\n\n", eventStrings));
+            mActivity.mProgress.hide();
+            if(mID == 1)
+                mActivity.saveEvent();
+            else if(mID == 2)
+                mActivity.getEvent(e);
         }
-
 
         @Override
         protected void onCancelled() {
@@ -428,16 +388,8 @@ public class CalendarStart {
                     mContext.startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             CalendarStart.REQUEST_AUTHORIZATION);
-                } else {
-//                    mStatusText.setText("MakeRequestTask The following error occurred:\n" + mLastError.getMessage());
                 }
-            } else {
-//                mStatusText.setText("요청 취소됨.");
             }
         }
-
-
     }
-
-
 }
