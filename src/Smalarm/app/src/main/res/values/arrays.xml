@@ -9,4 +9,14 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="sound_entries">
+        <item>alarm.mp3</item>
+        <item>alarm2.mp3</item>
+    </string-array>
+
+    <string-array name="sound_values">
+        <item>alarm.mp3</item>
+        <item>alarm2.mp3</item>
+    </string-array>
 </resources>

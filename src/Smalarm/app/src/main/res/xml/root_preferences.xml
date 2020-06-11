@@ -1,36 +1,66 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="사용설정">
+    <PreferenceCategory app:title="알람 설정">
 <!--    <PreferenceCategory app:title="@string/messages_header">-->
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="이름 등록"
+        <ListPreference
+            app:defaultValue="alarm.mp3"
+            app:entries="@array/sound_entries"
+            app:entryValues="@array/sound_values"
+            app:key="sound"
+            app:title="알람 사운드"
             app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="15"
+            app:key="snooze_time"
+            app:title="다시알림 시간 (분)"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:key="reverse_alarm"
+            app:title="역알람 기능" />
+
+        <EditTextPreference
+            android:dependency="reverse_alarm"
+            app:defaultValue="20시 00분"
+            app:key="reverse_time"
+            app:title="역알람 받을 시간 (00시 00분)"
+            app:useSimpleSummaryProvider="true" />
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:dependency="reverse_alarm"-->
+<!--            app:key="attachment"-->
+<!--            app:summaryOff="attachment_summary_off"-->
+<!--            app:summaryOn="attachment_summary_on"-->
+<!--            app:title="attachment_title" />-->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="수면분석 설정">
 
         <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="radio dialog"
+            app:defaultValue="alarm.mp3"
+            app:entries="@array/sound_entries"
+            app:entryValues="@array/sound_values"
+            app:key="white_noise"
+            app:title="백색 소음"
             app:useSimpleSummaryProvider="true" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="switch_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="switch" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="attachment_summary_off"
-            app:summaryOn="attachment_summary_on"
-            app:title="attachment_title" />
+        <EditTextPreference
+            android:defaultValue="abc@gmail.com"
+            android:key="data_send"
+            android:title="수면데이터 내보내기" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="사용자 설정">
+        <EditTextPreference
+            android:defaultValue="abc@gmail.com"
+            android:key="gmail"
+            android:title="계정 관리" />
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

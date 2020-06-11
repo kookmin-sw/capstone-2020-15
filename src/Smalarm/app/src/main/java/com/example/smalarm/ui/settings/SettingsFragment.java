@@ -1,5 +1,6 @@
 package com.example.smalarm.ui.settings;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,12 @@ import com.example.smalarm.MainActivity;
 import com.example.smalarm.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        view.setBackgroundColor(Color.WHITE);
+    }
 
     @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
