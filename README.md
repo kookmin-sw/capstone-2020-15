@@ -137,4 +137,4 @@ role: 어플리케이션 UI, 로고제작
   
   ## 5. 결과영상
 
-https://www.youtube.com/watch?v=J61xnR4vN64
+https://www.youtube.com/watch?v=bab2hiEpEBg
